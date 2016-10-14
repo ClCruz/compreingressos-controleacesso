@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IngressoVendidoEditDlg" widgetVar="IngressoVendidoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditIngressoVendidoTitle}">
+            <h:form id="IngressoVendidoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ingressoVendidoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditIngressoVendidoLabel_ingressoVendido}" for="ingressoVendido" />
+                        <p:inputText id="ingressoVendido" value="#{ingressoVendidoController.selected.ingressoVendido}" title="#{bundle.EditIngressoVendidoTitle_ingressoVendido}" required="true" requiredMessage="#{bundle.EditIngressoVendidoRequiredMessage_ingressoVendido}"/>
+                        <p:outputLabel value="#{bundle.EditIngressoVendidoLabel_qtPassagens}" for="qtPassagens" />
+                        <p:inputText id="qtPassagens" value="#{ingressoVendidoController.selected.qtPassagens}" title="#{bundle.EditIngressoVendidoTitle_qtPassagens}" />
+                        <p:outputLabel value="#{bundle.EditIngressoVendidoLabel_ingressoInvalido}" for="ingressoInvalido" />
+                        <p:selectOneMenu id="ingressoInvalido" value="#{ingressoVendidoController.selected.ingressoInvalido}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ingressoInvalidoController.itemsAvailableSelectOne}"
+                                           var="ingressoInvalidoItem"
+                                           itemValue="#{ingressoInvalidoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditIngressoVendidoLabel_apresentacao}" for="apresentacao" />
+                        <p:selectOneMenu id="apresentacao" value="#{ingressoVendidoController.selected.apresentacao}" required="true" requiredMessage="#{bundle.EditIngressoVendidoRequiredMessage_apresentacao}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{apresentacaoController.itemsAvailableSelectOne}"
+                                           var="apresentacaoItem"
+                                           itemValue="#{apresentacaoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditIngressoVendidoLabel_setor}" for="setor" />
+                        <p:selectOneMenu id="setor" value="#{ingressoVendidoController.selected.setor}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{setorController.itemsAvailableSelectOne}"
+                                           var="setorItem"
+                                           itemValue="#{setorItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ingressoVendidoController.update}" value="#{bundle.Save}" update="display,:IngressoVendidoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'IngressoVendidoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('IngressoVendidoEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

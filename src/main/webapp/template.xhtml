@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title><ui:insert name="title">Controle de Acesso - COMPRE INGRESSOS</ui:insert></title>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+    </h:head>
+
+    <h:body>
+
+        <p:growl id="growl" life="3000" />
+
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
+                <h:form id="menuForm">
+                    <p:menubar>
+                        <p:menuitem value="#{bundle.Home}" outcome="/faces/index.xhtml" icon="ui-icon-home"/>
+                        <p:submenu label="#{bundle.Maintenance}">
+                            <p:menuitem id="rm_dashboard" value="Inicio" icon="icon-planet29" outcome="/faces/index.xhtml"/>
+                            <p:menuitem id="rm_acessoCatraca" value="Acesso Catraca" icon="icon-keyboard53" outcome="/pages/acessoCatraca/List.xhtml"/>
+                            <p:menuitem id="rm_apresentacao" value="Apresentação" icon="icon-keyboard53" outcome="/pages/apresentacao/List.xhtml"/>
+                            <p:menuitem id="rm_catraca" value="Catraca" icon="icon-keyboard53" outcome="/pages/catraca/List.xhtml"/>
+                            <p:menuitem id="rm_catracaSetor" value="Catraca Setor" icon="icon-keyboard53" outcome="/pages/catracaSetor/List.xhtml"/>
+                            <p:menuitem id="rm_contratante" value="Contratante" icon="icon-keyboard53" outcome="/pages/contratante/List.xhtml"/>
+                            <p:menuitem id="rm_credenciado" value="Credenciado" icon="icon-keyboard53" outcome="/pages/credenciado/List.xhtml"/>
+                            <p:menuitem id="rm_credenciadoGradeHoraria" value="Credenciado Grade Horária" icon="icon-keyboard53" outcome="/pages/credencialGradeHoraria/List.xhtml"/>
+                            <p:menuitem id="rm_estado" value="Estado" icon="icon-keyboard53" outcome="/pages/estado/List.xhtml"/>
+                            <p:menuitem id="rm_evento" value="Evento" icon="icon-keyboard53" outcome="/pages/evento/List.xhtml"/>
+                            <p:menuitem id="rm_fabricante" value="Fabricante" icon="icon-keyboard53" outcome="/pages/fabricante/List.xhtml"/>
+                            <p:menuitem id="rm_falha" value="Falha" icon="icon-keyboard53" outcome="/pages/falha/List.xhtml"/>
+                            <p:menuitem id="rm_ingressoInvalido" value="Ingresso Inválido" icon="icon-keyboard53" outcome="/pages/ingressoInvalido/List.xhtml"/>
+                            <p:menuitem id="rm_ingressoVendido" value="Ingresso Vendido" icon="icon-keyboard53" outcome="/pages/ingressoVendido/List.xhtml"/>
+                            <p:menuitem id="rm_layout" value="Layout" icon="icon-keyboard53" outcome="/pages/layout/List.xhtml"/>
+                            <p:menuitem id="rm_liberacaoEmergencial" value="Liberação Emergencial" icon="icon-keyboard53" outcome="/pages/liberacaoEmergencial/List.xhtml"/>
+                            <p:menuitem id="rm_localDeControle" value="Local de Controle" icon="icon-keyboard53" outcome="/pages/localDeControle/List.xhtml"/>
+                            <p:menuitem id="rm_modeloCatraca" value="Modelo Catraca" icon="icon-keyboard53" outcome="/pages/modeloCatraca/List.xhtml"/>
+                            <p:menuitem id="rm_municipio" value="Município" icon="icon-keyboard53" outcome="/pages/municipio/List.xhtml"/>
+                            <p:menuitem id="rm_pais" value="País" icon="icon-keyboard53" outcome="/pages/pais/List.xhtml"/>
+                            <p:menuitem id="rm_programa" value="Programa" icon="icon-keyboard53" outcome="/pages/programa/List.xhtml"/>
+                            <p:menuitem id="rm_regiao" value="Região" icon="icon-keyboard53" outcome="/pages/regiao/List.xhtml"/>
+                            <p:menuitem id="rm_setor" value="Setor" icon="icon-keyboard53" outcome="/pages/setor/List.xhtml"/>
+                            <p:menuitem id="rm_setorCredencial" value="Setor Credencial" icon="icon-keyboard53" outcome="/pages/setorCredencial/List.xhtml"/>
+                            <p:menuitem id="rm_tipoCredencial" value="Tipo Credencial" icon="icon-keyboard53" outcome="/pages/tipoCredencial/List.xhtml"/>
+                            <p:menuitem id="rm_tipoUsuario" value="Tipo Usuário" icon="icon-keyboard53" outcome="/pages/tipoUsuario/List.xhtml"/>
+                            <p:menuitem id="rm_tipoUsuarioPrograma" value="Tipo Usuário Programa" icon="icon-keyboard53" outcome="/pages/tipoUsuarioPrograma/List.xhtml"/>
+                            <p:menuitem id="rm_usuario" value="Usuário" icon="icon-keyboard53" outcome="/pages/usuario/List.xhtml"/>
+                            <p:menuitem id="rm_usuarioContratante" value="Usuário Contratante" icon="icon-keyboard53" outcome="/pages/usuarioContratante/List.xhtml"/>
+
+                        </p:submenu>
+                    </p:menubar>
+                </h:form>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+                <ui:insert name="body"/>
+            </p:layoutUnit>
+
+        </p:layout>
+
+    </h:body>
+
+</html>

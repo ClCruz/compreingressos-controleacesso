@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoUsuarioProgramaViewDlg" widgetVar="TipoUsuarioProgramaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTipoUsuarioProgramaTitle}">
+            <h:form id="TipoUsuarioProgramaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tipoUsuarioProgramaController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTipoUsuarioProgramaLabel_codigo}"/>
+                        <h:outputText value="#{tipoUsuarioProgramaController.selected.codigo}" title="#{bundle.ViewTipoUsuarioProgramaTitle_codigo}"/>
+                        <h:outputText value="#{bundle.ViewTipoUsuarioProgramaLabel_dataHoraAtualizacao}"/>
+                        <h:outputText value="#{tipoUsuarioProgramaController.selected.dataHoraAtualizacao}" title="#{bundle.ViewTipoUsuarioProgramaTitle_dataHoraAtualizacao}">
+                            <f:convertDateTime pattern="#{bundle.formatDate}" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTipoUsuarioProgramaLabel_programa}"/>
+                        <h:outputText value="#{tipoUsuarioProgramaController.selected.programa}" title="#{bundle.ViewTipoUsuarioProgramaTitle_programa}"/>
+                        <h:outputText value="#{bundle.ViewTipoUsuarioProgramaLabel_tipoUsuario}"/>
+                        <h:outputText value="#{tipoUsuarioProgramaController.selected.tipoUsuario}" title="#{bundle.ViewTipoUsuarioProgramaTitle_tipoUsuario}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('TipoUsuarioProgramaViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

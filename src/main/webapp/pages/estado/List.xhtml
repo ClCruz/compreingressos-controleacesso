@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect TexAlCenter">           
+                    <h:form id="EstadoListForm">
+                        <p:dataTable id="datalist" value="#{estadoController.items}" var="item"
+                                     selectionMode="single" selection="#{estadoController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.codigo}"
+                                     rows="10"
+                                     emptyMessage="#{bundle.ListEstadoEmpty}"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     widgetVar="estadoTable"
+                                     >
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                            <f:facet name="header">
+                                #{bundle.ListEstadoTitle}
+                            </f:facet>
+
+                            <p:column headerText="#{bundle.ListEstadoTitle_nome}" filterBy="#{item.nome}" filterMatchMode="contains" sortBy="#{item.nome}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEstadoTitle_nome}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nome}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListEstadoTitle_uf}" filterBy="#{item.uf}" filterMatchMode="contains" sortBy="#{item.uf}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEstadoTitle_uf}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.uf}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListEstadoTitle_regiao}" filterBy="#{item.regiao}" filterMatchMode="contains" sortBy="#{item.regiao}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEstadoTitle_regiao}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.regiao}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListEstadoTitle_usuario}" filterBy="#{item.usuario}" filterMatchMode="contains" sortBy="#{item.usuario}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEstadoTitle_usuario}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.usuario}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{estadoController.prepareCreate}" update=":EstadoCreateForm" oncomplete="PF('EstadoCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EstadoViewForm" oncomplete="PF('EstadoViewDialog').show()" disabled="#{empty estadoController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EstadoEditForm" oncomplete="PF('EstadoEditDialog').show()" disabled="#{empty estadoController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{estadoController.destroy}" update=":growl,datalist" disabled="#{empty estadoController.selected}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+
+                    <ui:include src="Create.xhtml"/>
+                    <ui:include src="Edit.xhtml"/>
+                    <ui:include src="View.xhtml"/>
+
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

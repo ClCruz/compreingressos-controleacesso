@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LayoutViewDlg" widgetVar="LayoutViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewLayoutTitle}">
+            <h:form id="LayoutViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{layoutController.selected != null}">
+                        <h:outputText value="#{bundle.ViewLayoutLabel_codigo}"/>
+                        <h:outputText value="#{layoutController.selected.codigo}" title="#{bundle.ViewLayoutTitle_codigo}"/>
+                        <h:outputText value="#{bundle.ViewLayoutLabel_dataHoraAtualizacao}"/>
+                        <h:outputText value="#{layoutController.selected.dataHoraAtualizacao}" title="#{bundle.ViewLayoutTitle_dataHoraAtualizacao}">
+                            <f:convertDateTime pattern="#{bundle.formatDate}" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewLayoutLabel_nome}"/>
+                        <h:outputText value="#{layoutController.selected.nome}" title="#{bundle.ViewLayoutTitle_nome}"/>
+                        <h:outputText value="#{bundle.ViewLayoutLabel_ativo}"/>
+                        <p:selectBooleanCheckbox value="#{layoutController.selected.ativo}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewLayoutLabel_imagem}"/>
+                        <o:graphicImage value="#{usuarioController.imagem}" width="174" dataURI="true" />
+                        <h:outputText value="#{bundle.ViewLayoutLabel_localDeControle}"/>
+                        <h:outputText value="#{layoutController.selected.localDeControle}" title="#{bundle.ViewLayoutTitle_localDeControle}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('LayoutViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

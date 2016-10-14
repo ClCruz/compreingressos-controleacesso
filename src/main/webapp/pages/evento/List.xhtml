@@ -1,0 +1,93 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect TexAlCenter">           
+                    <h:form id="EventoListForm">
+                        <p:dataTable id="datalist" value="#{eventoController.items}" var="item"
+                                     selectionMode="single" selection="#{eventoController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.codigo}"
+                                     rows="10"
+                                     emptyMessage="#{bundle.ListEventoEmpty}"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     widgetVar="eventoTable"
+                                     >
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                            <f:facet name="header">
+                                #{bundle.ListEventoTitle}
+                            </f:facet>
+
+                            <p:column headerText="#{bundle.ListEventoTitle_descricaoNome}" filterBy="#{item.descricaoNome}" filterMatchMode="contains" sortBy="#{item.descricaoNome}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEventoTitle_descricaoNome}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.descricaoNome}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListEventoTitle_dataInicio}" filterBy="#{item.dataInicio}" filterMatchMode="contains" sortBy="#{item.dataInicio}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEventoTitle_dataInicio}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dataInicio}">
+                                    <f:convertDateTime pattern="#{bundle.formatDate}" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListEventoTitle_dataFinal}" filterBy="#{item.dataFinal}" filterMatchMode="contains" sortBy="#{item.dataFinal}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEventoTitle_dataFinal}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dataFinal}">
+                                    <f:convertDateTime pattern="#{bundle.formatDate}" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListEventoTitle_ativo}" filterBy="#{item.ativo}" filterMatchMode="contains" sortBy="#{item.ativo}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEventoTitle_ativo}"/>
+                                </f:facet>
+                                <p:selectBooleanCheckbox value="#{item.ativo}" disabled="true"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListEventoTitle_logotipo}" filterBy="#{item.logotipo}" filterMatchMode="contains" sortBy="#{item.logotipo}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEventoTitle_logotipo}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.logotipo}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListEventoTitle_layout}" filterBy="#{item.layout}" filterMatchMode="contains" sortBy="#{item.layout}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEventoTitle_layout}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.layout}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListEventoTitle_localDeControle}" filterBy="#{item.localDeControle}" filterMatchMode="contains" sortBy="#{item.localDeControle}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEventoTitle_localDeControle}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.localDeControle}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{eventoController.prepareCreate}" update=":EventoCreateForm" oncomplete="PF('EventoCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EventoViewForm" oncomplete="PF('EventoViewDialog').show()" disabled="#{empty eventoController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EventoEditForm" oncomplete="PF('EventoEditDialog').show()" disabled="#{empty eventoController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{eventoController.destroy}" update=":growl,datalist" disabled="#{empty eventoController.selected}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+
+                    <ui:include src="Create.xhtml"/>
+                    <ui:include src="Edit.xhtml"/>
+                    <ui:include src="View.xhtml"/>
+
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect TexAlCenter">           
+                    <h:form id="RegiaoListForm">
+                        <p:dataTable id="datalist" value="#{regiaoController.items}" var="item"
+                                     selectionMode="single" selection="#{regiaoController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.codigo}"
+                                     rows="10"
+                                     emptyMessage="#{bundle.ListRegiaoEmpty}"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     widgetVar="regiaoTable"
+                                     >
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                            <f:facet name="header">
+                                #{bundle.ListRegiaoTitle}
+                            </f:facet>
+
+                            <p:column headerText="#{bundle.ListRegiaoTitle_descricaoRegiao}" filterBy="#{item.descricaoRegiao}" filterMatchMode="contains" sortBy="#{item.descricaoRegiao}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRegiaoTitle_descricaoRegiao}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.descricaoRegiao}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListRegiaoTitle_pais}" filterBy="#{item.pais}" filterMatchMode="contains" sortBy="#{item.pais}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRegiaoTitle_pais}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.pais}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListRegiaoTitle_usuario}" filterBy="#{item.usuario}" filterMatchMode="contains" sortBy="#{item.usuario}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRegiaoTitle_usuario}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.usuario}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{regiaoController.prepareCreate}" update=":RegiaoCreateForm" oncomplete="PF('RegiaoCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RegiaoViewForm" oncomplete="PF('RegiaoViewDialog').show()" disabled="#{empty regiaoController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":RegiaoEditForm" oncomplete="PF('RegiaoEditDialog').show()" disabled="#{empty regiaoController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{regiaoController.destroy}" update=":growl,datalist" disabled="#{empty regiaoController.selected}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+
+                    <ui:include src="Create.xhtml"/>
+                    <ui:include src="Edit.xhtml"/>
+                    <ui:include src="View.xhtml"/>
+
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

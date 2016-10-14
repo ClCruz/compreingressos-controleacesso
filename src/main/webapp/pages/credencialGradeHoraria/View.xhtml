@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CredencialGradeHorariaViewDlg" widgetVar="CredencialGradeHorariaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCredencialGradeHorariaTitle}">
+            <h:form id="CredencialGradeHorariaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{credencialGradeHorariaController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCredencialGradeHorariaLabel_codigo}"/>
+                        <h:outputText value="#{credencialGradeHorariaController.selected.codigo}" title="#{bundle.ViewCredencialGradeHorariaTitle_codigo}"/>
+                        <h:outputText value="#{bundle.ViewCredencialGradeHorariaLabel_gradeHoraria}"/>
+                        <h:outputText value="#{credencialGradeHorariaController.selected.gradeHoraria}" title="#{bundle.ViewCredencialGradeHorariaTitle_gradeHoraria}"/>
+                        <h:outputText value="#{bundle.ViewCredencialGradeHorariaLabel_tipoCredencial}"/>
+                        <h:outputText value="#{credencialGradeHorariaController.selected.tipoCredencial}" title="#{bundle.ViewCredencialGradeHorariaTitle_tipoCredencial}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('CredencialGradeHorariaViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

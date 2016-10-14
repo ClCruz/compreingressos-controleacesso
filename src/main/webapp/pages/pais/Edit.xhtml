@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaisEditDlg" widgetVar="PaisEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPaisTitle}">
+            <h:form id="PaisEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{paisController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPaisLabel_descricaoPais}" for="descricaoPais" />
+                        <p:inputText id="descricaoPais" value="#{paisController.selected.descricaoPais}" title="#{bundle.EditPaisTitle_descricaoPais}" required="true" requiredMessage="#{bundle.EditPaisRequiredMessage_descricaoPais}"/>
+                        <p:outputLabel value="#{bundle.EditPaisLabel_usuario}" for="usuario" />
+                        <p:selectOneMenu id="usuario" value="#{paisController.selected.usuario}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="usuarioItem"
+                                           itemValue="#{usuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paisController.update}" value="#{bundle.Save}" update="display,:PaisListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PaisEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('PaisEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

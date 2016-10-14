@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FalhaViewDlg" widgetVar="FalhaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewFalhaTitle}">
+            <h:form id="FalhaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{falhaController.selected != null}">
+                        <h:outputText value="#{bundle.ViewFalhaLabel_codigo}"/>
+                        <h:outputText value="#{falhaController.selected.codigo}" title="#{bundle.ViewFalhaTitle_codigo}"/>
+                        <h:outputText value="#{bundle.ViewFalhaLabel_descricao}"/>
+                        <h:outputText value="#{falhaController.selected.descricao}" title="#{bundle.ViewFalhaTitle_descricao}"/>
+                        <h:outputText value="#{bundle.ViewFalhaLabel_solucao}"/>
+                        <h:outputText value="#{falhaController.selected.solucao}" title="#{bundle.ViewFalhaTitle_solucao}"/>
+                        <h:outputText value="#{bundle.ViewFalhaLabel_dataHoraOcorrencia}"/>
+                        <h:outputText value="#{falhaController.selected.dataHoraOcorrencia}" title="#{bundle.ViewFalhaTitle_dataHoraOcorrencia}">
+                            <f:convertDateTime pattern="#{bundle.formatDate}" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewFalhaLabel_dataHoraSolucao}"/>
+                        <h:outputText value="#{falhaController.selected.dataHoraSolucao}" title="#{bundle.ViewFalhaTitle_dataHoraSolucao}">
+                            <f:convertDateTime pattern="#{bundle.formatDate}" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewFalhaLabel_catraca}"/>
+                        <h:outputText value="#{falhaController.selected.catraca}" title="#{bundle.ViewFalhaTitle_catraca}"/>
+                        <h:outputText value="#{bundle.ViewFalhaLabel_usuarioOcorrencia}"/>
+                        <h:outputText value="#{falhaController.selected.usuarioOcorrencia}" title="#{bundle.ViewFalhaTitle_usuarioOcorrencia}"/>
+                        <h:outputText value="#{bundle.ViewFalhaLabel_usuarioSolucao}"/>
+                        <h:outputText value="#{falhaController.selected.usuarioSolucao}" title="#{bundle.ViewFalhaTitle_usuarioSolucao}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('FalhaViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,93 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect TexAlCenter">           
+                    <h:form id="FalhaListForm">
+                        <p:dataTable id="datalist" value="#{falhaController.items}" var="item"
+                                     selectionMode="single" selection="#{falhaController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.codigo}"
+                                     rows="10"
+                                     emptyMessage="#{bundle.ListFalhaEmpty}"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     widgetVar="falhaTable"
+                                     >
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                            <f:facet name="header">
+                                #{bundle.ListFalhaTitle}
+                            </f:facet>
+
+                            <p:column headerText="#{bundle.ListFalhaTitle_descricao}}" filterBy="#{item.descricao}" filterMatchMode="contains" sortBy="#{item.descricao}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListFalhaTitle_descricao}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.descricao}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListFalhaTitle_solucao}" filterBy="#{item.solucao}" filterMatchMode="contains" sortBy="#{item.solucao}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListFalhaTitle_solucao}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.solucao}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListFalhaTitle_dataHoraOcorrencia}" filterBy="#{item.dataHoraOcorrencia}" filterMatchMode="contains" sortBy="#{item.dataHoraOcorrencia}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListFalhaTitle_dataHoraOcorrencia}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dataHoraOcorrencia}">
+                                    <f:convertDateTime pattern="#{bundle.formatDate}" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListFalhaTitle_dataHoraSolucao}" filterBy="#{item.dataHoraSolucao}" filterMatchMode="contains" sortBy="#{item.dataHoraSolucao}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListFalhaTitle_dataHoraSolucao}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dataHoraSolucao}">
+                                    <f:convertDateTime pattern="#{bundle.formatDate}" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListFalhaTitle_catraca}" filterBy="#{item.catraca}" filterMatchMode="contains" sortBy="#{item.catraca}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListFalhaTitle_catraca}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.catraca}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListFalhaTitle_usuarioOcorrencia}" filterBy="#{item.usuarioOcorrencia}" filterMatchMode="contains" sortBy="#{item.usuarioOcorrencia}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListFalhaTitle_usuarioOcorrencia}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.usuarioOcorrencia}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListFalhaTitle_usuarioSolucao}" filterBy="#{item.usuarioSolucao}" filterMatchMode="contains" sortBy="#{item.usuarioSolucao}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListFalhaTitle_usuarioSolucao}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.usuarioSolucao}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{falhaController.prepareCreate}" update=":FalhaCreateForm" oncomplete="PF('FalhaCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":FalhaViewForm" oncomplete="PF('FalhaViewDialog').show()" disabled="#{empty falhaController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":FalhaEditForm" oncomplete="PF('FalhaEditDialog').show()" disabled="#{empty falhaController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{falhaController.destroy}" update=":growl,datalist" disabled="#{empty falhaController.selected}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+
+                    <ui:include src="Create.xhtml"/>
+                    <ui:include src="Edit.xhtml"/>
+                    <ui:include src="View.xhtml"/>
+
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

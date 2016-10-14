@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect TexAlCenter">           
+                    <h:form id="SetorListForm">
+                        <p:dataTable id="datalist" value="#{setorController.items}" var="item"
+                                     selectionMode="single" selection="#{setorController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.codigo}"
+                                     rows="10"
+                                     emptyMessage="#{bundle.ListSetorEmpty}"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     widgetVar="setorTable"
+                                     >
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                            <f:facet name="header">
+                                #{bundle.ListSetorTitle}
+                            </f:facet>
+
+                            <p:column headerText="#{bundle.ListSetorTitle_descricaoSetor}" filterBy="#{item.descricaoSetor}" filterMatchMode="contains" sortBy="#{item.descricaoSetor}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListSetorTitle_descricaoSetor}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.descricaoSetor}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListSetorTitle_acessibilidadeEspecial}" filterBy="#{item.acessibilidadeEspecial}" filterMatchMode="contains" sortBy="#{item.acessibilidadeEspecial}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListSetorTitle_acessibilidadeEspecial}"/>
+                                </f:facet>
+                                <p:selectBooleanCheckbox value="#{item.acessibilidadeEspecial}" disabled="true"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListSetorTitle_ativo}" filterBy="#{item.ativo}" filterMatchMode="contains" sortBy="#{item.ativo}">
+                                <f:facet name="filter"> 
+                                    <p:selectOneMenu onchange="PF('setorTable').filter()">
+                                        <f:selectItem itemValue="" itemLabel="Ativo e Inativo"/>
+                                        <f:selectItem itemValue="true" itemLabel="Ativo"/>
+                                        <f:selectItem itemValue="false" itemLabel="Inativo"/>
+                                    </p:selectOneMenu>
+                                </f:facet>    
+                                <h:outputText value="Ativo" rendered="#{item.ativo eq true}"/>
+                                <h:outputText value="Inativo" rendered="#{item.ativo eq false}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListSetorTitle_layout}" filterBy="#{item.layout}" filterMatchMode="contains" sortBy="#{item.layout}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListSetorTitle_layout}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.layout}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{setorController.prepareCreate}" update=":SetorCreateForm" oncomplete="PF('SetorCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SetorViewForm" oncomplete="PF('SetorViewDialog').show()" disabled="#{empty setorController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SetorEditForm" oncomplete="PF('SetorEditDialog').show()" disabled="#{empty setorController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{setorController.destroy}" update=":growl,datalist" disabled="#{empty setorController.selected}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+
+                    <ui:include src="Create.xhtml"/>
+                    <ui:include src="Edit.xhtml"/>
+                    <ui:include src="View.xhtml"/>
+
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

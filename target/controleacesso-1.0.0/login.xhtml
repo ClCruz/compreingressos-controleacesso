@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>PrimeFaces RIO</title>
+        <ui:insert name="head" />
+    </h:head>
+
+    <h:body styleClass="loginbodyblue">
+        
+        <div class="Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter">
+            <div class="Wid33 MarAuto WidAutoOnMobile">
+                <h:graphicImage name="images/logo.svg" library="rio-layout" style="width:40%; max-width:200px;"/>
+                <div class="EmptyBox30"></div>
+                <div class="Card ShadowEffect">
+                    <div class="EmptyBox20"></div>
+                    <div class="Wid100 OvHidden BigTopic Fs30"><i class="icon-users Fs40"></i> Login Panel</div>
+                    <div class="EmptyBox20"></div>
+                    <div class="Wid100"><p:inputText placeholder="Email" styleClass="Wid80 TexAlCenter Fs18"/></div>
+                    <div class="EmptyBox10"></div>
+                    <div class="Wid100"><p:inputText type="password" placeholder="Password" styleClass="Wid80 TexAlCenter Fs18"/></div>
+                    <div class="EmptyBox30"></div>
+                    <p:selectBooleanCheckbox value="accept" itemLabel="I Accept Terms And Policies"/>
+                    <div class="EmptyBox30"></div>
+                    <div class="Wid100"><p:button value="Sign In / Sign Up" icon="fa fa-sign-in" styleClass="Wid60 Fs18 White RaisedButton" href="dashboard.xhtml"/></div>
+                    <div class="EmptyBox5"></div>
+                    <div class="Wid100"><p:button value="Forgot Password ?" icon="fa fa-lock" styleClass="RedButton Wid60 Fs18 White RaisedButton"/></div>
+                    <div class="EmptyBox20"></div>
+                    <div class="Separator"></div>
+                    <div class="EmptyBox10"></div>
+                    <div class="Wid100"><p:button value="Access Request ?" icon="fa fa-key" styleClass="GreenButton Wid60 Fs18 White RaisedButton"/></div>
+                    <div class="EmptyBox20"></div>
+                </div>
+                <div class="Wid100 TexAlCenter MarTop20 Fs14 FontRobotoRegular WhiteBlue">
+                        <i class="fa fa-copyright"></i>  PrimeFaces RIO Theme And Layout <br/> All rights reserved.
+                    </div>
+            </div>
+        </div>
+        
+        <h:outputStylesheet name="css/core-layout.css" library="rio-layout" />
+        <h:outputStylesheet name="css/animate.css" library="rio-layout" />
+        <h:outputStylesheet name="css/rio-font.css" library="rio-layout" />
+        <h:outputStylesheet name="css/ripple-effect.css" library="rio-layout" />
+        <h:outputStylesheet name="css/font-awesome.css" library="rio-layout" />
+        <h:outputStylesheet name="css/rio-layout.css" library="rio-layout" />
+    </h:body>
+
+</html>

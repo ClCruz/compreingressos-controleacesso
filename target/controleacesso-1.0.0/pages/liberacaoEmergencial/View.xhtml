@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LiberacaoEmergencialViewDlg" widgetVar="LiberacaoEmergencialViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewLiberacaoEmergencialTitle}">
+            <h:form id="LiberacaoEmergencialViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{liberacaoEmergencialController.selected != null}">
+                        <h:outputText value="#{bundle.ViewLiberacaoEmergencialLabel_codigo}"/>
+                        <h:outputText value="#{liberacaoEmergencialController.selected.codigo}" title="#{bundle.ViewLiberacaoEmergencialTitle_codigo}"/>
+                        <h:outputText value="#{bundle.ViewLiberacaoEmergencialLabel_dataHoraAtualizacao}"/>
+                        <h:outputText value="#{liberacaoEmergencialController.selected.dataHoraAtualizacao}" title="#{bundle.ViewLiberacaoEmergencialTitle_dataHoraAtualizacao}">
+                            <f:convertDateTime pattern="#{bundle.formatDate}" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewLiberacaoEmergencialLabel_dataHoraEmergencia}"/>
+                        <h:outputText value="#{liberacaoEmergencialController.selected.dataHoraEmergencia}" title="#{bundle.ViewLiberacaoEmergencialTitle_dataHoraEmergencia}">
+                            <f:convertDateTime pattern="#{bundle.formatDate}" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewLiberacaoEmergencialLabel_apresentacao}"/>
+                        <h:outputText value="#{liberacaoEmergencialController.selected.apresentacao}" title="#{bundle.ViewLiberacaoEmergencialTitle_apresentacao}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('LiberacaoEmergencialViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

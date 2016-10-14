@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoUsuarioCreateDlg" widgetVar="TipoUsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTipoUsuarioTitle}">
+            <h:form id="TipoUsuarioCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tipoUsuarioController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTipoUsuarioLabel_descricaoTipoUsuario}" for="descricaoTipoUsuario" />
+                        <p:inputText id="descricaoTipoUsuario" value="#{tipoUsuarioController.selected.descricaoTipoUsuario}" title="#{bundle.CreateTipoUsuarioTitle_descricaoTipoUsuario}" required="true" requiredMessage="#{bundle.CreateTipoUsuarioRequiredMessage_descricaoTipoUsuario}"/>
+                        <p:outputLabel value="#{bundle.CreateTipoUsuarioLabel_inAdmin}" for="inAdmin" />
+                        <p:selectBooleanCheckbox id="inAdmin" value="#{tipoUsuarioController.selected.inAdmin}" required="true" requiredMessage="#{bundle.EditTipoUsuarioRequiredMessage_inAdmin}"/>
+                        <p:outputLabel value="#{bundle.CreateTipoUsuarioLabel_status}" for="status" />
+                        <p:selectOneMenu id="status" value="#{tipoUsuarioController.selected.status}" required="true" requiredMessage="#{bundle.EditTipoUsuarioRequiredMessage_status}">
+                            <f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoUsuarioController.create}" value="#{bundle.Save}" update="display,:TipoUsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoUsuarioCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('TipoUsuarioCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

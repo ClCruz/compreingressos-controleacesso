@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect TexAlCenter">           
+                    <h:form id="MunicipioListForm">
+                        <p:dataTable id="datalist" value="#{municipioController.items}" var="item"
+                                     selectionMode="single" selection="#{municipioController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.codigo}"
+                                     rows="10"
+                                     emptyMessage="#{bundle.ListMunicipioEmpty}"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     widgetVar="municipioTable"
+                                     >
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                            <f:facet name="header">
+                                #{bundle.ListMunicipioTitle}
+                            </f:facet>
+
+                            <p:column headerText="#{bundle.ListMunicipioTitle_codigoMunicipio}" filterBy="#{item.codigoMunicipio}" filterMatchMode="contains" sortBy="#{item.codigoMunicipio}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMunicipioTitle_codigoMunicipio}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.codigoMunicipio}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListMunicipioTitle_nome}" filterBy="#{item.nome}" filterMatchMode="contains" sortBy="#{item.nome}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMunicipioTitle_nome}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nome}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListMunicipioTitle_estado}" filterBy="#{item.estado}" filterMatchMode="contains" sortBy="#{item.estado}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListMunicipioTitle_estado}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.estado}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{municipioController.prepareCreate}" update=":MunicipioCreateForm" oncomplete="PF('MunicipioCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MunicipioViewForm" oncomplete="PF('MunicipioViewDialog').show()" disabled="#{empty municipioController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MunicipioEditForm" oncomplete="PF('MunicipioEditDialog').show()" disabled="#{empty municipioController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{municipioController.destroy}" update=":growl,datalist" disabled="#{empty municipioController.selected}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+
+                    <ui:include src="Create.xhtml"/>
+                    <ui:include src="Edit.xhtml"/>
+                    <ui:include src="View.xhtml"/>
+
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

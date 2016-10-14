@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AcessoCatracaEditDlg" widgetVar="AcessoCatracaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAcessoCatracaTitle}">
+            <h:form id="AcessoCatracaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{acessoCatracaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAcessoCatracaLabel_dataHoraAcesso}" for="dataHoraAcesso" />
+                        <p:calendar id="dataHoraAcesso" pattern="#{bundle.formatDate}" value="#{acessoCatracaController.selected.dataHoraAcesso}" title="#{bundle.EditAcessoCatracaTitle_dataHoraAcesso}" required="true" requiredMessage="#{bundle.EditAcessoCatracaRequiredMessage_dataHoraAcesso}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditAcessoCatracaLabel_acesso}" for="acesso" />
+                        <p:selectBooleanCheckbox id="acesso" value="#{acessoCatracaController.selected.acesso}" required="true" requiredMessage="#{bundle.EditAcessoCatracaRequiredMessage_acesso}"/>
+                        <p:outputLabel value="#{bundle.EditAcessoCatracaLabel_catraca}" for="catraca" />
+                        <p:selectOneMenu id="catraca" value="#{acessoCatracaController.selected.catraca}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{catracaController.itemsAvailableSelectOne}"
+                                           var="catracaItem"
+                                           itemValue="#{catracaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAcessoCatracaLabel_credenciado}" for="credenciado" />
+                        <p:selectOneMenu id="credenciado" value="#{acessoCatracaController.selected.credenciado}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{credenciadoController.itemsAvailableSelectOne}"
+                                           var="credenciadoItem"
+                                           itemValue="#{credenciadoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAcessoCatracaLabel_ingressoVendido}" for="ingressoVendido" />
+                        <p:selectOneMenu id="ingressoVendido" value="#{acessoCatracaController.selected.ingressoVendido}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ingressoVendidoController.itemsAvailableSelectOne}"
+                                           var="ingressoVendidoItem"
+                                           itemValue="#{ingressoVendidoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAcessoCatracaLabel_setor}" for="setor" />
+                        <p:selectOneMenu id="setor" value="#{acessoCatracaController.selected.setor}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{setorController.itemsAvailableSelectOne}"
+                                           var="setorItem"
+                                           itemValue="#{setorItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{acessoCatracaController.update}" value="#{bundle.Save}" update="display,:AcessoCatracaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AcessoCatracaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('AcessoCatracaEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

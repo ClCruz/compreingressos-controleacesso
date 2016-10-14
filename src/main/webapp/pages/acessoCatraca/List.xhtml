@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect TexAlCenter">           
+                    <h:form id="AcessoCatracaListForm">
+                        <p:dataTable id="datalist" value="#{acessoCatracaController.items}" var="item"
+                                     selectionMode="single" selection="#{acessoCatracaController.selected}"
+                                     paginator="true"
+                                     rows="10"
+                                     rowKey="#{item.codigo}"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     emptyMessage="#{bundle.ListAcessoCatracaEmpty}"
+                                     widgetVar="acessoCatracaTable"
+                                     >
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                            <f:facet name="header">
+                                #{bundle.ListAcessoCatracaTitle}
+                            </f:facet>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAcessoCatracaTitle_dataHoraAcesso}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dataHoraAcesso}">
+                                <f:convertDateTime pattern="#{bundle.formatDate}" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAcessoCatracaTitle_acesso}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.acesso}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAcessoCatracaTitle_catraca}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.catraca.codigoCatraca}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAcessoCatracaTitle_credenciado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.credenciado}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAcessoCatracaTitle_ingressoVendido}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ingressoVendido}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAcessoCatracaTitle_setor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.setor}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{acessoCatracaController.prepareCreate}" update=":AcessoCatracaCreateForm" oncomplete="PF('AcessoCatracaCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":AcessoCatracaViewForm" oncomplete="PF('AcessoCatracaViewDialog').show()" disabled="#{empty acessoCatracaController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":AcessoCatracaEditForm" oncomplete="PF('AcessoCatracaEditDialog').show()" disabled="#{empty acessoCatracaController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{acessoCatracaController.destroy}" update=":growl,datalist" disabled="#{empty acessoCatracaController.selected}"/>
+                         </f:facet>
+                        </p:dataTable>
+                    </h:form>
+
+                    <ui:include src="Create.xhtml"/>
+                    <ui:include src="Edit.xhtml"/>
+                    <ui:include src="View.xhtml"/>
+
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

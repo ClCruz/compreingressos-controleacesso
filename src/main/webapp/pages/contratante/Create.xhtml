@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContratanteCreateDlg" widgetVar="ContratanteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateContratanteTitle}">
+            <h:form id="ContratanteCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contratanteController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateContratanteLabel_nome}" for="nome" />
+                        <p:inputText id="nome" value="#{contratanteController.selected.nome}" title="#{bundle.CreateContratanteTitle_nome}" required="true" requiredMessage="#{bundle.CreateContratanteRequiredMessage_nome}"/>
+                        <p:outputLabel value="#{bundle.CreateContratanteLabel_ativo}" for="ativo" />
+                        <p:selectOneMenu id="ativo" value="#{contratanteController.selected.ativo}" required="true" requiredMessage="#{bundle.EditContratanteRequiredMessage_ativo}">
+                            <f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateContratanteLabel_logotipo}" for="logotipo" />
+                        <p:fileUpload id="logotipo" fileUploadListener="#{contratanteController.upload}" mode="advanced"  />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{contratanteController.create}" value="#{bundle.Save}" update="display,:ContratanteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ContratanteCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('ContratanteCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

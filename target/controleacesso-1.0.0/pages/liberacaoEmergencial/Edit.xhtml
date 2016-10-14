@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LiberacaoEmergencialEditDlg" widgetVar="LiberacaoEmergencialEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditLiberacaoEmergencialTitle}">
+            <h:form id="LiberacaoEmergencialEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{liberacaoEmergencialController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditLiberacaoEmergencialLabel_dataHoraEmergencia}" for="dataHoraEmergencia" />
+                        <p:calendar id="dataHoraEmergencia" pattern="#{bundle.formatDate}" value="#{liberacaoEmergencialController.selected.dataHoraEmergencia}" title="#{bundle.EditLiberacaoEmergencialTitle_dataHoraEmergencia}" required="true" requiredMessage="#{bundle.EditLiberacaoEmergencialRequiredMessage_dataHoraEmergencia}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditLiberacaoEmergencialLabel_apresentacao}" for="apresentacao" />
+                        <p:selectOneMenu id="apresentacao" value="#{liberacaoEmergencialController.selected.apresentacao}" required="true" requiredMessage="#{bundle.EditLiberacaoEmergencialRequiredMessage_apresentacao}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{apresentacaoController.itemsAvailableSelectOne}"
+                                           var="apresentacaoItem"
+                                           itemValue="#{apresentacaoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{liberacaoEmergencialController.update}" value="#{bundle.Save}" update="display,:LiberacaoEmergencialListForm:datalist,:growl" oncomplete="handleSubmit(args, 'LiberacaoEmergencialEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('LiberacaoEmergencialEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

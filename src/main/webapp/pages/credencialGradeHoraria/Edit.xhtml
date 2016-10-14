@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CredencialGradeHorariaEditDlg" widgetVar="CredencialGradeHorariaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCredencialGradeHorariaTitle}">
+            <h:form id="CredencialGradeHorariaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{credencialGradeHorariaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCredencialGradeHorariaLabel_gradeHoraria}" for="gradeHoraria" />
+                        <p:inputText id="gradeHoraria" value="#{credencialGradeHorariaController.selected.gradeHoraria}" title="#{bundle.EditCredencialGradeHorariaTitle_gradeHoraria}" required="true" requiredMessage="#{bundle.EditCredencialGradeHorariaRequiredMessage_gradeHoraria}"/>
+                        <p:outputLabel value="#{bundle.EditCredencialGradeHorariaLabel_tipoCredencial}" for="tipoCredencial" />
+                        <p:selectOneMenu id="tipoCredencial" value="#{credencialGradeHorariaController.selected.tipoCredencial}" required="true" requiredMessage="#{bundle.EditCredencialGradeHorariaRequiredMessage_tipoCredencial}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoCredencialController.itemsAvailableSelectOne}"
+                                           var="tipoCredencialItem"
+                                           itemValue="#{tipoCredencialItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{credencialGradeHorariaController.update}" value="#{bundle.Save}" update="display,:CredencialGradeHorariaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CredencialGradeHorariaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('CredencialGradeHorariaEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ApresentacaoEditDlg" widgetVar="ApresentacaoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditApresentacaoTitle}">
+            <h:form id="ApresentacaoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{apresentacaoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditApresentacaoLabel_nome}" for="nome" />
+                        <p:inputText id="nome" value="#{apresentacaoController.selected.nome}" title="#{bundle.EditApresentacaoTitle_nome}" required="true" requiredMessage="#{bundle.EditApresentacaoRequiredMessage_nome}"/>
+                        <p:outputLabel value="#{bundle.EditApresentacaoLabel_dataHoraInicio}" for="dataHoraInicio" />
+                        <p:calendar id="dataHoraInicio" pattern="#{bundle.formatDate}" value="#{apresentacaoController.selected.dataHoraInicio}" title="#{bundle.EditApresentacaoTitle_dataHoraInicio}" required="true" requiredMessage="#{bundle.EditApresentacaoRequiredMessage_dataHoraInicio}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditApresentacaoLabel_dataHoraFinal}" for="dataHoraFinal" />
+                        <p:calendar id="dataHoraFinal" pattern="#{bundle.formatDate}" value="#{apresentacaoController.selected.dataHoraFinal}" title="#{bundle.EditApresentacaoTitle_dataHoraFinal}" required="true" requiredMessage="#{bundle.EditApresentacaoRequiredMessage_dataHoraFinal}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditApresentacaoLabel_ativo}" for="ativo" />
+                        <p:selectOneMenu id="ativo" value="#{apresentacaoController.selected.ativo}" required="true" requiredMessage="#{bundle.EditApresentacaoRequiredMessage_ativo}">
+                            <f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditApresentacaoLabel_validaEstorno}" for="validaEstorno" />
+                        <p:selectBooleanCheckbox id="validaEstorno" value="#{apresentacaoController.selected.validaEstorno}" required="true" requiredMessage="#{bundle.EditApresentacaoRequiredMessage_validaEstorno}"/>
+                        <p:outputLabel value="#{bundle.EditApresentacaoLabel_evento}" for="evento" />
+                        <p:selectOneMenu id="evento" value="#{apresentacaoController.selected.evento}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{eventoController.itemsAvailableSelectOne}"
+                                           var="eventoItem"
+                                           itemValue="#{eventoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{apresentacaoController.update}" value="#{bundle.Save}" update="display,:ApresentacaoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ApresentacaoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('ApresentacaoEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

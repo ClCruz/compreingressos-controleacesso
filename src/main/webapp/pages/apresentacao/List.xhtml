@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect TexAlCenter">           
+                    <h:form id="ApresentacaoListForm">
+                        <p:dataTable id="datalist" value="#{apresentacaoController.items}" var="item"
+                                     selectionMode="single" selection="#{apresentacaoController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.codigo}"
+                                     rows="10"
+                                     emptyMessage="#{bundle.ListApresentacaoEmpty}"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     widgetVar="apresentacaoTable"
+                                     >
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                            <f:facet name="header">
+                                #{bundle.ListApresentacaoTitle}
+                            </f:facet>
+
+                            <p:column headerText="#{bundle.ListApresentacaoTitle_nome}" filterBy="#{item.nome}" filterMatchMode="contains" sortBy="#{item.nome}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListApresentacaoTitle_nome}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nome}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListApresentacaoTitle_dataHoraInicio}" filterBy="#{item.dataHoraInicio}" filterMatchMode="contains" sortBy="#{item.dataHoraInicio}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListApresentacaoTitle_dataHoraInicio}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dataHoraInicio}">
+                                    <f:convertDateTime pattern="#{bundle.formatDate}" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListApresentacaoTitle_dataHoraFinal}" filterBy="#{item.dataHoraFinal}" filterMatchMode="contains" sortBy="#{item.dataHoraFinal}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListApresentacaoTitle_dataHoraFinal}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dataHoraFinal}">
+                                    <f:convertDateTime pattern="#{bundle.formatDate}" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListApresentacaoTitle_ativo}" filterBy="#{item.ativo}" filterMatchMode="contains" sortBy="#{item.ativo}">
+                                <f:facet name="filter"> 
+                                    <p:selectOneMenu onchange="PF('apresentacaoTable').filter()">
+                                        <f:selectItem itemValue="" itemLabel="Ativo e Inativo"/>
+                                        <f:selectItem itemValue="true" itemLabel="Ativo"/>
+                                        <f:selectItem itemValue="false" itemLabel="Inativo"/>
+                                    </p:selectOneMenu>
+                                </f:facet>    
+                                <h:outputText value="Ativo" rendered="#{item.ativo eq true}"/>
+                                <h:outputText value="Inativo" rendered="#{item.ativo eq false}"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListApresentacaoTitle_validaEstorno}" filterBy="#{item.validaEstorno}" filterMatchMode="contains" sortBy="#{item.validaEstorno}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListApresentacaoTitle_validaEstorno}"/>
+                                </f:facet>
+                                <p:selectBooleanCheckbox value="#{item.validaEstorno}" disabled="true"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.ListApresentacaoTitle_evento}" filterBy="#{item.evento}" filterMatchMode="contains" sortBy="#{item.evento}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListApresentacaoTitle_evento}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.evento}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{apresentacaoController.prepareCreate}" update=":ApresentacaoCreateForm" oncomplete="PF('ApresentacaoCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ApresentacaoViewForm" oncomplete="PF('ApresentacaoViewDialog').show()" disabled="#{empty apresentacaoController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ApresentacaoEditForm" oncomplete="PF('ApresentacaoEditDialog').show()" disabled="#{empty apresentacaoController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{apresentacaoController.destroy}" update=":growl,datalist" disabled="#{empty apresentacaoController.selected}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+
+                    <ui:include src="Create.xhtml"/>
+                    <ui:include src="Edit.xhtml"/>
+                    <ui:include src="View.xhtml"/>
+
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

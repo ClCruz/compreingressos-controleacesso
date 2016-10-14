@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProgramaCreateDlg" widgetVar="ProgramaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProgramaTitle}">
+            <h:form id="ProgramaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{programaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateProgramaLabel_descricao}" for="descricao" />
+                        <p:inputText id="descricao" value="#{programaController.selected.descricao}" title="#{bundle.CreateProgramaTitle_descricao}" required="true" requiredMessage="#{bundle.CreateProgramaRequiredMessage_descricao}"/>
+                        <p:outputLabel value="#{bundle.CreateProgramaLabel_url}" for="url" />
+                        <p:inputText id="url" value="#{programaController.selected.url}" title="#{bundle.CreateProgramaTitle_url}" required="true" requiredMessage="#{bundle.CreateProgramaRequiredMessage_url}"/>
+                        <p:outputLabel value="#{bundle.CreateProgramaLabel_ordemExibicao}" for="ordemExibicao" />
+                        <p:inputText id="ordemExibicao" value="#{programaController.selected.ordemExibicao}" title="#{bundle.CreateProgramaTitle_ordemExibicao}" required="true" requiredMessage="#{bundle.CreateProgramaRequiredMessage_ordemExibicao}"/>
+                        <p:outputLabel value="#{bundle.CreateProgramaLabel_ativo}" for="ativo" />
+                        <p:selectOneMenu id="ativo" value="#{programaController.selected.ativo}" required="true" requiredMessage="#{bundle.EditProgramaRequiredMessage_ativo}">
+                            <f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateProgramaLabel_programa}" for="programa" />
+                        <p:inputText id="programa" value="#{programaController.selected.programa}" title="#{bundle.CreateProgramaTitle_programa}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{programaController.create}" value="#{bundle.Save}" update="display,:ProgramaListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProgramaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('ProgramaCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

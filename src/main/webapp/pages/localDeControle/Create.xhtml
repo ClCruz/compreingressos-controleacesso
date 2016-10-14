@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LocalDeControleCreateDlg" widgetVar="LocalDeControleCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateLocalDeControleTitle}">
+            <h:form id="LocalDeControleCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{localDeControleController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateLocalDeControleLabel_nome}" for="nome" />
+                        <p:inputText id="nome" value="#{localDeControleController.selected.nome}" title="#{bundle.CreateLocalDeControleTitle_nome}" required="true" requiredMessage="#{bundle.CreateLocalDeControleRequiredMessage_nome}"/>
+                        <p:outputLabel value="#{bundle.CreateLocalDeControleLabel_ativo}" for="ativo" />
+                        <p:selectOneMenu id="ativo" value="#{localDeControleController.selected.ativo}" required="true" requiredMessage="#{bundle.EditLocalDeControleRequiredMessage_ativo}">
+                            <f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateLocalDeControleLabel_endereco}" for="endereco" />
+                        <p:inputText id="endereco" value="#{localDeControleController.selected.endereco}" title="#{bundle.CreateLocalDeControleTitle_endereco}" />
+                        <p:outputLabel value="#{bundle.CreateLocalDeControleLabel_numeroEndereco}" for="numeroEndereco" />
+                        <p:inputText id="numeroEndereco" value="#{localDeControleController.selected.numeroEndereco}" title="#{bundle.CreateLocalDeControleTitle_numeroEndereco}" />
+                        <p:outputLabel value="#{bundle.CreateLocalDeControleLabel_bairro}" for="bairro" />
+                        <p:inputText id="bairro" value="#{localDeControleController.selected.bairro}" title="#{bundle.CreateLocalDeControleTitle_bairro}" />
+                        <p:outputLabel value="#{bundle.CreateLocalDeControleLabel_complemento}" for="complemento" />
+                        <p:inputText id="complemento" value="#{localDeControleController.selected.complemento}" title="#{bundle.CreateLocalDeControleTitle_complemento}" required="true" requiredMessage="#{bundle.CreateLocalDeControleRequiredMessage_complemento}"/>
+                        <p:outputLabel value="#{bundle.CreateLocalDeControleLabel_contratante}" for="contratante" />
+                        <p:selectOneMenu id="contratante" value="#{localDeControleController.selected.contratante}" >
+                            <f:selectItems value="#{contratanteController.itemsAvailableSelectOne}"
+                                           var="contratanteItem"
+                                           itemValue="#{contratanteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateLocalDeControleLabel_municipio}" for="municipio" />
+                        <p:selectOneMenu id="municipio" value="#{localDeControleController.selected.municipio}" >
+                            <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"
+                                           var="municipioItem"
+                                           itemValue="#{municipioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{localDeControleController.create}" value="#{bundle.Save}" update="display,:LocalDeControleListForm:datalist,:growl" oncomplete="handleSubmit(args,'LocalDeControleCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('LocalDeControleCreateDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ModeloCatracaEditDlg" widgetVar="ModeloCatracaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditModeloCatracaTitle}">
+            <h:form id="ModeloCatracaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{modeloCatracaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditModeloCatracaLabel_descricao}" for="descricao" />
+                        <p:inputText id="descricao" value="#{modeloCatracaController.selected.descricao}" title="#{bundle.EditModeloCatracaTitle_descricao}" required="true" requiredMessage="#{bundle.EditModeloCatracaRequiredMessage_descricao}"/>
+                        <p:outputLabel value="#{bundle.EditModeloCatracaLabel_ativo}" for="ativo" />
+                        <p:selectOneMenu id="ativo" value="#{modeloCatracaController.selected.ativo}" required="true" requiredMessage="#{bundle.EditModeloCatracaRequiredMessage_ativo}">
+                            <f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditModeloCatracaLabel_fabricante}" for="fabricante" />
+                        <p:selectOneMenu id="fabricante" value="#{modeloCatracaController.selected.fabricante}" required="true" requiredMessage="#{bundle.EditModeloCatracaRequiredMessage_fabricante}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{fabricanteController.itemsAvailableSelectOne}"
+                                           var="fabricanteItem"
+                                           itemValue="#{fabricanteItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{modeloCatracaController.update}" value="#{bundle.Save}" update="display,:ModeloCatracaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ModeloCatracaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('ModeloCatracaEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EstadoViewDlg" widgetVar="EstadoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEstadoTitle}">
+            <h:form id="EstadoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{estadoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewEstadoLabel_codigo}"/>
+                        <h:outputText value="#{estadoController.selected.codigo}" title="#{bundle.ViewEstadoTitle_codigo}"/>
+                        <h:outputText value="#{bundle.ViewEstadoLabel_dataHoraAtualizacao}"/>
+                        <h:outputText value="#{estadoController.selected.dataHoraAtualizacao}" title="#{bundle.ViewEstadoTitle_dataHoraAtualizacao}">
+                            <f:convertDateTime pattern="#{bundle.formatDate}" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEstadoLabel_nome}"/>
+                        <h:outputText value="#{estadoController.selected.nome}" title="#{bundle.ViewEstadoTitle_nome}"/>
+                        <h:outputText value="#{bundle.ViewEstadoLabel_uf}"/>
+                        <h:outputText value="#{estadoController.selected.uf}" title="#{bundle.ViewEstadoTitle_uf}"/>
+                        <h:outputText value="#{bundle.ViewEstadoLabel_regiao}"/>
+                        <h:outputText value="#{estadoController.selected.regiao}" title="#{bundle.ViewEstadoTitle_regiao}"/>
+                        <h:outputText value="#{bundle.ViewEstadoLabel_usuario}"/>
+                        <h:outputText value="#{estadoController.selected.usuario}" title="#{bundle.ViewEstadoTitle_usuario}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('EstadoViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CredenciadoViewDlg" widgetVar="CredenciadoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCredenciadoTitle}">
+            <h:form id="CredenciadoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{credenciadoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCredenciadoLabel_codigo}"/>
+                        <h:outputText value="#{credenciadoController.selected.codigo}" title="#{bundle.ViewCredenciadoTitle_codigo}"/>
+                         <h:outputText value="#{bundle.ViewCredenciadoLabel_dataHoraAtualizacao}"/>
+                        <h:outputText value="#{credenciadoController.selected.dataHoraAtualizacao}" title="#{bundle.ViewCredenciadoTitle_dataHoraAtualizacao}">
+                            <f:convertDateTime pattern="#{bundle.formatDate}" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewCredenciadoLabel_nome}"/>
+                        <h:outputText value="#{credenciadoController.selected.nome}" title="#{bundle.ViewCredenciadoTitle_nome}"/>
+                        <h:outputText value="#{bundle.ViewCredenciadoLabel_cpf}"/>
+                        <h:outputText value="#{credenciadoController.selected.cpf}" title="#{bundle.ViewCredenciadoTitle_cpf}"/>
+                        <h:outputText value="#{bundle.ViewCredenciadoLabel_sobrenome}"/>
+                        <h:outputText value="#{credenciadoController.selected.sobrenome}" title="#{bundle.ViewCredenciadoTitle_sobrenome}"/>
+                        <h:outputText value="#{bundle.ViewCredenciadoLabel_endereco}"/>
+                        <h:outputText value="#{credenciadoController.selected.endereco}" title="#{bundle.ViewCredenciadoTitle_endereco}"/>
+                        <h:outputText value="#{bundle.ViewCredenciadoLabel_cep}"/>
+                        <h:outputText value="#{credenciadoController.selected.cep}" title="#{bundle.ViewCredenciadoTitle_cep}"/>
+                        <h:outputText value="#{bundle.ViewCredenciadoLabel_email}"/>
+                        <h:outputText value="#{credenciadoController.selected.email}" title="#{bundle.ViewCredenciadoTitle_email}"/>
+                        <h:outputText value="#{bundle.ViewCredenciadoLabel_observacao}"/>
+                        <h:outputText value="#{credenciadoController.selected.observacao}" title="#{bundle.ViewCredenciadoTitle_observacao}"/>
+                        <h:outputText value="#{bundle.ViewCredenciadoLabel_nomeImpressao}"/>
+                        <h:outputText value="#{credenciadoController.selected.nomeImpressao}" title="#{bundle.ViewCredenciadoTitle_nomeImpressao}"/>
+                        <h:outputText value="#{bundle.ViewCredenciadoLabel_telefone}"/>
+                        <h:outputText value="#{credenciadoController.selected.telefone}" title="#{bundle.ViewCredenciadoTitle_telefone}"/>
+                        <h:outputText value="#{bundle.ViewCredenciadoLabel_telefone2}"/>
+                        <h:outputText value="#{credenciadoController.selected.telefone2}" title="#{bundle.ViewCredenciadoTitle_telefone2}"/>
+                        <h:outputText value="#{bundle.ViewCredenciadoLabel_ativo}"/>
+                        <p:selectBooleanCheckbox value="#{credenciadoController.selected.ativo}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewCredenciadoLabel_foto}"/>
+                        <o:graphicImage value="#{credenciadoController.imagem}" width="174" dataURI="true" />
+                        <h:outputText value="#{bundle.ViewCredenciadoLabel_numeroEndereco}"/>
+                        <h:outputText value="#{credenciadoController.selected.numeroEndereco}" title="#{bundle.ViewCredenciadoTitle_numeroEndereco}"/>
+                        <h:outputText value="#{bundle.ViewCredenciadoLabel_bairro}"/>
+                        <h:outputText value="#{credenciadoController.selected.bairro}" title="#{bundle.ViewCredenciadoTitle_bairro}"/>
+                        <h:outputText value="#{bundle.ViewCredenciadoLabel_complementoEndereco}"/>
+                        <h:outputText value="#{credenciadoController.selected.complementoEndereco}" title="#{bundle.ViewCredenciadoTitle_complementoEndereco}"/>
+                        <h:outputText value="#{bundle.ViewCredenciadoLabel_empresa}"/>
+                        <h:outputText value="#{credenciadoController.selected.empresa.nome}" title="#{bundle.ViewCredenciadoTitle_empresa}"/>
+                        <h:outputText value="#{bundle.ViewCredenciadoLabel_municipio}"/>
+                        <h:outputText value="#{credenciadoController.selected.municipio}" title="#{bundle.ViewCredenciadoTitle_municipio}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('CredenciadoViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
