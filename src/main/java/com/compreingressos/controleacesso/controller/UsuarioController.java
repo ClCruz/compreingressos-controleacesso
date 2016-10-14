@@ -34,7 +34,6 @@ import org.primefaces.model.UploadedFile;
 
 @ManagedBean(name = "usuarioController")
 @ViewScoped
-
 public class UsuarioController implements Serializable {
 
     @EJB

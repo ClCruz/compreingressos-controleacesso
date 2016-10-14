@@ -14,13 +14,6 @@
                     <p:panelGrid columns="2" rendered="#{paisController.selected != null}">
                         <p:outputLabel value="#{bundle.EditPaisLabel_descricaoPais}" for="descricaoPais" />
                         <p:inputText id="descricaoPais" value="#{paisController.selected.descricaoPais}" title="#{bundle.EditPaisTitle_descricaoPais}" required="true" requiredMessage="#{bundle.EditPaisRequiredMessage_descricaoPais}"/>
-                        <p:outputLabel value="#{bundle.EditPaisLabel_usuario}" for="usuario" />
-                        <p:selectOneMenu id="usuario" value="#{paisController.selected.usuario}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
-                                           var="usuarioItem"
-                                           itemValue="#{usuarioItem}"/>
-                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{paisController.update}" value="#{bundle.Save}" update="display,:PaisListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PaisEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('PaisEditDialog').hide()"/>

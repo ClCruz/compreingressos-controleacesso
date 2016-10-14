@@ -9,22 +9,21 @@
     <div class="Animated05" id="layout-menu-cover">
         <ul class="layout-menu">
             <li>
-                <a class="menulink ripplelink">
+               <a class="menulink ripplelink">
                     <i class="icon-round58 Fs40"></i>
-                    <span class="Fs18">John Wilkins<i class="icon-downwards Fright Fs20"></i><br /><span class="Fs12 FontRobotoLight">Sr. System Administrator</span></span>
+                    <span class="Fs18"><h:outputText value="#{loginController.usuario.nome} #{loginController.usuario.sobrenome}" /><i class="icon-downwards Fright Fs20"></i><br /><span class="Fs12 FontRobotoLight">Sr. System Administrator</span></span>
                 </a>
                 <ul>
-                    <li><a href="#" class="menulink ripplelink"><i class="icon-user158 Fs16"></i> User Profile</a></li>
-                    <li><a href="#" class="menulink ripplelink"><i class="icon-two385 Fs16"></i> Change User</a></li>
-                    <li><a href="#" class="menulink ripplelink"><i class="icon-settings49 Fs16"></i> System Settings</a></li>
-                    <li><a href="#" class="menulink ripplelink"><i class="icon-thermostat1 Fs16"></i> Logout</a></li>
+                	<h:form>
+                    	<li><p:commandLink id="ajax" action="#{loginController.logout()}"><i class="icon-thermostat1 Fs16"></i> Sair</p:commandLink></li>
+                	</h:form>
                 </ul>
             </li>
         </ul>
         <div class="Separator"></div>
 
         <pr:menu>
-            <p:menuitem id="rm_dashboard" value="Inicio" icon="icon-planet29" outcome="/faces/index.xhtml"/>
+            <p:menuitem id="rm_dashboard" value="Inicio" icon="icon-planet29" outcome="/index.xhtml"/>
             <p:menuitem id="rm_acessoCatraca" value="Acesso Catraca" icon="icon-keyboard53" outcome="/pages/acessoCatraca/List.xhtml"/>
             <p:menuitem id="rm_apresentacao" value="Apresentação" icon="icon-keyboard53" outcome="/pages/apresentacao/List.xhtml"/>
             <p:menuitem id="rm_catraca" value="Catraca" icon="icon-keyboard53" outcome="/pages/catraca/List.xhtml"/>

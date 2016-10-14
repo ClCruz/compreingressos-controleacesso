@@ -62,7 +62,7 @@ public class IngressoVendido implements Serializable {
     @Basic(optional = false)
     @Column(name = "codigo")
     private Long codigo;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "ingressoVendido")
+    @OneToMany(mappedBy = "ingressoVendido")
     private Collection<IngressoInvalido> ingressoInvalido;
     @OneToMany(mappedBy = "ingressoVendido")
     private Collection<AcessoCatraca> acessoCatracaCollection;

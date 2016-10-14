@@ -33,12 +33,6 @@
                                 </f:facet>
                                 <h:outputText value="#{item.descricaoPais}"/>
                             </p:column>
-                            <p:column headerText="#{bundle.ListPaisTitle_usuario}" filterBy="#{item.usuario}" filterMatchMode="contains" sortBy="#{item.usuario}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListPaisTitle_usuario}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.usuario}"/>
-                            </p:column>
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{paisController.prepareCreate}" update=":PaisCreateForm" oncomplete="PF('PaisCreateDialog').show()"/>
                                 <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PaisViewForm" oncomplete="PF('PaisViewDialog').show()" disabled="#{empty paisController.selected}"/>

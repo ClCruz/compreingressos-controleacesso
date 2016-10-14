@@ -24,12 +24,6 @@
                                            itemValue="#{regiaoItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditEstadoLabel_usuario}" for="usuario" />
-                        <p:selectOneMenu id="usuario" value="#{estadoController.selected.usuario}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
-                                           var="usuarioItem"
-                                           itemValue="#{usuarioItem}"/>
-                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{estadoController.update}" value="#{bundle.Save}" update="display,:EstadoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EstadoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('EstadoEditDialog').hide()"/>

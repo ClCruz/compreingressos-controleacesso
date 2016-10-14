@@ -1,4 +1,4 @@
-package org.primefaces.rio.component.menu;
+package com.compreingressos.controleacesso.rio.component.menu;
 
 import java.io.IOException;
 import java.util.ArrayList;

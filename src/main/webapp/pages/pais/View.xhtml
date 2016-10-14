@@ -21,7 +21,7 @@
                         <h:outputText value="#{bundle.ViewPaisLabel_descricaoPais}"/>
                         <h:outputText value="#{paisController.selected.descricaoPais}" title="#{bundle.ViewPaisTitle_descricaoPais}"/>
                         <h:outputText value="#{bundle.ViewPaisLabel_usuario}"/>
-                        <h:outputText value="#{paisController.selected.usuario}" title="#{bundle.ViewPaisTitle_usuario}"/>
+                        <h:outputText value="#{paisController.selected.usuario.nome} #{paisController.selected.usuario.sobrenome}" title="#{bundle.ViewPaisTitle_usuario}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('PaisViewDialog').hide()"/>
                 </h:panelGroup>

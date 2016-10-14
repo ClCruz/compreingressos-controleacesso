@@ -61,7 +61,7 @@ public class Contratante implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ativo")
-    private boolean ativo;
+    private boolean ativo = true;
     @Lob
     @Column(name = "logotipo")
     private String logotipo;

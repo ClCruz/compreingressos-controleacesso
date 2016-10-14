@@ -5,11 +5,12 @@
  */
 package com.compreingressos.controleacesso.bean;
 
-import com.compreingressos.controleacesso.Usuario;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.compreingressos.controleacesso.Usuario;
 /**
  *
  * @author Intuiti 04
@@ -25,8 +26,12 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         return em;
     }
 
-    public UsuarioFacade() {
+    public UsuarioFacade(){
         super(Usuario.class);
+    }
+    
+    public Usuario findUsuario(String userName) {
+    	return em.createNamedQuery("Usuario.findByEmail", Usuario.class).setParameter("email", userName).getSingleResult();
     }
     
 }

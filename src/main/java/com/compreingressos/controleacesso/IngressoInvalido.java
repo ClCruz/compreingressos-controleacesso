@@ -47,6 +47,7 @@ public class IngressoInvalido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JoinColumn(name = "ingressoVendido", referencedColumnName = "codigo")
+    @OneToOne(optional=false)
     private IngressoVendido ingressoVendido;
     @Size(max = 60)
     @Column(name = "motivo")

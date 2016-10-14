@@ -22,7 +22,6 @@
                         <p:selectBooleanCheckbox id="ativo" value="#{eventoController.selected.ativo}" required="true" requiredMessage="#{bundle.EditEventoRequiredMessage_ativo}"/>
                         <p:outputLabel value="#{bundle.CreateEventoLabel_logotipo}" for="logotipo" />
                         <p:fileUpload id="logotipo" fileUploadListener="#{eventoController.upload}" mode="advanced"  />
-                        <p:inputTextarea rows="4" cols="30" id="logotipo" value="#{eventoController.selected.logotipo}" title="#{bundle.CreateEventoTitle_logotipo}" required="true" requiredMessage="#{bundle.CreateEventoRequiredMessage_logotipo}"/>
                         <p:outputLabel value="#{bundle.CreateEventoLabel_layout}" for="layout" />
                         <p:selectOneMenu id="layout" value="#{eventoController.selected.layout}" required="true" requiredMessage="#{bundle.EditEventoRequiredMessage_layout}">
                             <f:selectItems value="#{layoutController.itemsAvailableSelectOne}"

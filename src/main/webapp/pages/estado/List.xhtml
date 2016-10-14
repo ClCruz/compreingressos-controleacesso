@@ -45,12 +45,6 @@
                                 </f:facet>
                                 <h:outputText value="#{item.regiao}"/>
                             </p:column>
-                            <p:column headerText="#{bundle.ListEstadoTitle_usuario}" filterBy="#{item.usuario}" filterMatchMode="contains" sortBy="#{item.usuario}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListEstadoTitle_usuario}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.usuario}"/>
-                            </p:column>
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{estadoController.prepareCreate}" update=":EstadoCreateForm" oncomplete="PF('EstadoCreateDialog').show()"/>
                                 <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EstadoViewForm" oncomplete="PF('EstadoViewDialog').show()" disabled="#{empty estadoController.selected}"/>

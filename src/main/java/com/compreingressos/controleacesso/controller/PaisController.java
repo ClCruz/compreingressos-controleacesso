@@ -1,24 +1,27 @@
 package com.compreingressos.controleacesso.controller;
 
-import com.compreingressos.controleacesso.Pais;
-import com.compreingressos.controleacesso.controller.util.JsfUtil;
-import com.compreingressos.controleacesso.controller.util.JsfUtil.PersistAction;
-import com.compreingressos.controleacesso.bean.PaisFacade;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Named;
+import javax.servlet.http.HttpSession;
+
+import com.compreingressos.controleacesso.Pais;
+import com.compreingressos.controleacesso.Usuario;
+import com.compreingressos.controleacesso.bean.PaisFacade;
+import com.compreingressos.controleacesso.controller.util.JsfUtil;
+import com.compreingressos.controleacesso.controller.util.JsfUtil.PersistAction;
 
 @Named("paisController")
 @SessionScoped
@@ -28,8 +31,12 @@ public class PaisController implements Serializable {
     private com.compreingressos.controleacesso.bean.PaisFacade ejbFacade;
     private List<Pais> items = null;
     private Pais selected;
+    private Usuario usuario;
 
     public PaisController() {
+    	FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+		usuario = (Usuario) session.getAttribute("usuario");
     }
 
     public Pais getSelected() {
@@ -87,6 +94,7 @@ public class PaisController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
+                	selected.setUsuario(usuario);
                     selected.setDataHoraAtualizacao(new Date());
                     getFacade().edit(selected);
                 } else {
