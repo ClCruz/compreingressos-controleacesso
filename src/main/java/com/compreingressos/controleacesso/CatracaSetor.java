@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CatracaSetor.findAll", query = "SELECT c FROM CatracaSetor c"),
+    @NamedQuery(name = "CatracaSetor.findByCatraca", query = "SELECT c FROM CatracaSetor c WHERE c.catraca = :codigo"),
     @NamedQuery(name = "CatracaSetor.findByDataAtualizacao", query = "SELECT c FROM CatracaSetor c WHERE c.dataAtualizacao = :dataAtualizacao"),
     @NamedQuery(name = "CatracaSetor.findByCodigo", query = "SELECT c FROM CatracaSetor c WHERE c.codigo = :codigo")})
 public class CatracaSetor implements Serializable {
@@ -64,6 +65,10 @@ public class CatracaSetor implements Serializable {
     public CatracaSetor(Integer codigo, Date dataAtualizacao) {
         this.codigo = codigo;
         this.dataAtualizacao = dataAtualizacao;
+    }
+    
+    public CatracaSetor(Setor setor){
+    	this.setor = setor;
     }
 
     public Date getDataAtualizacao() {
@@ -120,7 +125,7 @@ public class CatracaSetor implements Serializable {
 
     @Override
     public String toString() {
-        return codigo.toString();
+        return ""+codigo;
     }
     
 }

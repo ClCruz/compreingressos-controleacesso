@@ -27,7 +27,7 @@
                                 #{bundle.ListFalhaTitle}
                             </f:facet>
 
-                            <p:column headerText="#{bundle.ListFalhaTitle_descricao}}" filterBy="#{item.descricao}" filterMatchMode="contains" sortBy="#{item.descricao}">
+                            <p:column headerText="#{bundle.ListFalhaTitle_descricao}" filterBy="#{item.descricao}" filterMatchMode="contains" sortBy="#{item.descricao}">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListFalhaTitle_descricao}"/>
                                 </f:facet>
@@ -59,25 +59,25 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListFalhaTitle_catraca}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.catraca}"/>
+                                <h:outputText value="#{item.catraca.codigoCatraca}"/>
                             </p:column>
                             <p:column headerText="#{bundle.ListFalhaTitle_usuarioOcorrencia}" filterBy="#{item.usuarioOcorrencia}" filterMatchMode="contains" sortBy="#{item.usuarioOcorrencia}">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListFalhaTitle_usuarioOcorrencia}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.usuarioOcorrencia}"/>
+                                <h:outputText value="#{item.usuarioOcorrencia.nome}"/>
                             </p:column>
                             <p:column headerText="#{bundle.ListFalhaTitle_usuarioSolucao}" filterBy="#{item.usuarioSolucao}" filterMatchMode="contains" sortBy="#{item.usuarioSolucao}">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListFalhaTitle_usuarioSolucao}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.usuarioSolucao}"/>
+                                <h:outputText value="#{item.usuarioSolucao.nome}"/>
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{falhaController.prepareCreate}" update=":FalhaCreateForm" oncomplete="PF('FalhaCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":FalhaViewForm" oncomplete="PF('FalhaViewDialog').show()" disabled="#{empty falhaController.selected}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":FalhaEditForm" oncomplete="PF('FalhaEditDialog').show()" disabled="#{empty falhaController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{falhaController.destroy}" update=":growl,datalist" disabled="#{empty falhaController.selected}"/>
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{falhaController.prepareCreate}" update=":FalhaCreateForm" oncomplete="PF('FalhaCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":FalhaViewForm" oncomplete="PF('FalhaViewDialog').show()" disabled="#{empty falhaController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":FalhaEditForm" oncomplete="PF('FalhaEditDialog').show()" disabled="#{empty falhaController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{falhaController.destroy}" update=":growl,datalist" disabled="#{empty falhaController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </h:form>

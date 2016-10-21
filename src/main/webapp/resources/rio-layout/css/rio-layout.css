@@ -48,10 +48,10 @@ body {
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
-  background-color: #0288d1;
+  background-color: #A5061F;
   background-repeat: no-repeat;
   height: auto;
-  border-top: solid 10px #0288d1;
+  border-top: solid 10px #A5061F;
 }
 .loginbodyorange {
   background-image: url("#{resource['rio-layout:images/orange-background.svg']}");
@@ -110,7 +110,7 @@ body {
   width: 47px;
   height: 37px;
   cursor: pointer;
-  background-color: #039be5;
+  background-color: #A5061F;
   position: relative;
   margin: 8px -24px auto auto;
   color: #ffffff;
@@ -118,7 +118,7 @@ body {
 }
 #mobile-menu-button:hover,
 #mobile-menu-button:focus {
-  background-color: #0288d1;
+  background-color: #A5061F;
 }
 #mobile-menu-button.MenuClose {
   margin-top: 39px !important;
@@ -155,12 +155,12 @@ body {
   cursor: pointer;
   display: block;
   float: left;
-  color: #e1f5fe;
+  color: white;
   overflow: hidden;
 }
 #top-menu > li > a:hover,
 #top-menu li a:focus {
-  background-color: #039be5;
+  background-color: #A5061F;
 }
 #top-menu > li > a .Txt {
   display: none;
@@ -187,32 +187,32 @@ body {
 #top-menu li ul li input[type="text"] {
   background-color: transparent;
   border: 0px none;
-  border-bottom: solid 1px #e1f5fe;
+  border-bottom: solid 1px white;
   padding: 0px;
   width: 120px;
   font-family: 'roboto_condensedlight';
   font-size: 16px;
-  color: #e1f5fe;
+  color: white;
 }
 #top-menu li ul li input[type="text"]::-webkit-input-placeholder {
-  color: #e1f5fe;
+  color: white;
 }
 #top-menu li ul li input[type="text"]:-moz-placeholder {
-  color: #e1f5fe;
+  color: white;
   opacity: 1;
 }
 #top-menu li ul li input[type="text"]::-moz-placeholder {
-  color: #e1f5fe;
+  color: white;
   opacity: 1;
 }
 #top-menu li ul li input[type="text"]:-ms-input-placeholder {
-  color: #e1f5fe;
+  color: white;
 }
 #top-menu li ul li a {
-  color: #e1f5fe;
+  color: white;
   padding: 0px 5px;
   display: block;
-  border-bottom: solid 1px #e1f5fe;
+  border-bottom: solid 1px white;
   font-size: 16px;
   font-family: 'roboto_condensedregular';
 }
@@ -231,14 +231,14 @@ body {
   cursor: pointer;
   position: relative;
   margin: 8px 2% auto auto;
-  color: #e1f5fe;
+  color: white;
   overflow: hidden;
 }
 #show-top-menu:hover {
-  background-color: #039be5;
+  background-color: #A5061F;
 }
 #show-top-menu.MenuClose {
-  background-color: #039be5;
+  background-color: #A5061F;
 }
 /* wrapper */
 #wrapper {
@@ -313,11 +313,11 @@ body {
 .layout-menu > li {
   width: auto;
   height: auto;
-  font-size: 18px;
+  font-size: 17px;
 }
 .layout-menu > li > a {
   width: 84%;
-  padding: 12px 8%;
+  padding: 10px 8%;
   display: block;
   font-family: 'roboto_condensedregular';
   -webkit-transition: all 0.3s ease;
@@ -343,7 +343,7 @@ body {
   font-size: 15px;
 }
 .layout-menu > li ul li a:focus {
-  color: #03a9f4;
+  color: #A5061F;
 }
 .layout-menu li ul li a {
   width: 80%;
@@ -1103,7 +1103,7 @@ i {
   color: #03A9F4;
 }
 .Blue {
-  color: #0288D1;
+  color: #A5061F;
 }
 .Turquoise {
   color: #26C6DA;
@@ -1158,7 +1158,7 @@ i {
   background-color: #03A9F4;
 }
 .BlueBack {
-  background-color: #0288D1;
+  background-color: #A5061F;
 }
 .TurquoiseBack {
   background-color: #26C6DA;

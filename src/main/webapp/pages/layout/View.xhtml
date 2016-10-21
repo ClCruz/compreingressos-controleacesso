@@ -24,9 +24,9 @@
                         <h:outputText value="#{bundle.ViewLayoutLabel_ativo}"/>
                         <p:selectBooleanCheckbox value="#{layoutController.selected.ativo}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewLayoutLabel_imagem}"/>
-                        <o:graphicImage value="#{usuarioController.imagem}" width="174" dataURI="true" />
+                        <o:graphicImage value="#{layoutController.foto}" width="174" dataURI="true" />
                         <h:outputText value="#{bundle.ViewLayoutLabel_localDeControle}"/>
-                        <h:outputText value="#{layoutController.selected.localDeControle}" title="#{bundle.ViewLayoutTitle_localDeControle}"/>
+                        <h:outputText value="#{layoutController.selected.localDeControle.nome}" title="#{bundle.ViewLayoutTitle_localDeControle}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('LayoutViewDialog').hide()"/>
                 </h:panelGroup>

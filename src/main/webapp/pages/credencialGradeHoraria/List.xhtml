@@ -31,19 +31,19 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListCredencialGradeHorariaTitle_gradeHoraria}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.gradeHoraria}"/>
+                                <h:outputText value="#{item.gradeHoraria.descricao}"/>
                             </p:column>
                             <p:column headerText="#{bundle.ListCredencialGradeHorariaTitle_tipoCredencial}" filterBy="#{item.tipoCredencial}" filterMatchMode="contains" sortBy="#{item.tipoCredencial}">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListCredencialGradeHorariaTitle_tipoCredencial}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.tipoCredencial}"/>
+                                <h:outputText value="#{item.tipoCredencial.descricao}"/>
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{credencialGradeHorariaController.prepareCreate}" update=":CredencialGradeHorariaCreateForm" oncomplete="PF('CredencialGradeHorariaCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CredencialGradeHorariaViewForm" oncomplete="PF('CredencialGradeHorariaViewDialog').show()" disabled="#{empty credencialGradeHorariaController.selected}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CredencialGradeHorariaEditForm" oncomplete="PF('CredencialGradeHorariaEditDialog').show()" disabled="#{empty credencialGradeHorariaController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{credencialGradeHorariaController.destroy}" update=":growl,datalist" disabled="#{empty credencialGradeHorariaController.selected}"/>
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{credencialGradeHorariaController.prepareCreate}" update=":CredencialGradeHorariaCreateForm" oncomplete="PF('CredencialGradeHorariaCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":CredencialGradeHorariaViewForm" oncomplete="PF('CredencialGradeHorariaViewDialog').show()" disabled="#{empty credencialGradeHorariaController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":CredencialGradeHorariaEditForm" oncomplete="PF('CredencialGradeHorariaEditDialog').show()" disabled="#{empty credencialGradeHorariaController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{credencialGradeHorariaController.destroy}" update=":growl,datalist" disabled="#{empty credencialGradeHorariaController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </h:form>

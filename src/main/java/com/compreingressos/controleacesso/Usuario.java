@@ -77,7 +77,8 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "cpf")
-    private long cpf;
+    @Cpf
+    private String cpf;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 120)
@@ -161,7 +162,7 @@ public class Usuario implements Serializable {
         this.codigo = codigo;
     }
 
-    public Usuario(Integer codigo, String nome, String sobrenome, long cpf, String endereco, String cep, String email, String senha, String telefone, String telefone2, Date dataHoraAtualizacao, boolean ativo, String numeroEndereco, String foto) {
+    public Usuario(Integer codigo, String nome, String sobrenome, String cpf, String endereco, String cep, String email, String senha, String telefone, String telefone2, Date dataHoraAtualizacao, boolean ativo, String numeroEndereco, String foto) {
         this.codigo = codigo;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -202,11 +203,11 @@ public class Usuario implements Serializable {
         this.sobrenome = sobrenome;
     }
 
-    public long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 

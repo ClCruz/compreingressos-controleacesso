@@ -5,10 +5,14 @@
  */
 package com.compreingressos.controleacesso.bean;
 
-import com.compreingressos.controleacesso.Regiao;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import com.compreingressos.controleacesso.Pais;
+import com.compreingressos.controleacesso.Regiao;
 
 /**
  *
@@ -27,6 +31,11 @@ public class RegiaoFacade extends AbstractFacade<Regiao> {
 
     public RegiaoFacade() {
         super(Regiao.class);
+    }
+    
+    public boolean findRegiaoPais(String regiao, Pais pais){
+    	List<Regiao> lista = em.createNamedQuery("Regiao.findRegiaoPais").setParameter("descricao", regiao).setParameter("pais", pais).getResultList();
+    	return lista.size() > 0 ? false : true;
     }
     
 }

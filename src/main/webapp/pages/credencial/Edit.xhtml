@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CredencialEditDlg" widgetVar="CredencialEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCredencialTitle}">
+            <h:form id="CredencialEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{credencialController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCredencialLabel_numeroTag}" for="numeroTag" />
+                        <p:inputText id="numeroTag" value="#{credencialController.selected.numeroTag}" title="#{bundle.EditCredencialTitle_numeroTag}" required="true" requiredMessage="#{bundle.EditCredencialRequiredMessage_numeroTag}"/>
+                        <p:outputLabel value="#{bundle.EditCredencialLabel_validade}" for="validade" />
+                        <p:calendar id="validade" pattern="#{bundle.formatDate}" value="#{credencialController.selected.validade}" title="#{bundle.EditCredencialTitle_validade}"  showOn="button"/>
+                    	<p:outputLabel value="#{bundle.CreateCredencialLabel_credenciado}" for="credenciado" />
+                   		<p:selectOneMenu id="credenciado" value="#{credencialController.selected.credenciado}" >
+                            <f:selectItems value="#{credenciadoController.itemsAvailableSelectOne}"
+                                           var="credenciadoItem"
+                                           itemValue="#{credenciadoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditCredencialLabel_tipoCredencial}" for="tipoCredencial" />
+                   		<p:selectOneMenu id="tipoCredencial" value="#{credencialController.selected.tipoCredencial}" >
+                            <f:selectItems value="#{tipoCredencialController.itemsAvailableSelectOne}"
+                                           var="tipoCredencialItem"
+                                           itemValue="#{tipoCredencialItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{credencialController.update}" value="#{bundle.Save}" update="display,:CredencialListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CredencialEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('CredencialEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

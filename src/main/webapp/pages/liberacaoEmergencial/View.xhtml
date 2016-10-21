@@ -23,7 +23,7 @@
                             <f:convertDateTime pattern="#{bundle.formatDate}" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewLiberacaoEmergencialLabel_apresentacao}"/>
-                        <h:outputText value="#{liberacaoEmergencialController.selected.apresentacao}" title="#{bundle.ViewLiberacaoEmergencialTitle_apresentacao}"/>
+                        <h:outputText value="#{liberacaoEmergencialController.selected.apresentacao.nome}" title="#{bundle.ViewLiberacaoEmergencialTitle_apresentacao}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('LiberacaoEmergencialViewDialog').hide()"/>
                 </h:panelGroup>

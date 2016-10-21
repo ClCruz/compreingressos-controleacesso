@@ -5,10 +5,16 @@
  */
 package com.compreingressos.controleacesso.bean;
 
-import com.compreingressos.controleacesso.Catraca;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import com.compreingressos.controleacesso.Catraca;
+import com.compreingressos.controleacesso.Layout;
+import com.compreingressos.controleacesso.LocalDeControle;
+import com.compreingressos.controleacesso.Setor;
 
 /**
  *
@@ -29,4 +35,15 @@ public class CatracaFacade extends AbstractFacade<Catraca> {
         super(Catraca.class);
     }
     
+    public List<Layout> findLayout(LocalDeControle localDeControler){
+    	return em.createNamedQuery("LocalDeControle.findLayout", Layout.class).setParameter("localDeControle", localDeControler).getResultList();
+    }
+    
+    public List<Setor> findSetor(Layout layout){
+    	return em.createNamedQuery("Layout.findSetor", Setor.class).setParameter("layout", layout).getResultList();
+    }
+    
+    public Catraca update(Catraca entity){
+    	return (Catraca) getEntityManager().merge(entity);
+    }
 }

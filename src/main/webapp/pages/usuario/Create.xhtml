@@ -11,7 +11,7 @@
         <p:dialog id="UsuarioCreateDlg" widgetVar="UsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsuarioTitle}">
             <h:form enctype="multipart/form-data" id="UsuarioCreateForm" >
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{usuarioController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_nome}" for="nome" />
                         <p:inputText id="nome" value="#{usuarioController.selected.nome}" title="#{bundle.CreateUsuarioTitle_nome}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nome}" >
                             <p:ajax update="foto" event="change"/>
@@ -19,48 +19,50 @@
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_sobrenome}" for="sobrenome" />
                         <p:inputText id="sobrenome" value="#{usuarioController.selected.sobrenome}" title="#{bundle.CreateUsuarioTitle_sobrenome}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_sobrenome}"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_cpf}" for="cpf" />
-                        <p:inputText id="cpf" value="#{usuarioController.selected.cpf}" title="#{bundle.CreateUsuarioTitle_cpf}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_cpf}"/>
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_endereco}" for="endereco" />
-                        <p:inputText id="endereco" value="#{usuarioController.selected.endereco}" title="#{bundle.CreateUsuarioTitle_endereco}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_endereco}"/>
+                        <p:inputMask id="cpf" value="#{usuarioController.selected.cpf}" title="#{bundle.CreateUsuarioTitle_cpf}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_cpf}" mask="999.999.999-99"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_cep}" for="cep" />
-                        <p:inputText id="cep" value="#{usuarioController.selected.cep}" title="#{bundle.CreateUsuarioTitle_cep}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_cep}"/>
+                        <p:inputMask id="cep" value="#{usuarioController.selected.cep}" title="#{bundle.CreateUsuarioTitle_cep}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_cep}" mask="99999-999"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{usuarioController.selected.email}" title="#{bundle.CreateUsuarioTitle_email}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_email}"  validatorMessage="Insira um e-mail válido.">
+                        <p:inputText id="email" value="#{usuarioController.selected.email}" title="#{bundle.CreateUsuarioTitle_email}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_email}" style="width:250px" validatorMessage="Insira um e-mail válido.">
                             <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
                         </p:inputText>    
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_senha}" for="senha" />
-                        <p:inputText id="senha" value="#{usuarioController.selected.senha}" title="#{bundle.CreateUsuarioTitle_senha}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_senha}"/>
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_telefone}" for="telefone" />
-                        <p:inputText id="telefone" value="#{usuarioController.selected.telefone}" title="#{bundle.CreateUsuarioTitle_telefone}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_telefone}"/>
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_telefone2}" for="telefone2" />
-                        <p:inputText id="telefone2" value="#{usuarioController.selected.telefone2}" title="#{bundle.CreateUsuarioTitle_telefone2}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_telefone2}"/>
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_observacao}" for="observacao" />
-                        <p:inputText id="observacao" value="#{usuarioController.selected.observacao}" title="#{bundle.CreateUsuarioTitle_observacao}" />
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_ativo}" for="ativo" />
-                        <p:selectOneMenu id="ativo" value="#{usuarioController.selected.ativo}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_ativo}">
-                            <f:selectItem itemLabel="Ativo" itemValue="true" />
-                            <f:selectItem itemLabel="Inativo" itemValue="false" />
-                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_endereco}" for="endereco" />
+                        <p:inputText id="endereco" value="#{usuarioController.selected.endereco}" title="#{bundle.CreateUsuarioTitle_endereco}" required="true" style="width:250px" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_endereco}"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_numeroEndereco}" for="numeroEndereco" />
                         <p:inputText id="numeroEndereco" value="#{usuarioController.selected.numeroEndereco}" title="#{bundle.CreateUsuarioTitle_numeroEndereco}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_numeroEndereco}"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_complementoEndereco}" for="complementoEndereco" />
                         <p:inputText id="complementoEndereco" value="#{usuarioController.selected.complementoEndereco}" title="#{bundle.CreateUsuarioTitle_complementoEndereco}" />
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_bairro}" for="bairro" />
                         <p:inputText id="bairro" value="#{usuarioController.selected.bairro}" title="#{bundle.CreateUsuarioTitle_bairro}" />
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_foto}" for="foto" />
-                        <p:fileUpload id="foto" fileUploadListener="#{usuarioController.upload}" mode="advanced"  />
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_municipio}" for="municipio" />
                         <p:selectOneMenu id="municipio" value="#{usuarioController.selected.municipio}" >
                             <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"
                                            var="municipioItem"
                                            itemValue="#{municipioItem}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_telefone}" for="telefone" />
+                        <p:inputText id="telefone" value="#{usuarioController.selected.telefone}" title="#{bundle.CreateUsuarioTitle_telefone}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_telefone}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_telefone2}" for="telefone2" />
+                        <p:inputText id="telefone2" value="#{usuarioController.selected.telefone2}" title="#{bundle.CreateUsuarioTitle_telefone2}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_telefone2}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_senha}" for="senha" />
+                        <p:inputText id="senha" value="#{usuarioController.selected.senha}" title="#{bundle.CreateUsuarioTitle_senha}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_senha}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_ativo}" for="ativo" />
+                        <p:selectOneMenu id="ativo" value="#{usuarioController.selected.ativo}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_ativo}">
+                            <f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_foto}" for="foto" />
+                        <p:fileUpload id="foto" fileUploadListener="#{usuarioController.upload}" mode="advanced" auto="true" />
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_tipoUsuario}" for="tipoUsuario" />
                         <p:selectOneMenu id="tipoUsuario" value="#{usuarioController.selected.tipoUsuario}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_tipoUsuario}">
                             <f:selectItems value="#{tipoUsuarioController.itemsAvailableSelectOne}"
                                            var="tipoUsuarioItem"
                                            itemValue="#{tipoUsuarioItem}"/>
                         </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_observacao}" for="observacao" />
+                        <p:inputText id="observacao" value="#{usuarioController.selected.observacao}" title="#{bundle.CreateUsuarioTitle_observacao}" style="width:500px" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('UsuarioCreateDialog').hide()"/>

@@ -31,19 +31,19 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListUsuarioContratanteTitle_contratante}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.contratante}"/>
+                                <h:outputText value="#{item.contratante.nome}"/>
                             </p:column>
                             <p:column headerText="#{bundle.ListUsuarioContratanteTitle_usuario}" filterBy="#{item.usuario}" filterMatchMode="contains" sortBy="#{item.usuario}">
                                 <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListUsuarioContratanteTitle_usuario}"/>
+                                    <h:outputText value="#{bundle.ListUsuarioContratanteTitle_usuario} "/>
                                 </f:facet>
-                                <h:outputText value="#{item.usuario}"/>
+                                <h:outputText value="#{item.usuario.nome} #{item.usuario.sobrenome}"/>
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuarioContratanteController.prepareCreate}" update=":UsuarioContratanteCreateForm" oncomplete="PF('UsuarioContratanteCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":UsuarioContratanteViewForm" oncomplete="PF('UsuarioContratanteViewDialog').show()" disabled="#{empty usuarioContratanteController.selected}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UsuarioContratanteEditForm" oncomplete="PF('UsuarioContratanteEditDialog').show()" disabled="#{empty usuarioContratanteController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{usuarioContratanteController.destroy}" update=":growl,datalist" disabled="#{empty usuarioContratanteController.selected}"/>
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{usuarioContratanteController.prepareCreate}" update=":UsuarioContratanteCreateForm" oncomplete="PF('UsuarioContratanteCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":UsuarioContratanteViewForm" oncomplete="PF('UsuarioContratanteViewDialog').show()" disabled="#{empty usuarioContratanteController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":UsuarioContratanteEditForm" oncomplete="PF('UsuarioContratanteEditDialog').show()" disabled="#{empty usuarioContratanteController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{usuarioContratanteController.destroy}" update=":growl,datalist" disabled="#{empty usuarioContratanteController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </h:form>

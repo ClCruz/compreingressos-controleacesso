@@ -20,9 +20,9 @@
                         <p:selectOneMenu id="regiao" value="#{estadoController.selected.regiao}" >
                             <f:selectItems value="#{regiaoController.itemsAvailableSelectOne}"
                                            var="regiaoItem"
-                                           itemValue="#{regiaoItem}"/>
+                                           itemValue="#{regiaoItem}"
+                                           itemLabel="#{regiaoItem.descricaoRegiao} - #{regiaoItem.pais.descricaoPais}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateEstadoLabel_usuario}" for="usuario" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{estadoController.create}" value="#{bundle.Save}" update="display,:EstadoListForm:datalist,:growl" oncomplete="handleSubmit(args,'EstadoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('EstadoCreateDialog').hide()"/>

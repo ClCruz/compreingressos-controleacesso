@@ -15,7 +15,7 @@
                 </a>
                 <ul>
                 	<h:form>
-                    	<li><p:commandLink id="ajax" action="#{loginController.logout()}"><i class="icon-thermostat1 Fs16"></i> Sair</p:commandLink></li>
+                    	<li><p:commandLink id="ajax" action="#{loginController.logout()}"><i class="icon fa fa-power-off"></i> Sair</p:commandLink></li>
                 	</h:form>
                 </ul>
             </li>
@@ -23,38 +23,54 @@
         <div class="Separator"></div>
 
         <pr:menu>
-            <p:menuitem id="rm_dashboard" value="Inicio" icon="icon-planet29" outcome="/index.xhtml"/>
-            <p:menuitem id="rm_acessoCatraca" value="Acesso Catraca" icon="icon-keyboard53" outcome="/pages/acessoCatraca/List.xhtml"/>
-            <p:menuitem id="rm_apresentacao" value="Apresentação" icon="icon-keyboard53" outcome="/pages/apresentacao/List.xhtml"/>
-            <p:menuitem id="rm_catraca" value="Catraca" icon="icon-keyboard53" outcome="/pages/catraca/List.xhtml"/>
-            <p:menuitem id="rm_catracaSetor" value="Catraca Setor" icon="icon-keyboard53" outcome="/pages/catracaSetor/List.xhtml"/>
-            <p:menuitem id="rm_contratante" value="Contratante" icon="icon-keyboard53" outcome="/pages/contratante/List.xhtml"/>
-            <p:menuitem id="rm_credenciado" value="Credenciado" icon="icon-keyboard53" outcome="/pages/credenciado/List.xhtml"/>
-            <p:menuitem id="rm_credenciadoGradeHoraria" value="Credenciado Grade Horária" icon="icon-keyboard53" outcome="/pages/credencialGradeHoraria/List.xhtml"/>
-            <p:menuitem id="rm_estado" value="Estado" icon="icon-keyboard53" outcome="/pages/estado/List.xhtml"/>
-            <p:menuitem id="rm_evento" value="Evento" icon="icon-keyboard53" outcome="/pages/evento/List.xhtml"/>
-            <p:menuitem id="rm_fabricante" value="Fabricante" icon="icon-keyboard53" outcome="/pages/fabricante/List.xhtml"/>
-            <p:menuitem id="rm_falha" value="Falha" icon="icon-keyboard53" outcome="/pages/falha/List.xhtml"/>
-            <p:menuitem id="rm_ingressoInvalido" value="Ingresso Inválido" icon="icon-keyboard53" outcome="/pages/ingressoInvalido/List.xhtml"/>
-            <p:menuitem id="rm_ingressoVendido" value="Ingresso Vendido" icon="icon-keyboard53" outcome="/pages/ingressoVendido/List.xhtml"/>
-            <p:menuitem id="rm_layout" value="Layout" icon="icon-keyboard53" outcome="/pages/layout/List.xhtml"/>
-            <p:menuitem id="rm_liberacaoEmergencial" value="Liberação Emergencial" icon="icon-keyboard53" outcome="/pages/liberacaoEmergencial/List.xhtml"/>
-            <p:menuitem id="rm_localDeControle" value="Local de Controle" icon="icon-keyboard53" outcome="/pages/localDeControle/List.xhtml"/>
-            <p:menuitem id="rm_modeloCatraca" value="Modelo Catraca" icon="icon-keyboard53" outcome="/pages/modeloCatraca/List.xhtml"/>
-            <p:menuitem id="rm_municipio" value="Município" icon="icon-keyboard53" outcome="/pages/municipio/List.xhtml"/>
-            <p:menuitem id="rm_pais" value="País" icon="icon-keyboard53" outcome="/pages/pais/List.xhtml"/>
-            <p:menuitem id="rm_programa" value="Programa" icon="icon-keyboard53" outcome="/pages/programa/List.xhtml"/>
-            <p:menuitem id="rm_regiao" value="Região" icon="icon-keyboard53" outcome="/pages/regiao/List.xhtml"/>
-            <p:menuitem id="rm_setor" value="Setor" icon="icon-keyboard53" outcome="/pages/setor/List.xhtml"/>
-            <p:menuitem id="rm_setorCredencial" value="Setor Credencial" icon="icon-keyboard53" outcome="/pages/setorCredencial/List.xhtml"/>
-            <p:menuitem id="rm_tipoCredencial" value="Tipo Credencial" icon="icon-keyboard53" outcome="/pages/tipoCredencial/List.xhtml"/>
-            <p:menuitem id="rm_tipoUsuario" value="Tipo Usuário" icon="icon-keyboard53" outcome="/pages/tipoUsuario/List.xhtml"/>
-            <p:menuitem id="rm_tipoUsuarioPrograma" value="Tipo Usuário Programa" icon="icon-keyboard53" outcome="/pages/tipoUsuarioPrograma/List.xhtml"/>
-            <p:menuitem id="rm_usuario" value="Usuário" icon="icon-keyboard53" outcome="/pages/usuario/List.xhtml"/>
-            <p:menuitem id="rm_usuarioContratante" value="Usuário Contratante" icon="icon-keyboard53" outcome="/pages/usuarioContratante/List.xhtml"/>
-            <p:separator />
-        </pr:menu>
-
+        	<p:menuitem id="rm_dashboard" value="Inicio" icon="fa fa-home" outcome="/index.xhtml"/>
+        		<p:submenu label="Parâmetros" icon="icon-menu55">
+        			<p:submenu label="Regiões Geograficas" icon="fa fa-map-marker">
+        			<p:menuitem id="rm_estado" value="Estado" icon="icon-location41" outcome="/pages/estado/List.xhtml"/>
+        			<p:menuitem id="rm_municipio" value="Município" icon="icon-location41" outcome="/pages/municipio/List.xhtml"/>
+            		<p:menuitem id="rm_pais" value="País" icon="icon-location41" outcome="/pages/pais/List.xhtml"/>
+            		<p:menuitem id="rm_regiao" value="Região" icon="icon-location41" outcome="/pages/regiao/List.xhtml"/>
+        		</p:submenu>
+        		<p:submenu label="Controle de Acesso" icon="icon-menu55">
+        			<p:menuitem id="rm_programa" value="Programa" icon="icon-browser" outcome="/pages/programa/List.xhtml"/>
+        			<p:menuitem id="rm_tipoUsuario" value="Tipo Usuário" icon="icon-user" outcome="/pages/tipoUsuario/List.xhtml"/>
+        			<p:menuitem id="rm_usuario" value="Usuário" icon="icon-user" outcome="/pages/usuario/List.xhtml"/>
+            		<p:menuitem id="rm_tipoUsuarioPrograma" value="Tipo Usuário Programa" icon="icon-user" outcome="/pages/tipoUsuarioPrograma/List.xhtml"/>
+        			<p:menuitem id="rm_usuarioContratante" value="Usuário x Contratantes" icon="icon-users" outcome="/pages/usuarioContratante/List.xhtml"/>
+        		</p:submenu>
+        	</p:submenu>
+        	<p:submenu label="Eventos" icon="icon-menu55">
+        		<p:menuitem id="rm_contratante" value="Contratantes" icon="icon-compose" outcome="/pages/contratante/List.xhtml"/>
+        		<p:menuitem id="rm_localDeControle" value="Locais de Eventos" icon="icon-location41" outcome="/pages/localDeControle/List.xhtml"/>
+        		<p:menuitem id="rm_layout" value="Layout do Local" icon="fa fa-image" outcome="/pages/layout/List.xhtml"/>
+            	<p:menuitem id="rm_setor" value="Setores" icon="icon-add186" outcome="/pages/setor/List.xhtml"/>
+            	<p:menuitem id="rm_evento" value="Eventos" icon="icon-calendar" outcome="/pages/evento/List.xhtml"/>
+        		<p:menuitem id="rm_apresentacao" value="Apresentações" icon="icon-add186" outcome="/pages/apresentacao/List.xhtml"/>
+        	</p:submenu>
+        	<p:submenu label="Catraca" icon="icon-menu55">
+        		<p:menuitem id="rm_fabricante" value="Fabricante" icon="icon-add186" outcome="/pages/fabricante/List.xhtml"/>
+        		<p:menuitem id="rm_modeloCatraca" value="Modelo Catraca" icon="icon-add186" outcome="/pages/modeloCatraca/List.xhtml"/>
+        		<p:menuitem id="rm_catraca" value="Catraca" icon="icon-add186" outcome="/pages/catraca/List.xhtml"/>
+        		<p:menuitem id="rm_catracaSetor" value="Catraca Setor" icon="icon-add186" outcome="/pages/catracaSetor/List.xhtml"/>
+        		<p:menuitem id="rm_acessoCatraca" value="Acesso Catraca" icon="icon-add186" outcome="/pages/acessoCatraca/List.xhtml"/>
+            	<p:menuitem id="rm_falha" value="Falha" icon="icon-warning37" outcome="/pages/falha/List.xhtml"/>
+            	<p:menuitem id="rm_liberacaoEmergencial" value="Liberação Emergencial" icon="icon-warning37" outcome="/pages/liberacaoEmergencial/List.xhtml"/>
+        	</p:submenu>
+        	<p:submenu label="Credenciamento" icon="icon-menu55">
+        		<p:menuitem id="rm_tipoCredencial" value="Tipo Credencial" icon="icon-add186" outcome="/pages/tipoCredencial/List.xhtml"/>
+        		<p:menuitem id="rm_setorCredencial" value="Setor Credencial" icon="icon-add186" outcome="/pages/setorCredencial/List.xhtml"/>
+        		<p:menuitem id="rm_credenciado" value="Credenciado" icon="icon-user" outcome="/pages/credenciado/List.xhtml"/>
+        		<p:menuitem id="rm_credencial" value="Credencial" icon="icon-user" outcome="/pages/credencial/List.xhtml"/>
+        		<p:menuitem id="rm_gradeHoraria" value="Grade Horaria" icon="icon-clock" outcome="/pages/gradeHoraria/List.xhtml"/>
+            	<p:menuitem id="rm_credenciadoGradeHoraria" value="Credenciado Grade Horária" icon="icon-clock" outcome="/pages/credencialGradeHoraria/List.xhtml"/>
+        	</p:submenu>
+        	<p:submenu label="Temporario" icon="icon-menu55">
+        		<p:menuitem id="rm_ingressoInvalido" value="Ingresso Inválido" icon="icon-keyboard53" outcome="/pages/ingressoInvalido/List.xhtml"/>
+            	<p:menuitem id="rm_ingressoVendido" value="Ingresso Vendido" icon="icon-keyboard53" outcome="/pages/ingressoVendido/List.xhtml"/>
+        	</p:submenu>
+        	
+        	</pr:menu>
+		<div class="Separator"></div>
     </div>
 
 </ui:composition>

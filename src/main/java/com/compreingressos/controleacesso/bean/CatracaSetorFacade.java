@@ -5,7 +5,11 @@
  */
 package com.compreingressos.controleacesso.bean;
 
+import java.util.List;
+
+import com.compreingressos.controleacesso.Catraca;
 import com.compreingressos.controleacesso.CatracaSetor;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,5 +32,10 @@ public class CatracaSetorFacade extends AbstractFacade<CatracaSetor> {
     public CatracaSetorFacade() {
         super(CatracaSetor.class);
     }
+
+	@SuppressWarnings("unchecked")
+	public List<CatracaSetor> findAll(Catraca catraca) {
+		return em.createNamedQuery("CatracaSetor.findByCatraca").setParameter("codigo", catraca).getResultList();
+	}
     
 }

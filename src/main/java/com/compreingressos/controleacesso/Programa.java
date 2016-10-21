@@ -179,7 +179,7 @@ public class Programa implements Serializable {
 
     @Override
     public String toString() {
-        return codigo.toString();
+        return descricao;
     }
     
 }

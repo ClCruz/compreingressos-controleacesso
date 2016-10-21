@@ -19,7 +19,7 @@
                         <h:outputText value="#{bundle.ViewModeloCatracaLabel_ativo}"/>
                         <p:selectBooleanCheckbox value="#{modeloCatracaController.selected.ativo}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewModeloCatracaLabel_fabricante}"/>
-                        <h:outputText value="#{modeloCatracaController.selected.fabricante}" title="#{bundle.ViewModeloCatracaTitle_fabricante}"/>
+                        <h:outputText value="#{modeloCatracaController.selected.fabricante.nome}" title="#{bundle.ViewModeloCatracaTitle_fabricante}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('ModeloCatracaViewDialog').hide()"/>
                 </h:panelGroup>

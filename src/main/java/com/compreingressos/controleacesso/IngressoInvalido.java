@@ -46,7 +46,7 @@ public class IngressoInvalido implements Serializable {
     private Date dataHoraAtualizacao;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JoinColumn(name = "ingressoVendido", referencedColumnName = "codigo")
+    @JoinColumn(name = "ingressoVendido", referencedColumnName = "codigo", insertable = true, updatable = true)
     @OneToOne(optional=false)
     private IngressoVendido ingressoVendido;
     @Size(max = 60)

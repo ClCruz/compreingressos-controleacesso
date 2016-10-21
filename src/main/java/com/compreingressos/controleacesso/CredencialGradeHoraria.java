@@ -39,10 +39,9 @@ public class CredencialGradeHoraria implements Serializable {
     @Basic(optional = false)
     @Column(name = "codigo")
     private Integer codigo;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "gradeHoraria")
-    private int gradeHoraria;
+    @JoinColumn(name = "gradeHoraria")
+    @ManyToOne(optional = false)
+    private GradeHoraria gradeHoraria;
     @JoinColumn(name = "tipoCredencial", referencedColumnName = "codigo")
     @ManyToOne(optional = false)
     private TipoCredencial tipoCredencial;
@@ -54,7 +53,7 @@ public class CredencialGradeHoraria implements Serializable {
         this.codigo = codigo;
     }
 
-    public CredencialGradeHoraria(Integer codigo, int gradeHoraria) {
+    public CredencialGradeHoraria(Integer codigo, GradeHoraria gradeHoraria) {
         this.codigo = codigo;
         this.gradeHoraria = gradeHoraria;
     }
@@ -67,11 +66,11 @@ public class CredencialGradeHoraria implements Serializable {
         this.codigo = codigo;
     }
 
-    public int getGradeHoraria() {
+    public GradeHoraria getGradeHoraria() {
         return gradeHoraria;
     }
 
-    public void setGradeHoraria(int gradeHoraria) {
+    public void setGradeHoraria(GradeHoraria gradeHoraria) {
         this.gradeHoraria = gradeHoraria;
     }
 

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GradeHorariaViewDlg" widgetVar="GradeHorariaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGradeHorariaTitle}">
+            <h:form id="GradeHorariaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gradeHorariaController.selected != null}">
+                        <h:outputText value="#{bundle.ViewGradeHorariaLabel_codigo}"/>
+                        <h:outputText value="#{gradeHorariaController.selected.codigo}" title="#{bundle.ViewGradeHorariaTitle_codigo}"/>
+                        <h:outputText value="#{bundle.ViewGradeHorariaLabel_descricao}"/>
+                        <h:outputText value="#{gradeHorariaController.selected.descricao}" title="#{bundle.ViewGradeHorariaTitle_descricao}"/>
+                        <h:outputText value="#{bundle.ViewGradeHorariaLabel_domingo}"/>
+                        <p:selectBooleanCheckbox value="#{gradeHorariaController.selected.domingo}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewGradeHorariaLabel_segunda}"/>
+                        <p:selectBooleanCheckbox value="#{gradeHorariaController.selected.segunda}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewGradeHorariaLabel_terca}"/>
+                        <p:selectBooleanCheckbox value="#{gradeHorariaController.selected.terca}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewGradeHorariaLabel_qiuarta}"/>
+                        <p:selectBooleanCheckbox value="#{gradeHorariaController.selected.qiuarta}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewGradeHorariaLabel_quinta}"/>
+                        <p:selectBooleanCheckbox value="#{gradeHorariaController.selected.quinta}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewGradeHorariaLabel_sexta}"/>
+                        <p:selectBooleanCheckbox value="#{gradeHorariaController.selected.sexta}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewGradeHorariaLabel_sabado}"/>
+                        <p:selectBooleanCheckbox value="#{gradeHorariaController.selected.sabado}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewGradeHorariaLabel_horaMinima}"/>
+                        <h:outputText value="#{gradeHorariaController.selected.horaMinima}" title="#{bundle.ViewGradeHorariaTitle_horaMinima}"/>
+                        <h:outputText value="#{bundle.ViewGradeHorariaLabel_horaMaxima}"/>
+                        <h:outputText value="#{gradeHorariaController.selected.horaMaxima}" title="#{bundle.ViewGradeHorariaTitle_horaMaxima}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('GradeHorariaViewDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

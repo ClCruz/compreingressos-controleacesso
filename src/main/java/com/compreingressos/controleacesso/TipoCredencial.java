@@ -62,6 +62,10 @@ public class TipoCredencial implements Serializable {
     @NotNull
     @Column(name = "ativo")
     private boolean ativo = true;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "devolveTag")
+    private boolean devolveTag = true;
     @JoinColumn(name = "contratante", referencedColumnName = "codigo")
     @ManyToOne(optional = false)
     private Contratante contratante;
@@ -69,6 +73,8 @@ public class TipoCredencial implements Serializable {
     private Collection<SetorCredencial> setorCredencialCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoCredencial")
     private Collection<CredencialGradeHoraria> credencialGradeHorariaCollection;
+    @OneToMany(mappedBy = "tipoCredencial")
+    private Collection<Credencial> credencialCollection;
 
     public TipoCredencial() {
     }
@@ -77,11 +83,12 @@ public class TipoCredencial implements Serializable {
         this.codigo = codigo;
     }
 
-    public TipoCredencial(Integer codigo, String descricao, Date dataHoraAtualizacao, boolean ativo) {
+    public TipoCredencial(Integer codigo, String descricao, Date dataHoraAtualizacao, boolean ativo, boolean devolveTag) {
         this.codigo = codigo;
         this.descricao = descricao;
         this.dataHoraAtualizacao = dataHoraAtualizacao;
         this.ativo = ativo;
+        this.devolveTag = devolveTag;
     }
 
     public Integer getCodigo() {
@@ -115,8 +122,16 @@ public class TipoCredencial implements Serializable {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
+    
+    public boolean getDevolveTag() {
+		return devolveTag;
+	}
 
-    public Contratante getContratante() {
+	public void setDevolveTag(boolean devolveTag) {
+		this.devolveTag = devolveTag;
+	}
+
+	public Contratante getContratante() {
         return contratante;
     }
 
@@ -142,6 +157,15 @@ public class TipoCredencial implements Serializable {
         this.credencialGradeHorariaCollection = credencialGradeHorariaCollection;
     }
 
+    @XmlTransient
+    public Collection<Credencial> getCredencialCollection() {
+        return credencialCollection;
+    }
+
+    public void setCredencialCollection(Collection<Credencial> credencialCollection) {
+        this.credencialCollection = credencialCollection;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -164,7 +188,7 @@ public class TipoCredencial implements Serializable {
 
     @Override
     public String toString() {
-        return codigo.toString();
+        return descricao;
     }
     
 }

@@ -23,7 +23,7 @@
                         <h:outputText value="#{bundle.ViewEstadoLabel_uf}"/>
                         <h:outputText value="#{estadoController.selected.uf}" title="#{bundle.ViewEstadoTitle_uf}"/>
                         <h:outputText value="#{bundle.ViewEstadoLabel_regiao}"/>
-                        <h:outputText value="#{estadoController.selected.regiao}" title="#{bundle.ViewEstadoTitle_regiao}"/>
+                        <h:outputText value="#{estadoController.selected.regiao.descricaoRegiao} - #{estadoController.selected.regiao.pais}" title="#{bundle.ViewEstadoTitle_regiao}"/>
                         <h:outputText value="#{bundle.ViewEstadoLabel_usuario}"/>
                         <h:outputText value="#{estadoController.selected.usuario.nome} #{estadoController.selected.usuario.sobrenome}" title="#{bundle.ViewEstadoTitle_usuario}"/>
                     </p:panelGrid>

@@ -22,9 +22,9 @@
                         <h:outputText value="#{regiaoController.selected.descricaoRegiao}" title="#{bundle.ViewRegiaoTitle_descricaoRegiao}"/>
                         
                         <h:outputText value="#{bundle.ViewRegiaoLabel_pais}"/>
-                        <h:outputText value="#{regiaoController.selected.pais}" title="#{bundle.ViewRegiaoTitle_pais}"/>
+                        <h:outputText value="#{regiaoController.selected.pais.descricaoPais}" title="#{bundle.ViewRegiaoTitle_pais}"/>
                         <h:outputText value="#{bundle.ViewRegiaoLabel_usuario}"/>
-                        <h:outputText value="#{regiaoController.selected.usuario}" title="#{bundle.ViewRegiaoTitle_usuario}"/>
+                        <h:outputText value="#{regiaoController.selected.usuario.nome} #{regiaoController.selected.usuario.nome}" title="#{bundle.ViewRegiaoTitle_usuario}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('RegiaoViewDialog').hide()"/>
                 </h:panelGroup>

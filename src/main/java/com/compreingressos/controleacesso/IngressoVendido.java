@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -62,8 +61,8 @@ public class IngressoVendido implements Serializable {
     @Basic(optional = false)
     @Column(name = "codigo")
     private Long codigo;
-    @OneToMany(mappedBy = "ingressoVendido")
-    private Collection<IngressoInvalido> ingressoInvalido;
+    @OneToOne(mappedBy = "ingressoVendido")
+    private IngressoInvalido ingressoInvalido;
     @OneToMany(mappedBy = "ingressoVendido")
     private Collection<AcessoCatraca> acessoCatracaCollection;
     @JoinColumn(name = "apresentacao", referencedColumnName = "codigo")
@@ -118,15 +117,14 @@ public class IngressoVendido implements Serializable {
         this.codigo = codigo;
     }
 
-    @XmlTransient
-    public Collection<IngressoInvalido> getIngressoInvalido() {
-        return ingressoInvalido;
-    }
-
-    public void setIngressoInvalido(Collection<IngressoInvalido> ingressoInvalido) {
-        this.ingressoInvalido = ingressoInvalido;
-    }
-
+    public IngressoInvalido getIngressoInvalido() {
+		return ingressoInvalido;
+	}
+    
+    public void setIngressoInvalido(IngressoInvalido ingressoInvalido) {
+		this.ingressoInvalido = ingressoInvalido;
+	}
+    
     @XmlTransient
     public Collection<AcessoCatraca> getAcessoCatracaCollection() {
         return acessoCatracaCollection;

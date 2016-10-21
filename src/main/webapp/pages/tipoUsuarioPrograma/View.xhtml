@@ -19,9 +19,9 @@
                             <f:convertDateTime pattern="#{bundle.formatDate}" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewTipoUsuarioProgramaLabel_programa}"/>
-                        <h:outputText value="#{tipoUsuarioProgramaController.selected.programa}" title="#{bundle.ViewTipoUsuarioProgramaTitle_programa}"/>
+                        <h:outputText value="#{tipoUsuarioProgramaController.selected.programa.descricao}" title="#{bundle.ViewTipoUsuarioProgramaTitle_programa}"/>
                         <h:outputText value="#{bundle.ViewTipoUsuarioProgramaLabel_tipoUsuario}"/>
-                        <h:outputText value="#{tipoUsuarioProgramaController.selected.tipoUsuario}" title="#{bundle.ViewTipoUsuarioProgramaTitle_tipoUsuario}"/>
+                        <h:outputText value="#{tipoUsuarioProgramaController.selected.tipoUsuario.descricaoTipoUsuario}" title="#{bundle.ViewTipoUsuarioProgramaTitle_tipoUsuario}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('TipoUsuarioProgramaViewDialog').hide()"/>
                 </h:panelGroup>

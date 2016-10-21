@@ -17,9 +17,9 @@
                             <f:convertDateTime pattern="#{bundle.formatDate}" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewUsuarioContratanteLabel_contratante}"/>
-                        <h:outputText value="#{usuarioContratanteController.selected.contratante}" title="#{bundle.ViewUsuarioContratanteTitle_contratante}"/>
+                        <h:outputText value="#{usuarioContratanteController.selected.contratante.nome}" title="#{bundle.ViewUsuarioContratanteTitle_contratante}"/>
                         <h:outputText value="#{bundle.ViewUsuarioContratanteLabel_usuario}"/>
-                        <h:outputText value="#{usuarioContratanteController.selected.usuario}" title="#{bundle.ViewUsuarioContratanteTitle_usuario}"/>
+                        <h:outputText value="#{usuarioContratanteController.selected.usuario.nome} #{usuarioContratanteController.selected.usuario.sobrenome}" title="#{bundle.ViewUsuarioContratanteTitle_usuario}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('UsuarioContratanteViewDialog').hide()"/>
                 </h:panelGroup>

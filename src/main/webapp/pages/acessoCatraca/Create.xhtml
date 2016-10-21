@@ -12,7 +12,7 @@
             <h:form id="AcessoCatracaCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{acessoCatracaController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateAcessoCatracaLabel_dataHoraAcesso}" for="dataHoraAcesso" />
+                          <p:outputLabel value="#{bundle.CreateAcessoCatracaLabel_dataHoraAcesso}" for="dataHoraAcesso" />
                         <p:calendar id="dataHoraAcesso" pattern="#{bundle.formatDate}" value="#{acessoCatracaController.selected.dataHoraAcesso}" title="#{bundle.EditAcessoCatracaTitle_dataHoraAcesso}" required="true" requiredMessage="#{bundle.EditAcessoCatracaRequiredMessage_dataHoraAcesso}" showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateAcessoCatracaLabel_acesso}" for="acesso" />
                         <p:selectBooleanCheckbox id="acesso" value="#{acessoCatracaController.selected.acesso}" required="true" requiredMessage="#{bundle.EditAcessoCatracaRequiredMessage_acesso}"/>
@@ -42,7 +42,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{acessoCatracaController.create}" value="#{bundle.Save}" update="display,:AcessoCatracaListForm:datalist,:growl" oncomplete="handleSubmit(args,'AcessoCatracaCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('AcessoCatracaCreateDialog').hide()"/>
+					<p:commandButton value="#{bundle.Cancel}" onclick="PF('AcessoCatracaCreateDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -51,10 +51,10 @@
                                 <h:outputText value="#{item.logotipo}"/>
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{contratanteController.prepareCreate}" update=":ContratanteCreateForm" oncomplete="PF('ContratanteCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ContratanteViewForm" oncomplete="PF('ContratanteViewDialog').show()" disabled="#{empty contratanteController.selected}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ContratanteEditForm" oncomplete="PF('ContratanteEditDialog').show()" disabled="#{empty contratanteController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{contratanteController.destroy}" update=":growl,datalist" disabled="#{empty contratanteController.selected}"/>
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{contratanteController.prepareCreate}" update=":ContratanteCreateForm" oncomplete="PF('ContratanteCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":ContratanteViewForm" oncomplete="PF('ContratanteViewDialog').show()" disabled="#{empty contratanteController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":ContratanteEditForm" oncomplete="PF('ContratanteEditDialog').show()" disabled="#{empty contratanteController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{contratanteController.destroy}" update=":growl,datalist" disabled="#{empty contratanteController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </h:form>

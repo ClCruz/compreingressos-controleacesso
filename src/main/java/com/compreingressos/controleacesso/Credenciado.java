@@ -131,6 +131,8 @@ public class Credenciado implements Serializable {
     @JoinColumn(name = "municipio", referencedColumnName = "codigo")
     @ManyToOne
     private Municipio municipio;
+    @OneToMany(mappedBy = "credenciado")
+    private Collection<Credencial> credencialCollection;
 
     public Credenciado() {
     }
@@ -292,6 +294,15 @@ public class Credenciado implements Serializable {
 
     public void setAcessoCatracaCollection(Collection<AcessoCatraca> acessoCatracaCollection) {
         this.acessoCatracaCollection = acessoCatracaCollection;
+    }
+    
+    @XmlTransient
+    public Collection<Credencial> getCredencialCollection() {
+        return credencialCollection;
+    }
+
+    public void setCredencialCollection(Collection<Credencial> credencialCollection) {
+        this.credencialCollection = credencialCollection;
     }
 
     public Contratante getEmpresa() {

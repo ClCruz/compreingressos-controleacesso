@@ -32,11 +32,11 @@
                         <h:outputText value="#{bundle.ViewEventoLabel_ativo}"/>
                         <p:selectBooleanCheckbox value="#{eventoController.selected.ativo}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewEventoLabel_logotipo}"/>
-                        <o:graphicImage value="#{usuarioController.imagem}" width="174" dataURI="true" />
-                        <h:outputText value="#{bundle.ViewEventoLabel_layout}"/>
-                        <h:outputText value="#{eventoController.selected.layout}" title="#{bundle.ViewEventoTitle_layout}"/>
+                        <o:graphicImage value="#{eventoController.logo}" width="174" dataURI="true" />
                         <h:outputText value="#{bundle.ViewEventoLabel_localDeControle}"/>
-                        <h:outputText value="#{eventoController.selected.localDeControle}" title="#{bundle.ViewEventoTitle_localDeControle}"/>
+                        <h:outputText value="#{eventoController.selected.localDeControle.nome}" title="#{bundle.ViewEventoTitle_localDeControle}"/>
+                        <h:outputText value="#{bundle.ViewEventoLabel_layout}"/>
+                        <h:outputText value="#{eventoController.selected.layout.nome}" title="#{bundle.ViewEventoTitle_layout}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('EventoViewDialog').hide()"/>
                 </h:panelGroup>

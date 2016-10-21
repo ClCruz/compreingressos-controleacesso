@@ -33,7 +33,7 @@
                         <h:outputText value="#{bundle.ViewLocalDeControleLabel_contratante}"/>
                         <h:outputText value="#{localDeControleController.selected.contratante}" title="#{bundle.ViewLocalDeControleTitle_contratante}"/>
                         <h:outputText value="#{bundle.ViewLocalDeControleLabel_municipio}"/>
-                        <h:outputText value="#{localDeControleController.selected.municipio}" title="#{bundle.ViewLocalDeControleTitle_municipio}"/>
+                        <h:outputText value="#{localDeControleController.selected.municipio.nome}" title="#{bundle.ViewLocalDeControleTitle_municipio}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('LocalDeControleViewDialog').hide()"/>
                 </h:panelGroup>

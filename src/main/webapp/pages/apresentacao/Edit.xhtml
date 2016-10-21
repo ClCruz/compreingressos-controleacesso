@@ -12,6 +12,12 @@
             <h:form id="ApresentacaoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{apresentacaoController.selected != null}">
+                    	<p:selectOneMenu id="evento" value="#{apresentacaoController.selected.evento}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{eventoController.itemsAvailableSelectOne}"
+                                           var="eventoItem"
+                                           itemValue="#{eventoItem}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditApresentacaoLabel_nome}" for="nome" />
                         <p:inputText id="nome" value="#{apresentacaoController.selected.nome}" title="#{bundle.EditApresentacaoTitle_nome}" required="true" requiredMessage="#{bundle.EditApresentacaoRequiredMessage_nome}"/>
                         <p:outputLabel value="#{bundle.EditApresentacaoLabel_dataHoraInicio}" for="dataHoraInicio" />
@@ -26,12 +32,6 @@
                         <p:outputLabel value="#{bundle.EditApresentacaoLabel_validaEstorno}" for="validaEstorno" />
                         <p:selectBooleanCheckbox id="validaEstorno" value="#{apresentacaoController.selected.validaEstorno}" required="true" requiredMessage="#{bundle.EditApresentacaoRequiredMessage_validaEstorno}"/>
                         <p:outputLabel value="#{bundle.EditApresentacaoLabel_evento}" for="evento" />
-                        <p:selectOneMenu id="evento" value="#{apresentacaoController.selected.evento}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{eventoController.itemsAvailableSelectOne}"
-                                           var="eventoItem"
-                                           itemValue="#{eventoItem}"/>
-                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{apresentacaoController.update}" value="#{bundle.Save}" update="display,:ApresentacaoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ApresentacaoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('ApresentacaoEditDialog').hide()"/>

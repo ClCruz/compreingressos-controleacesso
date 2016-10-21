@@ -12,7 +12,7 @@
         <p:dialog id="UsuarioViewDlg" widgetVar="UsuarioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUsuarioTitle}">
             <h:form id="UsuarioViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{usuarioController.selected != null}">
                         <h:outputText value="#{bundle.ViewUsuarioLabel_codigo}"/>
                         <h:outputText value="#{usuarioController.selected.codigo}" title="#{bundle.ViewUsuarioTitle_codigo}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_dataHoraAtualizacao}"/>
@@ -25,34 +25,36 @@
                         <h:outputText value="#{usuarioController.selected.sobrenome}" title="#{bundle.ViewUsuarioTitle_sobrenome}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_cpf}"/>
                         <h:outputText value="#{usuarioController.selected.cpf}" title="#{bundle.ViewUsuarioTitle_cpf}"/>
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_endereco}"/>
-                        <h:outputText value="#{usuarioController.selected.endereco}" title="#{bundle.ViewUsuarioTitle_endereco}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_cep}"/>
                         <h:outputText value="#{usuarioController.selected.cep}" title="#{bundle.ViewUsuarioTitle_cep}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_email}"/>
                         <h:outputText value="#{usuarioController.selected.email}" title="#{bundle.ViewUsuarioTitle_email}"/>
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_senha}"/>
-                        <h:outputText value="#{usuarioController.selected.senha}" title="#{bundle.ViewUsuarioTitle_senha}"/>
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_telefone}"/>
-                        <h:outputText value="#{usuarioController.selected.telefone}" title="#{bundle.ViewUsuarioTitle_telefone}"/>
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_telefone2}"/>
-                        <h:outputText value="#{usuarioController.selected.telefone2}" title="#{bundle.ViewUsuarioTitle_telefone2}"/>
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_observacao}"/>
-                        <h:outputText value="#{usuarioController.selected.observacao}" title="#{bundle.ViewUsuarioTitle_observacao}"/>
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_ativo}"/>
-                        <p:selectBooleanCheckbox value="#{usuarioController.selected.ativo}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_endereco}"/>
+                        <h:outputText value="#{usuarioController.selected.endereco}" title="#{bundle.ViewUsuarioTitle_endereco}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_numeroEndereco}"/>
                         <h:outputText value="#{usuarioController.selected.numeroEndereco}" title="#{bundle.ViewUsuarioTitle_numeroEndereco}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_complementoEndereco}"/>
                         <h:outputText value="#{usuarioController.selected.complementoEndereco}" title="#{bundle.ViewUsuarioTitle_complementoEndereco}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_bairro}"/>
                         <h:outputText value="#{usuarioController.selected.bairro}" title="#{bundle.ViewUsuarioTitle_bairro}"/>
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_foto}"/>
-                        <o:graphicImage value="#{usuarioController.imagem}" width="174" dataURI="true" />
                         <h:outputText value="#{bundle.ViewUsuarioLabel_municipio}"/>
                         <h:outputText value="#{usuarioController.selected.municipio}" title="#{bundle.ViewUsuarioTitle_municipio}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_telefone}"/>
+                        <h:outputText value="#{usuarioController.selected.telefone}" title="#{bundle.ViewUsuarioTitle_telefone}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_telefone2}"/>
+                        <h:outputText value="#{usuarioController.selected.telefone2}" title="#{bundle.ViewUsuarioTitle_telefone2}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_senha}"/>
+                        <h:outputText value="#{usuarioController.selected.senha}" title="#{bundle.ViewUsuarioTitle_senha}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_ativo}"/>
+                        <p:selectBooleanCheckbox value="#{usuarioController.selected.ativo}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_foto}"/>
+                        <o:graphicImage value="#{usuarioController.imagem}" width="174" dataURI="true" />
                         <h:outputText value="#{bundle.ViewUsuarioLabel_tipoUsuario}"/>
-                        <h:outputText value="#{usuarioController.selected.tipoUsuario}" title="#{bundle.ViewUsuarioTitle_tipoUsuario}"/>
+                        <h:outputText value="#{usuarioController.selected.tipoUsuario.descricaoTipoUsuario}" title="#{bundle.ViewUsuarioTitle_tipoUsuario}"/>
+                    </p:panelGrid>
+                    <p:panelGrid>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_observacao}"/>
+                        <h:outputText value="#{usuarioController.selected.observacao}" title="#{bundle.ViewUsuarioTitle_observacao}" style="width:500px"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('UsuarioViewDialog').hide()"/>
                 </h:panelGroup>

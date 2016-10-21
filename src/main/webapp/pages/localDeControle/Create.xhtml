@@ -20,11 +20,11 @@
                             <f:selectItem itemLabel="Inativo" itemValue="false" />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateLocalDeControleLabel_endereco}" for="endereco" />
-                        <p:inputText id="endereco" value="#{localDeControleController.selected.endereco}" title="#{bundle.CreateLocalDeControleTitle_endereco}" />
-                        <p:outputLabel value="#{bundle.CreateLocalDeControleLabel_numeroEndereco}" for="numeroEndereco" />
-                        <p:inputText id="numeroEndereco" value="#{localDeControleController.selected.numeroEndereco}" title="#{bundle.CreateLocalDeControleTitle_numeroEndereco}" />
-                        <p:outputLabel value="#{bundle.CreateLocalDeControleLabel_bairro}" for="bairro" />
-                        <p:inputText id="bairro" value="#{localDeControleController.selected.bairro}" title="#{bundle.CreateLocalDeControleTitle_bairro}" />
+                        <p:inputText id="endereco" value="#{localDeControleController.selected.endereco}" title="#{bundle.CreateLocalDeControleTitle_endereco}"  required="true"/>
+                        <p:outputLabel value="#{bundle.CreateLocalDeControleLabel_numeroEndereco}" for="numeroEndereco"  />
+                        <p:inputText id="numeroEndereco" value="#{localDeControleController.selected.numeroEndereco}" title="#{bundle.CreateLocalDeControleTitle_numeroEndereco}" required="true" />
+                        <p:outputLabel value="#{bundle.CreateLocalDeControleLabel_bairro}" for="bairro"  />
+                        <p:inputText id="bairro" value="#{localDeControleController.selected.bairro}" title="#{bundle.CreateLocalDeControleTitle_bairro}" required="true" />
                         <p:outputLabel value="#{bundle.CreateLocalDeControleLabel_complemento}" for="complemento" />
                         <p:inputText id="complemento" value="#{localDeControleController.selected.complemento}" title="#{bundle.CreateLocalDeControleTitle_complemento}" required="true" requiredMessage="#{bundle.CreateLocalDeControleRequiredMessage_complemento}"/>
                         <p:outputLabel value="#{bundle.CreateLocalDeControleLabel_contratante}" for="contratante" />
@@ -34,7 +34,7 @@
                                            itemValue="#{contratanteItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateLocalDeControleLabel_municipio}" for="municipio" />
-                        <p:selectOneMenu id="municipio" value="#{localDeControleController.selected.municipio}" >
+                        <p:selectOneMenu id="municipio" value="#{localDeControleController.selected.municipio}" required="true">
                             <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"
                                            var="municipioItem"
                                            itemValue="#{municipioItem}"/>

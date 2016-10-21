@@ -11,7 +11,7 @@
         <p:dialog id="CatracaViewDlg" widgetVar="CatracaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCatracaTitle}">
             <h:form id="CatracaViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{catracaController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{catracaController.selected != null}">
                         <h:outputText value="#{bundle.ViewCatracaLabel_codigo}"/>
                         <h:outputText value="#{catracaController.selected.codigo}" title="#{bundle.ViewCatracaTitle_codigo}"/>
                          <h:outputText value="#{bundle.ViewCatracaLabel_dataHoraAtualizacao}"/>
@@ -25,10 +25,20 @@
                         <h:outputText value="#{bundle.ViewCatracaLabel_numeroIP}"/>
                         <h:outputText value="#{catracaController.selected.numeroIP}" title="#{bundle.ViewCatracaTitle_numeroIP}"/>
                         <h:outputText value="#{bundle.ViewCatracaLabel_contratante}"/>
-                        <h:outputText value="#{catracaController.selected.contratante}" title="#{bundle.ViewCatracaTitle_contratante}"/>
+                        <h:outputText value="#{catracaController.selected.contratante.nome}" title="#{bundle.ViewCatracaTitle_contratante}"/>
                         <h:outputText value="#{bundle.ViewCatracaLabel_modeloCatraca}"/>
-                        <h:outputText value="#{catracaController.selected.modeloCatraca}" title="#{bundle.ViewCatracaTitle_modeloCatraca}"/>
+                        <h:outputText value="#{catracaController.selected.modeloCatraca.descricao}" title="#{bundle.ViewCatracaTitle_modeloCatraca}"/>
                     </p:panelGrid>
+                    <p:tabView>
+                    	<p:tab title="Setor">
+                    		<p:dataTable style="width:600px" id="itemSetor" value="#{catracaController.getItensSetor(catracaController.selected.codigo)}" var="itemCS" rendered="#{catracaController.selected != null}">
+                    			<p:column headerText="Setor"> 
+                    				<h:outputText value="#{itemCS.setor.descricaoSetor}"/>
+                    			</p:column>
+                    		</p:dataTable>
+                    	</p:tab>
+                    </p:tabView>
+                    
                     <p:commandButton value="#{bundle.Close}" onclick="PF('CatracaViewDialog').hide()"/>
                 </h:panelGroup>
             </h:form>

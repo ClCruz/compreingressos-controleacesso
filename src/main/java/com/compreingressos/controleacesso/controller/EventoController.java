@@ -1,26 +1,22 @@
 package com.compreingressos.controleacesso.controller;
 
-import com.compreingressos.controleacesso.Evento;
-import com.compreingressos.controleacesso.controller.util.JsfUtil;
-import com.compreingressos.controleacesso.controller.util.JsfUtil.PersistAction;
-import com.compreingressos.controleacesso.bean.EventoFacade;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -28,12 +24,18 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
+
 import org.primefaces.component.fileupload.FileUpload;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-@Named("eventoController")
-@SessionScoped
+import com.compreingressos.controleacesso.Evento;
+import com.compreingressos.controleacesso.bean.EventoFacade;
+import com.compreingressos.controleacesso.controller.util.JsfUtil;
+import com.compreingressos.controleacesso.controller.util.JsfUtil.PersistAction;
+
+@ManagedBean(name = "eventoController")
+@ViewScoped
 public class EventoController implements Serializable {
 
     @EJB

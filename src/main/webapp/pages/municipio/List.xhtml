@@ -43,13 +43,13 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListMunicipioTitle_estado}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.estado}"/>
+                                <h:outputText value="#{item.estado.nome}"/>
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{municipioController.prepareCreate}" update=":MunicipioCreateForm" oncomplete="PF('MunicipioCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MunicipioViewForm" oncomplete="PF('MunicipioViewDialog').show()" disabled="#{empty municipioController.selected}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MunicipioEditForm" oncomplete="PF('MunicipioEditDialog').show()" disabled="#{empty municipioController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{municipioController.destroy}" update=":growl,datalist" disabled="#{empty municipioController.selected}"/>
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{municipioController.prepareCreate}" update=":MunicipioCreateForm" oncomplete="PF('MunicipioCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":MunicipioViewForm" oncomplete="PF('MunicipioViewDialog').show()" disabled="#{empty municipioController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":MunicipioEditForm" oncomplete="PF('MunicipioEditDialog').show()" disabled="#{empty municipioController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{municipioController.destroy}" update=":growl,datalist" disabled="#{empty municipioController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </h:form>

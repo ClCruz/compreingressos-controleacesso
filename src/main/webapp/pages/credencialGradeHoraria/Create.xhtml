@@ -13,7 +13,11 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{credencialGradeHorariaController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateCredencialGradeHorariaLabel_gradeHoraria}" for="gradeHoraria" />
-                        <p:inputText id="gradeHoraria" value="#{credencialGradeHorariaController.selected.gradeHoraria}" title="#{bundle.CreateCredencialGradeHorariaTitle_gradeHoraria}" required="true" requiredMessage="#{bundle.CreateCredencialGradeHorariaRequiredMessage_gradeHoraria}"/>
+                        <p:selectOneMenu id="gradeHoraria" value="#{credencialGradeHorariaController.selected.gradeHoraria}" title="#{bundle.CreateCredencialGradeHorariaTitle_gradeHoraria}" required="true" requiredMessage="#{bundle.CreateCredencialGradeHorariaRequiredMessage_gradeHoraria}">
+                        	<f:selectItems value="#{gradeHorariaController.itemsAvailableSelectOne}"
+                                           var="gradeHorariaItem"
+                                           itemValue="#{gradeHorariaItem}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateCredencialGradeHorariaLabel_tipoCredencial}" for="tipoCredencial" />
                         <p:selectOneMenu id="tipoCredencial" value="#{credencialGradeHorariaController.selected.tipoCredencial}" required="true" requiredMessage="#{bundle.EditCredencialGradeHorariaRequiredMessage_tipoCredencial}">
                             <f:selectItems value="#{tipoCredencialController.itemsAvailableSelectOne}"

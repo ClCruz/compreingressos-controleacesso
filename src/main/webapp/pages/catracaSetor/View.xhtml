@@ -19,9 +19,9 @@
                             <f:convertDateTime pattern="#{bundle.formatDate}" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewCatracaSetorLabel_catraca}"/>
-                        <h:outputText value="#{catracaSetorController.selected.catraca}" title="#{bundle.ViewCatracaSetorTitle_catraca}"/>
+                        <h:outputText value="#{catracaSetorController.selected.catraca.codigoCatraca}" title="#{bundle.ViewCatracaSetorTitle_catraca}"/>
                         <h:outputText value="#{bundle.ViewCatracaSetorLabel_setor}"/>
-                        <h:outputText value="#{catracaSetorController.selected.setor}" title="#{bundle.ViewCatracaSetorTitle_setor}"/>
+                        <h:outputText value="#{catracaSetorController.selected.setor.descricaoSetor}" title="#{bundle.ViewCatracaSetorTitle_setor}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('CatracaSetorViewDialog').hide()"/>
                 </h:panelGroup>

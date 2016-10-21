@@ -1,26 +1,27 @@
 package com.compreingressos.controleacesso.controller;
 
-import com.compreingressos.controleacesso.AcessoCatraca;
-import com.compreingressos.controleacesso.controller.util.JsfUtil;
-import com.compreingressos.controleacesso.controller.util.JsfUtil.PersistAction;
-import com.compreingressos.controleacesso.bean.AcessoCatracaFacade;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("acessoCatracaController")
-@SessionScoped
+import com.compreingressos.controleacesso.AcessoCatraca;
+import com.compreingressos.controleacesso.bean.AcessoCatracaFacade;
+import com.compreingressos.controleacesso.controller.util.JsfUtil;
+import com.compreingressos.controleacesso.controller.util.JsfUtil.PersistAction;
+
+@ManagedBean(name = "acessoCatracaController")
+@ViewScoped
 public class AcessoCatracaController implements Serializable {
 
     @EJB
@@ -48,6 +49,7 @@ public class AcessoCatracaController implements Serializable {
     private AcessoCatracaFacade getFacade() {
         return ejbFacade;
     }
+
 
     public AcessoCatraca prepareCreate() {
         selected = new AcessoCatraca();

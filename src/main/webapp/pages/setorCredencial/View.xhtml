@@ -21,9 +21,9 @@
                         <h:outputText value="#{bundle.ViewSetorCredencialLabel_ativo}"/>
                         <p:selectBooleanCheckbox value="#{setorCredencialController.selected.ativo}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewSetorCredencialLabel_setor}"/>
-                        <h:outputText value="#{setorCredencialController.selected.setor}" title="#{bundle.ViewSetorCredencialTitle_setor}"/>
+                        <h:outputText value="#{setorCredencialController.selected.setor.descricaoSetor}" title="#{bundle.ViewSetorCredencialTitle_setor}"/>
                         <h:outputText value="#{bundle.ViewSetorCredencialLabel_tipoCredencial}"/>
-                        <h:outputText value="#{setorCredencialController.selected.tipoCredencial}" title="#{bundle.ViewSetorCredencialTitle_tipoCredencial}"/>
+                        <h:outputText value="#{setorCredencialController.selected.tipoCredencial.descricao}" title="#{bundle.ViewSetorCredencialTitle_tipoCredencial}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('SetorCredencialViewDialog').hide()"/>
                 </h:panelGroup>

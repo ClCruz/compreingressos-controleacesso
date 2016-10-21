@@ -11,7 +11,7 @@
         <p:dialog id="CatracaEditDlg" widgetVar="CatracaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCatracaTitle}">
             <h:form id="CatracaEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{catracaController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{catracaController.selected != null}">
                         <p:outputLabel value="#{bundle.EditCatracaLabel_codigoCatraca}" for="codigoCatraca" />
                         <p:inputText id="codigoCatraca" value="#{catracaController.selected.codigoCatraca}" title="#{bundle.EditCatracaTitle_codigoCatraca}" required="true" requiredMessage="#{bundle.EditCatracaRequiredMessage_codigoCatraca}"/>
                         <p:outputLabel value="#{bundle.EditCatracaLabel_ativo}" for="ativo" />
@@ -29,13 +29,51 @@
                                            itemValue="#{contratanteItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditCatracaLabel_modeloCatraca}" for="modeloCatraca" />
-                        <p:selectOneMenu id="modeloCatraca" value="#{catracaController.selected.modeloCatraca}" >
+                        <p:selectOneMenu id="modeloCatraca" value="#{catracaController.selected.modeloCatraca}" required="true" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{modeloCatracaController.itemsAvailableSelectOne}"
                                            var="modeloCatracaItem"
                                            itemValue="#{modeloCatracaItem}"/>
                         </p:selectOneMenu>
+                        
                     </p:panelGrid>
+                    	<p:tabView>
+                        	<p:tab title="Setor" >
+                        		<p:panelGrid columns="4" rendered="#{catracaController.selected != null}" >
+                        			<p:outputLabel value="#{bundle.CreateLayoutLabel_localDeControle}" for="localDeControle" />
+                        			<p:selectOneMenu id="localDeControle" value="#{catracaController.selected.idLocal}" >
+                        			<f:selectItem itemLabel="Selecione.." />
+                        			<p:ajax listener="#{catracaController.listaLayout()}" update="layout" />
+                           			<f:selectItems value="#{localDeControleController.itemsAvailableSelectOne}"
+                                           			var="localDeControleItem"
+                                           			itemValue="#{localDeControleItem}"/>
+                        			</p:selectOneMenu>
+                       				<p:outputLabel value="#{bundle.CreateEventoLabel_layout}" for="layout" />
+                        			<p:selectOneMenu id="layout" value="#{catracaController.selected.idLayout}"  >
+                        			<f:selectItem itemLabel="Selecione.." />
+                        			<p:ajax listener="#{catracaController.listaSetor()}" update="setor" />
+                            		<f:selectItems value="#{catracaController.listaLayout()}"
+                            			   		var="layoutItem"
+                                           		itemValue="#{layoutItem}"/>
+                        			</p:selectOneMenu>
+                        			<p:outputLabel value="#{bundle.CreateCatracaLabel_setor}" for="setor" />
+                                                <p:selectOneMenu id="setor" value="#{catracaController.selected.idSetor}" >
+                                                <p:ajax listener="#{catracaController.pegaSetor}" />
+                        			<f:selectItem itemLabel="Selecione.." />
+                            		<f:selectItems value="#{catracaController.listaSetor()}"
+                                          			var="setorItem"
+                                           			itemValue="#{setorItem}"
+                                                                itemLabel="#{setorItem.descricaoSetor}"/>
+                        			</p:selectOneMenu>
+                        			<p:commandButton actionListener="#{catracaController.addListaCS()}" update="listaEditCS" value="Adicionar" immediate="true" process="@this" />
+                        			</p:panelGrid>
+                        			<p:dataTable style="width:600px;" id="listaEditCS" value="#{catracaController.listaEditCS}" var="itemsCS">
+                        				<p:column headerText="Setor">
+                        					<h:outputText value="#{itemsCS.setor.descricaoSetor}" />
+                        				</p:column>
+                        			</p:dataTable>
+                        	</p:tab>
+                        </p:tabView>
                     <p:commandButton actionListener="#{catracaController.update}" value="#{bundle.Save}" update="display,:CatracaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CatracaEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('CatracaEditDialog').hide()"/>
                 </h:panelGroup>

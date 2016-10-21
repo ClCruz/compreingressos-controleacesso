@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TipoUsuario.findByDescricaoTipoUsuario", query = "SELECT t FROM TipoUsuario t WHERE t.descricaoTipoUsuario = :descricaoTipoUsuario"),
     @NamedQuery(name = "TipoUsuario.findByDataHoraAtualizacao", query = "SELECT t FROM TipoUsuario t WHERE t.dataHoraAtualizacao = :dataHoraAtualizacao"),
     @NamedQuery(name = "TipoUsuario.findByInAdmin", query = "SELECT t FROM TipoUsuario t WHERE t.inAdmin = :inAdmin"),
-    @NamedQuery(name = "TipoUsuario.findByStatus", query = "SELECT t FROM TipoUsuario t WHERE t.status = :status")})
+    @NamedQuery(name = "TipoUsuario.findByativo", query = "SELECT t FROM TipoUsuario t WHERE t.ativo = :ativo")})
 public class TipoUsuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,8 +63,8 @@ public class TipoUsuario implements Serializable {
     private boolean inAdmin;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "status")
-    private boolean status;
+    @Column(name = "ativo")
+    private boolean ativo = true;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoUsuario")
     private Collection<Usuario> usuarioCollection;
     @OneToMany(mappedBy = "tipoUsuario")
@@ -77,12 +77,12 @@ public class TipoUsuario implements Serializable {
         this.codigo = codigo;
     }
 
-    public TipoUsuario(Integer codigo, String descricaoTipoUsuario, Date dataHoraAtualizacao, boolean inAdmin, boolean status) {
+    public TipoUsuario(Integer codigo, String descricaoTipoUsuario, Date dataHoraAtualizacao, boolean inAdmin, boolean ativo) {
         this.codigo = codigo;
         this.descricaoTipoUsuario = descricaoTipoUsuario;
         this.dataHoraAtualizacao = dataHoraAtualizacao;
         this.inAdmin = inAdmin;
-        this.status = status;
+        this.ativo = ativo;
     }
 
     public Integer getCodigo() {
@@ -117,12 +117,12 @@ public class TipoUsuario implements Serializable {
         this.inAdmin = inAdmin;
     }
 
-    public boolean getStatus() {
-        return status;
+    public boolean getativo() {
+        return ativo;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setativo(boolean ativo) {
+        this.ativo = ativo;
     }
 
     @XmlTransient

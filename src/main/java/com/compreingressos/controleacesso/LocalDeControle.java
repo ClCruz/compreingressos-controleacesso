@@ -62,12 +62,15 @@ public class LocalDeControle implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataHoraAtualizacao;
     @Size(max = 60)
+    @NotNull
     @Column(name = "endereco")
     private String endereco;
     @Size(max = 10)
+    @NotNull
     @Column(name = "numeroEndereco")
     private String numeroEndereco;
     @Size(max = 30)
+    @NotNull
     @Column(name = "bairro")
     private String bairro;
     @Id
@@ -86,6 +89,7 @@ public class LocalDeControle implements Serializable {
     @ManyToOne
     private Contratante contratante;
     @JoinColumn(name = "municipio", referencedColumnName = "codigo")
+    @NotNull
     @ManyToOne
     private Municipio municipio;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "localDeControle")

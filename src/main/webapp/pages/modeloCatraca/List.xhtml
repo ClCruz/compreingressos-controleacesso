@@ -48,13 +48,13 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListModeloCatracaTitle_fabricante}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.fabricante}"/>
+                                <h:outputText value="#{item.fabricante.nome}"/>
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{modeloCatracaController.prepareCreate}" update=":ModeloCatracaCreateForm" oncomplete="PF('ModeloCatracaCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ModeloCatracaViewForm" oncomplete="PF('ModeloCatracaViewDialog').show()" disabled="#{empty modeloCatracaController.selected}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ModeloCatracaEditForm" oncomplete="PF('ModeloCatracaEditDialog').show()" disabled="#{empty modeloCatracaController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{modeloCatracaController.destroy}" update=":growl,datalist" disabled="#{empty modeloCatracaController.selected}"/>
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{modeloCatracaController.prepareCreate}" update=":ModeloCatracaCreateForm" oncomplete="PF('ModeloCatracaCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":ModeloCatracaViewForm" oncomplete="PF('ModeloCatracaViewDialog').show()" disabled="#{empty modeloCatracaController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":ModeloCatracaEditForm" oncomplete="PF('ModeloCatracaEditDialog').show()" disabled="#{empty modeloCatracaController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{modeloCatracaController.destroy}" update=":growl,datalist" disabled="#{empty modeloCatracaController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </h:form>

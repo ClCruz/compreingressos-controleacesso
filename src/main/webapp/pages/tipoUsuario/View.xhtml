@@ -22,8 +22,8 @@
                         <h:outputText value="#{tipoUsuarioController.selected.descricaoTipoUsuario}" title="#{bundle.ViewTipoUsuarioTitle_descricaoTipoUsuario}"/>
                         <h:outputText value="#{bundle.ViewTipoUsuarioLabel_inAdmin}"/>
                         <p:selectBooleanCheckbox value="#{tipoUsuarioController.selected.inAdmin}" disabled="true"/>
-                        <h:outputText value="#{bundle.ViewTipoUsuarioLabel_status}"/>
-                        <p:selectBooleanCheckbox value="#{tipoUsuarioController.selected.status}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTipoUsuarioLabel_ativo}"/>
+                        <p:selectBooleanCheckbox value="#{tipoUsuarioController.selected.ativo}" disabled="true"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('TipoUsuarioViewDialog').hide()"/>
                 </h:panelGroup>

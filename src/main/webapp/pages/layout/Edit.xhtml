@@ -20,7 +20,7 @@
                             <f:selectItem itemLabel="Inativo" itemValue="false" />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditLayoutLabel_imagem}" for="imagem" />
-                        <p:fileUpload id="imagem" fileUploadListener="#{layoutController.upload}" mode="advanced"  />
+                        <p:fileUpload id="imagem" fileUploadListener="#{layoutController.upload}" mode="advanced" auto="true"/>
                         <p:outputLabel value="#{bundle.EditLayoutLabel_localDeControle}" for="localDeControle" />
                         <p:selectOneMenu id="localDeControle" value="#{layoutController.selected.localDeControle}" required="true" requiredMessage="#{bundle.EditLayoutRequiredMessage_localDeControle}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>

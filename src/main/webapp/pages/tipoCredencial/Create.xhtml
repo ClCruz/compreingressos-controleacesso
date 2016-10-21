@@ -25,9 +25,12 @@
                                            var="contratanteItem"
                                            itemValue="#{contratanteItem}"/>
                         </p:selectOneMenu>
+                         <p:outputLabel value="#{bundle.CreateTipoCredencialLabel_devolveTag}" for="devolveTag" />
+                    <p:selectBooleanCheckbox id="devolveTag" value="#{tipoCredencialController.selected.devolveTag}" required="true" requiredMessage="#{bundle.EditTipoCredencialRequiredMessage_devolveTag}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{tipoCredencialController.create}" value="#{bundle.Save}" update="display,:TipoCredencialListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoCredencialCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('TipoCredencialCreateDialog').hide()"/>
+                   
                 </h:panelGroup>
             </h:form>
         </p:dialog>

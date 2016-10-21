@@ -23,7 +23,7 @@
                         <h:outputText value="#{bundle.ViewMunicipioLabel_nome}"/>
                         <h:outputText value="#{municipioController.selected.nome}" title="#{bundle.ViewMunicipioTitle_nome}"/>
                         <h:outputText value="#{bundle.ViewMunicipioLabel_estado}"/>
-                        <h:outputText value="#{municipioController.selected.estado}" title="#{bundle.ViewMunicipioTitle_estado}"/>
+                        <h:outputText value="#{municipioController.selected.estado.nome}" title="#{bundle.ViewMunicipioTitle_estado}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('MunicipioViewDialog').hide()"/>
                 </h:panelGroup>

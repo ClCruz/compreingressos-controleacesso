@@ -27,6 +27,12 @@
                                 #{bundle.ListApresentacaoTitle}
                             </f:facet>
 
+							<p:column headerText="#{bundle.ListApresentacaoTitle_evento}" filterBy="#{item.evento}" filterMatchMode="contains" sortBy="#{item.evento}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListApresentacaoTitle_evento}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.evento.descricaoNome}"/>
+                            </p:column>
                             <p:column headerText="#{bundle.ListApresentacaoTitle_nome}" filterBy="#{item.nome}" filterMatchMode="contains" sortBy="#{item.nome}">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListApresentacaoTitle_nome}"/>
@@ -66,17 +72,11 @@
                                 </f:facet>
                                 <p:selectBooleanCheckbox value="#{item.validaEstorno}" disabled="true"/>
                             </p:column>
-                            <p:column headerText="#{bundle.ListApresentacaoTitle_evento}" filterBy="#{item.evento}" filterMatchMode="contains" sortBy="#{item.evento}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListApresentacaoTitle_evento}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.evento}"/>
-                            </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{apresentacaoController.prepareCreate}" update=":ApresentacaoCreateForm" oncomplete="PF('ApresentacaoCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ApresentacaoViewForm" oncomplete="PF('ApresentacaoViewDialog').show()" disabled="#{empty apresentacaoController.selected}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ApresentacaoEditForm" oncomplete="PF('ApresentacaoEditDialog').show()" disabled="#{empty apresentacaoController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{apresentacaoController.destroy}" update=":growl,datalist" disabled="#{empty apresentacaoController.selected}"/>
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{apresentacaoController.prepareCreate}" update=":ApresentacaoCreateForm" oncomplete="PF('ApresentacaoCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":ApresentacaoViewForm" oncomplete="PF('ApresentacaoViewDialog').show()" disabled="#{empty apresentacaoController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":ApresentacaoEditForm" oncomplete="PF('ApresentacaoEditDialog').show()" disabled="#{empty apresentacaoController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{apresentacaoController.destroy}" update=":growl,datalist" disabled="#{empty apresentacaoController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </h:form>

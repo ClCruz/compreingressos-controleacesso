@@ -31,19 +31,19 @@
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListTipoUsuarioProgramaTitle_programa}"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.programa}"/>
+                                    <h:outputText value="#{item.programa.descricao}"/>
                                 </p:column>
                                 <p:column headerText="#{bundle.ListTipoUsuarioProgramaTitle_tipoUsuario}" filterBy="#{item.tipoUsuario}" filterMatchMode="contains" sortBy="#{item.tipoUsuario}">
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListTipoUsuarioProgramaTitle_tipoUsuario}"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.tipoUsuario}"/>
+                                    <h:outputText value="#{item.tipoUsuario.descricaoTipoUsuario}"/>
                                 </p:column>
                                 <f:facet name="footer">
-                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tipoUsuarioProgramaController.prepareCreate}" update=":TipoUsuarioProgramaCreateForm" oncomplete="PF('TipoUsuarioProgramaCreateDialog').show()"/>
-                                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TipoUsuarioProgramaViewForm" oncomplete="PF('TipoUsuarioProgramaViewDialog').show()" disabled="#{empty tipoUsuarioProgramaController.selected}"/>
-                                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TipoUsuarioProgramaEditForm" oncomplete="PF('TipoUsuarioProgramaEditDialog').show()" disabled="#{empty tipoUsuarioProgramaController.selected}"/>
-                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tipoUsuarioProgramaController.destroy}" update=":growl,datalist" disabled="#{empty tipoUsuarioProgramaController.selected}"/>
+                                    <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{tipoUsuarioProgramaController.prepareCreate}" update=":TipoUsuarioProgramaCreateForm" oncomplete="PF('TipoUsuarioProgramaCreateDialog').show()"/>
+                                    <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":TipoUsuarioProgramaViewForm" oncomplete="PF('TipoUsuarioProgramaViewDialog').show()" disabled="#{empty tipoUsuarioProgramaController.selected}"/>
+                                    <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":TipoUsuarioProgramaEditForm" oncomplete="PF('TipoUsuarioProgramaEditDialog').show()" disabled="#{empty tipoUsuarioProgramaController.selected}"/>
+                                    <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{tipoUsuarioProgramaController.destroy}" update=":growl,datalist" disabled="#{empty tipoUsuarioProgramaController.selected}"/>
                                 </f:facet>
                             </p:dataTable>
                     </h:form>

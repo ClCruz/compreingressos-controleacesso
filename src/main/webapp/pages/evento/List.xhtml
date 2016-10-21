@@ -61,23 +61,24 @@
                                 </f:facet>
                                 <h:outputText value="#{item.logotipo}"/>
                             </p:column>
-                            <p:column headerText="#{bundle.ListEventoTitle_layout}" filterBy="#{item.layout}" filterMatchMode="contains" sortBy="#{item.layout}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListEventoTitle_layout}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.layout}"/>
-                            </p:column>
                             <p:column headerText="#{bundle.ListEventoTitle_localDeControle}" filterBy="#{item.localDeControle}" filterMatchMode="contains" sortBy="#{item.localDeControle}">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListEventoTitle_localDeControle}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.localDeControle}"/>
+                                <h:outputText value="#{item.localDeControle.nome}"/>
                             </p:column>
+                            <p:column headerText="#{bundle.ListEventoTitle_layout}" filterBy="#{item.layout}" filterMatchMode="contains" sortBy="#{item.layout}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEventoTitle_layout}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.layout.nome}"/>
+                            </p:column>
+                            
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{eventoController.prepareCreate}" update=":EventoCreateForm" oncomplete="PF('EventoCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EventoViewForm" oncomplete="PF('EventoViewDialog').show()" disabled="#{empty eventoController.selected}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EventoEditForm" oncomplete="PF('EventoEditDialog').show()" disabled="#{empty eventoController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{eventoController.destroy}" update=":growl,datalist" disabled="#{empty eventoController.selected}"/>
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{eventoController.prepareCreate}" update=":EventoCreateForm" oncomplete="PF('EventoCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":EventoViewForm" oncomplete="PF('EventoViewDialog').show()" disabled="#{empty eventoController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":EventoEditForm" oncomplete="PF('EventoEditDialog').show()" disabled="#{empty eventoController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{eventoController.destroy}" update=":growl,datalist" disabled="#{empty eventoController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </h:form>

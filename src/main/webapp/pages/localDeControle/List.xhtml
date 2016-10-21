@@ -78,13 +78,13 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListLocalDeControleTitle_municipio}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.municipio}"/>
+                                <h:outputText value="#{item.municipio.nome}"/>
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{localDeControleController.prepareCreate}" update=":LocalDeControleCreateForm" oncomplete="PF('LocalDeControleCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":LocalDeControleViewForm" oncomplete="PF('LocalDeControleViewDialog').show()" disabled="#{empty localDeControleController.selected}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":LocalDeControleEditForm" oncomplete="PF('LocalDeControleEditDialog').show()" disabled="#{empty localDeControleController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{localDeControleController.destroy}" update=":growl,datalist" disabled="#{empty localDeControleController.selected}"/>
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{localDeControleController.prepareCreate}" update=":LocalDeControleCreateForm" oncomplete="PF('LocalDeControleCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":LocalDeControleViewForm" oncomplete="PF('LocalDeControleViewDialog').show()" disabled="#{empty localDeControleController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":LocalDeControleEditForm" oncomplete="PF('LocalDeControleEditDialog').show()" disabled="#{empty localDeControleController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{localDeControleController.destroy}" update=":growl,datalist" disabled="#{empty localDeControleController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </h:form>

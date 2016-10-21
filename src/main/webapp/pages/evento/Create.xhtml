@@ -21,18 +21,18 @@
                         <p:outputLabel value="#{bundle.CreateEventoLabel_ativo}" for="ativo" />
                         <p:selectBooleanCheckbox id="ativo" value="#{eventoController.selected.ativo}" required="true" requiredMessage="#{bundle.EditEventoRequiredMessage_ativo}"/>
                         <p:outputLabel value="#{bundle.CreateEventoLabel_logotipo}" for="logotipo" />
-                        <p:fileUpload id="logotipo" fileUploadListener="#{eventoController.upload}" mode="advanced"  />
-                        <p:outputLabel value="#{bundle.CreateEventoLabel_layout}" for="layout" />
-                        <p:selectOneMenu id="layout" value="#{eventoController.selected.layout}" required="true" requiredMessage="#{bundle.EditEventoRequiredMessage_layout}">
-                            <f:selectItems value="#{layoutController.itemsAvailableSelectOne}"
-                                           var="layoutItem"
-                                           itemValue="#{layoutItem}"/>
-                        </p:selectOneMenu>
+                        <p:fileUpload id="logotipo" fileUploadListener="#{eventoController.upload}" mode="advanced" auto="true" />
                         <p:outputLabel value="#{bundle.CreateEventoLabel_localDeControle}" for="localDeControle" />
                         <p:selectOneMenu id="localDeControle" value="#{eventoController.selected.localDeControle}" required="true" requiredMessage="#{bundle.EditEventoRequiredMessage_localDeControle}">
                             <f:selectItems value="#{localDeControleController.itemsAvailableSelectOne}"
                                            var="localDeControleItem"
                                            itemValue="#{localDeControleItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateEventoLabel_layout}" for="layout" />
+                        <p:selectOneMenu id="layout" value="#{eventoController.selected.layout}" required="true" requiredMessage="#{bundle.EditEventoRequiredMessage_layout}">
+                            <f:selectItems value="#{layoutController.itemsAvailableSelectOne}"
+                                           var="layoutItem"
+                                           itemValue="#{layoutItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{eventoController.create}" value="#{bundle.Save}" update="display,:EventoListForm:datalist,:growl" oncomplete="handleSubmit(args,'EventoCreateDialog');"/>

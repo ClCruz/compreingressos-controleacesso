@@ -20,12 +20,6 @@
                                            var="paisItem"
                                            itemValue="#{paisItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateRegiaoLabel_usuario}" for="usuario" />
-                        <p:selectOneMenu id="usuario" value="#{regiaoController.selected.usuario}" >
-                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
-                                           var="usuarioItem"
-                                           itemValue="#{usuarioItem}"/>
-                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{regiaoController.create}" value="#{bundle.Save}" update="display,:RegiaoListForm:datalist,:growl" oncomplete="handleSubmit(args,'RegiaoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('RegiaoCreateDialog').hide()"/>

@@ -5,15 +5,17 @@
  */
 package com.compreingressos.controleacesso;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,6 +25,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -74,11 +77,19 @@ public class Catraca implements Serializable {
     @JoinColumn(name = "contratante", referencedColumnName = "codigo")
     @ManyToOne(optional = false)
     private Contratante contratante;
+    @NotNull
     @JoinColumn(name = "modeloCatraca", referencedColumnName = "codigo")
     @ManyToOne
     private ModeloCatraca modeloCatraca;
     @OneToMany(mappedBy = "catraca")
     private Collection<Falha> falhaCollection;
+    @Transient
+    private Setor idSetor;
+    @Transient
+    private LocalDeControle idLocal;
+    @Transient
+    private Layout idLayout;
+    
 
     public Catraca() {
     }
@@ -176,8 +187,32 @@ public class Catraca implements Serializable {
     public void setFalhaCollection(Collection<Falha> falhaCollection) {
         this.falhaCollection = falhaCollection;
     }
+    
+    public Setor getIdSetor() {
+		return idSetor;
+	}
 
-    @Override
+	public void setIdSetor(Setor idSetor) {
+		this.idSetor = idSetor;
+	}
+	
+	public LocalDeControle getIdLocal() {
+		return idLocal;
+	}
+
+	public void setIdLocal(LocalDeControle idLocal) {
+		this.idLocal = idLocal;
+	}
+	
+	public Layout getIdLayout() {
+		return idLayout;
+	}
+
+	public void setIdLayout(Layout idLayout) {
+		this.idLayout = idLayout;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (codigo != null ? codigo.hashCode() : 0);

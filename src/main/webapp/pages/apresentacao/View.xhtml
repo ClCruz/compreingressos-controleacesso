@@ -16,8 +16,10 @@
                         <h:outputText value="#{apresentacaoController.selected.codigo}" title="#{bundle.ViewApresentacaoTitle_codigo}"/>
                          <h:outputText value="#{bundle.ViewApresentacaoLabel_dataHoraAtualizacao}"/>
                         <h:outputText value="#{apresentacaoController.selected.dataHoraAtualizacao}" title="#{bundle.ViewApresentacaoTitle_dataHoraAtualizacao}">
-                            <f:convertDateTime pattern="#{bundle.formatDate}" />
+                        <f:convertDateTime pattern="#{bundle.formatDate}" />
                         </h:outputText>
+                        <h:outputText value="#{bundle.ViewApresentacaoLabel_evento}"/>
+                        <h:outputText value="#{apresentacaoController.selected.evento.descricaoNome}" title="#{bundle.ViewApresentacaoTitle_evento}"/>
                         <h:outputText value="#{bundle.ViewApresentacaoLabel_nome}"/>
                         <h:outputText value="#{apresentacaoController.selected.nome}" title="#{bundle.ViewApresentacaoTitle_nome}"/>
                         <h:outputText value="#{bundle.ViewApresentacaoLabel_dataHoraInicio}"/>
@@ -32,8 +34,6 @@
                         <p:selectBooleanCheckbox value="#{apresentacaoController.selected.ativo}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewApresentacaoLabel_validaEstorno}"/>
                         <p:selectBooleanCheckbox value="#{apresentacaoController.selected.validaEstorno}" disabled="true"/>
-                        <h:outputText value="#{bundle.ViewApresentacaoLabel_evento}"/>
-                        <h:outputText value="#{apresentacaoController.selected.evento}" title="#{bundle.ViewApresentacaoTitle_evento}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('ApresentacaoViewDialog').hide()"/>
                 </h:panelGroup>

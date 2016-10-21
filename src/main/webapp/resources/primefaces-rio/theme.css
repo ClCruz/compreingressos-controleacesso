@@ -48,7 +48,7 @@
   color: #ffffff;
 }
 .ui-inputfield.ui-state-focus {
-  border-bottom: solid 1px #0276aa !important;
+  border-bottom: solid 1px #7F0014 !important;
 }
 /* Interaction states
 ----------------------------------*/
@@ -3513,7 +3513,6 @@ hr.ui-widget-header {
 }
 /*Style For UI SplitButton ------------------------------------------------------------------------------------- */
 .ui-splitbutton .ui-splitbutton-menubutton .ui-icon {
-  background-image: url("#{resource['primefaces-rio:images/menu-dots.svg']}") !important;
   background-size: 100%;
   background-position: center;
 }

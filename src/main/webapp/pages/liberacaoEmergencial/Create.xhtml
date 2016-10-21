@@ -12,8 +12,6 @@
             <h:form id="LiberacaoEmergencialCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{liberacaoEmergencialController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateLiberacaoEmergencialLabel_dataHoraEmergencia}" for="dataHoraEmergencia" />
-                        <p:calendar id="dataHoraEmergencia" pattern="#{bundle.formatDate}" value="#{liberacaoEmergencialController.selected.dataHoraEmergencia}" title="#{bundle.EditLiberacaoEmergencialTitle_dataHoraEmergencia}" required="true" requiredMessage="#{bundle.EditLiberacaoEmergencialRequiredMessage_dataHoraEmergencia}" showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateLiberacaoEmergencialLabel_apresentacao}" for="apresentacao" />
                         <p:selectOneMenu id="apresentacao" value="#{liberacaoEmergencialController.selected.apresentacao}" required="true" requiredMessage="#{bundle.EditLiberacaoEmergencialRequiredMessage_apresentacao}">
                             <f:selectItems value="#{apresentacaoController.itemsAvailableSelectOne}"

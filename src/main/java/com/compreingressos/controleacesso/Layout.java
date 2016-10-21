@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Layout.findAll", query = "SELECT l FROM Layout l"),
+    @NamedQuery(name = "LocalDeControle.findLayout", query = "SELECT l FROM Layout l WHERE l.localDeControle = :localDeControle"),
     @NamedQuery(name = "Layout.findByCodigo", query = "SELECT l FROM Layout l WHERE l.codigo = :codigo"),
     @NamedQuery(name = "Layout.findByDataHoraAtualizacao", query = "SELECT l FROM Layout l WHERE l.dataHoraAtualizacao = :dataHoraAtualizacao"),
     @NamedQuery(name = "Layout.findByNome", query = "SELECT l FROM Layout l WHERE l.nome = :nome"),
@@ -63,7 +64,6 @@ public class Layout implements Serializable {
     @NotNull
     @Column(name = "ativo")
     private boolean ativo = true;
-    @Basic(optional = false)
     @NotNull
     @Lob
     @Column(name = "imagem")

@@ -15,9 +15,9 @@
                         <h:outputText value="#{bundle.ViewCredencialGradeHorariaLabel_codigo}"/>
                         <h:outputText value="#{credencialGradeHorariaController.selected.codigo}" title="#{bundle.ViewCredencialGradeHorariaTitle_codigo}"/>
                         <h:outputText value="#{bundle.ViewCredencialGradeHorariaLabel_gradeHoraria}"/>
-                        <h:outputText value="#{credencialGradeHorariaController.selected.gradeHoraria}" title="#{bundle.ViewCredencialGradeHorariaTitle_gradeHoraria}"/>
+                        <h:outputText value="#{credencialGradeHorariaController.selected.gradeHoraria.descricao}" title="#{bundle.ViewCredencialGradeHorariaTitle_gradeHoraria}"/>
                         <h:outputText value="#{bundle.ViewCredencialGradeHorariaLabel_tipoCredencial}"/>
-                        <h:outputText value="#{credencialGradeHorariaController.selected.tipoCredencial}" title="#{bundle.ViewCredencialGradeHorariaTitle_tipoCredencial}"/>
+                        <h:outputText value="#{credencialGradeHorariaController.selected.tipoCredencial.descricao}" title="#{bundle.ViewCredencialGradeHorariaTitle_tipoCredencial}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('CredencialGradeHorariaViewDialog').hide()"/>
                 </h:panelGroup>

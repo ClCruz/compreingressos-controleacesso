@@ -17,14 +17,14 @@
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{catracaController.itemsAvailableSelectOne}"
                                            var="catracaItem"
-                                           itemValue="#{catracaItem}"/>
+                                           itemValue="#{catracaItem.codigoCatraca}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditCatracaSetorLabel_setor}" for="setor" />
                         <p:selectOneMenu id="setor" value="#{catracaSetorController.selected.setor}" required="true" requiredMessage="#{bundle.EditCatracaSetorRequiredMessage_setor}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{setorController.itemsAvailableSelectOne}"
                                            var="setorItem"
-                                           itemValue="#{setorItem}"/>
+                                           itemValue="#{setorItem.descricaoSetor}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{catracaSetorController.update}" value="#{bundle.Save}" update="display,:CatracaSetorListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CatracaSetorEditDialog');"/>

@@ -45,10 +45,10 @@
                                 <h:outputText value="Inativo" rendered="#{item.ativo eq false}"/>
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{fabricanteController.prepareCreate}" update=":FabricanteCreateForm" oncomplete="PF('FabricanteCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":FabricanteViewForm" oncomplete="PF('FabricanteViewDialog').show()" disabled="#{empty fabricanteController.selected}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":FabricanteEditForm" oncomplete="PF('FabricanteEditDialog').show()" disabled="#{empty fabricanteController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{fabricanteController.destroy}" update=":growl,datalist" disabled="#{empty fabricanteController.selected}"/>
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{fabricanteController.prepareCreate}" update=":FabricanteCreateForm" oncomplete="PF('FabricanteCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":FabricanteViewForm" oncomplete="PF('FabricanteViewDialog').show()" disabled="#{empty fabricanteController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":FabricanteEditForm" oncomplete="PF('FabricanteEditDialog').show()" disabled="#{empty fabricanteController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{fabricanteController.destroy}" update=":growl,datalist" disabled="#{empty fabricanteController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </h:form>

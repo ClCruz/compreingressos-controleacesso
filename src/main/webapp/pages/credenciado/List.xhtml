@@ -27,6 +27,12 @@
                                 #{bundle.ListCredenciadoTitle}
                             </f:facet>
 
+							<p:column headerText="#{bundle.ListCredenciadoTitle_empresa}" filterBy="#{item.empresa}" filterMatchMode="contains" sortBy="#{item.empresa}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListCredenciadoTitle_empresa}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.empresa.nome}"/>
+                            </p:column>
                             <p:column headerText="#{bundle.ListCredenciadoTitle_nome}" filterBy="#{item.nome}" filterMatchMode="contains" sortBy="#{item.nome}">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListCredenciadoTitle_nome}"/>
@@ -51,7 +57,7 @@
                                 </f:facet>
                                 <h:outputText value="#{item.email}"/>
                             </p:column>
-                            <p:column headerText="#{bundle.ListCredenciadoTitle_obeservacao}" filterBy="#{item.observacao}" filterMatchMode="contains" sortBy="#{item.observacao}">
+                            <p:column headerText="#{bundle.ListCredenciadoTitle_observacao}" filterBy="#{item.observacao}" filterMatchMode="contains" sortBy="#{item.observacao}">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListCredenciadoTitle_observacao}"/>
                                 </f:facet>
@@ -74,17 +80,11 @@
                                 <h:outputText value="Ativo" rendered="#{item.ativo eq true}"/>
                                 <h:outputText value="Inativo" rendered="#{item.ativo eq false}"/>
                             </p:column>
-                            <p:column headerText="#{bundle.ListCredenciadoTitle_empresa}" filterBy="#{item.empresa}" filterMatchMode="contains" sortBy="#{item.empresa}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCredenciadoTitle_empresa}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.empresa.nome}"/>
-                            </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{credenciadoController.prepareCreate}" update=":CredenciadoCreateForm" oncomplete="PF('CredenciadoCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CredenciadoViewForm" oncomplete="PF('CredenciadoViewDialog').show()" disabled="#{empty credenciadoController.selected}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CredenciadoEditForm" oncomplete="PF('CredenciadoEditDialog').show()" disabled="#{empty credenciadoController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{credenciadoController.destroy}" update=":growl,datalist" disabled="#{empty credenciadoController.selected}"/>
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{credenciadoController.prepareCreate}" update=":CredenciadoCreateForm" oncomplete="PF('CredenciadoCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":CredenciadoViewForm" oncomplete="PF('CredenciadoViewDialog').show()" disabled="#{empty credenciadoController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":CredenciadoEditForm" oncomplete="PF('CredenciadoEditDialog').show()" disabled="#{empty credenciadoController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{credenciadoController.destroy}" update=":growl,datalist" disabled="#{empty credenciadoController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </h:form>

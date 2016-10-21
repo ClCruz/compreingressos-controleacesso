@@ -23,7 +23,9 @@
                         <h:outputText value="#{bundle.ViewTipoCredencialLabel_ativo}"/>
                         <p:selectBooleanCheckbox value="#{tipoCredencialController.selected.ativo}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewTipoCredencialLabel_contratante}"/>
-                        <h:outputText value="#{tipoCredencialController.selected.contratante}" title="#{bundle.ViewTipoCredencialTitle_contratante}"/>
+                        <h:outputText value="#{tipoCredencialController.selected.contratante.nome}" title="#{bundle.ViewTipoCredencialTitle_contratante}"/>
+                        <p:outputLabel value="#{bundle.ViewTipoCredencialLabel_devolveTag}"/>
+                        <p:selectBooleanCheckbox value="#{tipoCredencialController.selected.devolveTag}" disabled="true" />
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('TipoCredencialViewDialog').hide()"/>
                 </h:panelGroup>

@@ -1,36 +1,69 @@
 package com.compreingressos.controleacesso.controller;
 
-import com.compreingressos.controleacesso.Catraca;
-import com.compreingressos.controleacesso.controller.util.JsfUtil;
-import com.compreingressos.controleacesso.controller.util.JsfUtil.PersistAction;
-import com.compreingressos.controleacesso.bean.CatracaFacade;
-
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("catracaController")
-@SessionScoped
+import com.compreingressos.controleacesso.Catraca;
+import com.compreingressos.controleacesso.CatracaSetor;
+import com.compreingressos.controleacesso.Layout;
+import com.compreingressos.controleacesso.Setor;
+import com.compreingressos.controleacesso.bean.CatracaFacade;
+import com.compreingressos.controleacesso.controller.util.JsfUtil;
+import com.compreingressos.controleacesso.controller.util.JsfUtil.PersistAction;
+
+@ManagedBean(name = "catracaController")
+@ViewScoped
 public class CatracaController implements Serializable {
 
-    @EJB
+	private static final long serialVersionUID = 1L;
+	@EJB
     private com.compreingressos.controleacesso.bean.CatracaFacade ejbFacade;
     private List<Catraca> items = null;
+    private List<CatracaSetor> listaCS = null;
+    private List<CatracaSetor> listaEditCS = null;
     private Catraca selected;
+    private CatracaSetor selectedCS;
+    
+    @ManagedProperty(name = "catracaSetorController", value = "#{catracaSetorController}")
+    private CatracaSetorController catracaSetorController = new CatracaSetorController();
 
     public CatracaController() {
+    	listaCS = new ArrayList<>();
     }
+
+    @PostConstruct
+    public void init(){
+    	selectedCS = new CatracaSetor();
+    }
+    
+    public void listaItens(){
+    	if(selected.getCodigo() != null){
+    		listaEditCS = new ArrayList<>();
+    		List<CatracaSetor> listaTemporariaCS = getCatracaSetorController().getFacade().findAll(new Catraca(selected.getCodigo()));
+    		if(listaTemporariaCS != null){
+    			for(CatracaSetor lista : listaTemporariaCS){
+    				listaEditCS.add(new CatracaSetor(lista.getSetor()));
+    			}
+    		}
+    	}
+    }
+    
 
     public Catraca getSelected() {
         return selected;
@@ -46,7 +79,35 @@ public class CatracaController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private CatracaFacade getFacade() {
+    public List<CatracaSetor> getListaCS() {
+		return listaCS;
+	}
+
+	public void setListaCS(List<CatracaSetor> listaCS) {
+		this.listaCS = listaCS;
+	}
+
+	public CatracaSetor getSelectedCS() {
+		return selectedCS;
+	}
+	
+	public void pegaSetor(){
+		selectedCS.setSetor(selected.getIdSetor());
+	}
+	
+	public List<CatracaSetor> getListaEditCS() {
+		return listaEditCS;
+	}
+
+	public void setListaEditCS(List<CatracaSetor> listaEditCS) {
+		this.listaEditCS = listaEditCS;
+	}
+
+	public void addListaCS(){
+    	listaCS.add(new CatracaSetor(selectedCS.getSetor()));
+    }
+
+	private CatracaFacade getFacade() {
         return ejbFacade;
     }
 
@@ -55,8 +116,25 @@ public class CatracaController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+    
+    public List<Layout> listaLayout(){
+    	return getFacade().findLayout(selected.getIdLocal());
+    }
+    
+    public List<Setor> listaSetor(){
+    	return getFacade().findSetor(selected.getIdLayout());
+    }
+    
+    public CatracaSetorController getCatracaSetorController() {
+		return catracaSetorController;
+	}
 
-    public void create() {
+	public void setCatracaSetorController(
+			CatracaSetorController catracaSetorController) {
+		this.catracaSetorController = catracaSetorController;
+	}
+
+	public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CatracaCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -88,7 +166,9 @@ public class CatracaController implements Serializable {
             try {
                 if (persistAction != PersistAction.DELETE) {
                     selected.setDataHoraAtualizacao(new Date());
-                    getFacade().edit(selected);
+                    selected = getFacade().update(selected);
+                    persist();
+//                    getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);
                 }
@@ -110,6 +190,32 @@ public class CatracaController implements Serializable {
             }
         }
     }
+    
+    public void persist(){
+    	try{
+    		if(listaCS != null){
+    			for(CatracaSetor cs : listaCS){
+    				cs.setCatraca(selected);
+    				cs.setDataAtualizacao(new Date());
+    				getCatracaSetorController().getFacade().edit(cs);
+    			}
+    		}
+    	} catch (EJBException ex) {
+            String msg = "";
+            Throwable cause = ex.getCause();
+            if (cause != null) {
+                msg = cause.getLocalizedMessage();
+            }
+            if (msg.length() > 0) {
+                JsfUtil.addErrorMessage(msg);
+            } else {
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+    }
 
     public Catraca getCatraca(java.lang.Integer id) {
         return getFacade().find(id);
@@ -123,6 +229,10 @@ public class CatracaController implements Serializable {
         return getFacade().findAll();
     }
 
+    public List<CatracaSetor> getItensSetor(Integer id){
+    	return getCatracaSetorController().getFacade().findAll(new Catraca(id));
+    }
+    
     @FacesConverter(forClass = Catraca.class)
     public static class CatracaControllerConverter implements Converter {
 

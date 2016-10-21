@@ -54,13 +54,13 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListSetorTitle_layout}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.layout}"/>
+                                <h:outputText value="#{item.layout.nome}"/>
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{setorController.prepareCreate}" update=":SetorCreateForm" oncomplete="PF('SetorCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SetorViewForm" oncomplete="PF('SetorViewDialog').show()" disabled="#{empty setorController.selected}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SetorEditForm" oncomplete="PF('SetorEditDialog').show()" disabled="#{empty setorController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{setorController.destroy}" update=":growl,datalist" disabled="#{empty setorController.selected}"/>
+                                <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{setorController.prepareCreate}" update=":SetorCreateForm" oncomplete="PF('SetorCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":SetorViewForm" oncomplete="PF('SetorViewDialog').show()" disabled="#{empty setorController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":SetorEditForm" oncomplete="PF('SetorEditDialog').show()" disabled="#{empty setorController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{setorController.destroy}" update=":growl,datalist" disabled="#{empty setorController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </h:form>

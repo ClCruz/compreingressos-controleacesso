@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GradeHorariaEditDlg" widgetVar="GradeHorariaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGradeHorariaTitle}">
+            <h:form id="GradeHorariaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gradeHorariaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditGradeHorariaLabel_descricao}" for="descricao" />
+                        <p:inputText id="descricao" value="#{gradeHorariaController.selected.descricao}" title="#{bundle.EditGradeHorariaTitle_descricao}" required="true" requiredMessage="#{bundle.EditGradeHorariaRequiredMessage_descricao}"/>
+                        <p:outputLabel value="#{bundle.EditGradeHorariaLabel_domingo}" for="domingo" />
+                        <p:selectBooleanCheckbox id="domingo" value="#{gradeHorariaController.selected.domingo}" required="true" requiredMessage="#{bundle.EditGradeHorariaRequiredMessage_domingo}"/>
+                        <p:outputLabel value="#{bundle.EditGradeHorariaLabel_segunda}" for="segunda" />
+                        <p:selectBooleanCheckbox id="segunda" value="#{gradeHorariaController.selected.segunda}" required="true" requiredMessage="#{bundle.EditGradeHorariaRequiredMessage_segunda}"/>
+                        <p:outputLabel value="#{bundle.EditGradeHorariaLabel_terca}" for="terca" />
+                        <p:selectBooleanCheckbox id="terca" value="#{gradeHorariaController.selected.terca}" required="true" requiredMessage="#{bundle.EditGradeHorariaRequiredMessage_terca}"/>
+                        <p:outputLabel value="#{bundle.EditGradeHorariaLabel_qiuarta}" for="qiuarta" />
+                        <p:selectBooleanCheckbox id="qiuarta" value="#{gradeHorariaController.selected.qiuarta}" required="true" requiredMessage="#{bundle.EditGradeHorariaRequiredMessage_qiuarta}"/>
+                        <p:outputLabel value="#{bundle.EditGradeHorariaLabel_quinta}" for="quinta" />
+                        <p:selectBooleanCheckbox id="quinta" value="#{gradeHorariaController.selected.quinta}" required="true" requiredMessage="#{bundle.EditGradeHorariaRequiredMessage_quinta}"/>
+                        <p:outputLabel value="#{bundle.EditGradeHorariaLabel_sexta}" for="sexta" />
+                        <p:selectBooleanCheckbox id="sexta" value="#{gradeHorariaController.selected.sexta}" required="true" requiredMessage="#{bundle.EditGradeHorariaRequiredMessage_sexta}"/>
+                        <p:outputLabel value="#{bundle.EditGradeHorariaLabel_sabado}" for="sabado" />
+                        <p:selectBooleanCheckbox id="sabado" value="#{gradeHorariaController.selected.sabado}" required="true" requiredMessage="#{bundle.EditGradeHorariaRequiredMessage_sabado}"/>
+                        <p:outputLabel value="#{bundle.EditGradeHorariaLabel_horaMinima}" for="horaMinima" />
+                        <p:inputText id="horaMinima" value="#{gradeHorariaController.selected.horaMinima}" title="#{bundle.EditGradeHorariaTitle_horaMinima}" required="true" requiredMessage="#{bundle.EditGradeHorariaRequiredMessage_horaMinima}"/>
+                        <p:outputLabel value="#{bundle.EditGradeHorariaLabel_horaMaxima}" for="horaMaxima" />
+                        <p:inputText id="horaMaxima" value="#{gradeHorariaController.selected.horaMaxima}" title="#{bundle.EditGradeHorariaTitle_horaMaxima}" required="true" requiredMessage="#{bundle.EditGradeHorariaRequiredMessage_horaMaxima}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gradeHorariaController.update}" value="#{bundle.Save}" update="display,:GradeHorariaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GradeHorariaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('GradeHorariaEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

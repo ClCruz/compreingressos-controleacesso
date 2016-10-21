@@ -29,7 +29,7 @@
                         <p:outputLabel value="#{bundle.CreateFalhaLabel_usuarioOcorrencia}" for="usuarioOcorrencia" />
                         <p:selectOneMenu id="usuarioOcorrencia" value="#{falhaController.selected.usuarioOcorrencia}" required="true" requiredMessage="#{bundle.EditFalhaRequiredMessage_usuarioOcorrencia}">
                             <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
-                                           var="usuarioOcorrenciaItem"
+                                           var="usuarioOcorrenciaItem.nome"
                                            itemValue="#{usuarioOcorrenciaItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateFalhaLabel_usuarioSolucao}" for="usuarioSolucao" />
