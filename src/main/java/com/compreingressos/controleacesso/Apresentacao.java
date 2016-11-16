@@ -80,6 +80,16 @@ public class Apresentacao implements Serializable {
     @NotNull
     @Column(name = "validaEstorno")
     private boolean validaEstorno;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "dataHoraAberturaPortao")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataHoraAberturaPortao;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "dataHoraFechamentoPortao")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataHoraFechamentoPortao;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "apresentacao")
     private Collection<LiberacaoEmergencial> liberacaoEmergencialCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "apresentacao")
@@ -88,6 +98,7 @@ public class Apresentacao implements Serializable {
     @ManyToOne
     private Evento evento;
 
+
     public Apresentacao() {
     }
 
@@ -95,7 +106,8 @@ public class Apresentacao implements Serializable {
         this.codigo = codigo;
     }
 
-    public Apresentacao(Integer codigo, String nome, Date dataHoraInicio, Date dataHoraFinal, Date dataHoraAtualizacao, boolean ativo, boolean validaEstorno) {
+    public Apresentacao(Integer codigo, String nome, Date dataHoraInicio, Date dataHoraFinal, Date dataHoraAtualizacao, boolean ativo, boolean validaEstorno,
+    		Date dataHoraAberturaPortao, Date dataHoraFechamentoPortao) {
         this.codigo = codigo;
         this.nome = nome;
         this.dataHoraInicio = dataHoraInicio;
@@ -103,6 +115,8 @@ public class Apresentacao implements Serializable {
         this.dataHoraAtualizacao = dataHoraAtualizacao;
         this.ativo = ativo;
         this.validaEstorno = validaEstorno;
+        this.dataHoraAberturaPortao = dataHoraAberturaPortao;
+        this.dataHoraFechamentoPortao = dataHoraFechamentoPortao;
     }
 
     public Integer getCodigo() {
@@ -161,6 +175,22 @@ public class Apresentacao implements Serializable {
         this.validaEstorno = validaEstorno;
     }
 
+    public Date getDataHoraAberturaPortao() {
+    	return dataHoraAberturaPortao;
+    }
+    
+    public void setDataHoraAberturaPortao(Date dataHoraAberturaPortao) {
+    	this.dataHoraAberturaPortao = dataHoraAberturaPortao;
+    }
+    
+    public Date getDataHoraFechamentoPortao() {
+    	return dataHoraFechamentoPortao;
+    }
+    
+    public void setDataHoraFechamentoPortao(Date dataHoraFechamentoPortao) {
+    	this.dataHoraFechamentoPortao = dataHoraFechamentoPortao;
+    }
+    
     @XmlTransient
     public Collection<LiberacaoEmergencial> getLiberacaoEmergencialCollection() {
         return liberacaoEmergencialCollection;
@@ -186,8 +216,9 @@ public class Apresentacao implements Serializable {
     public void setEvento(Evento evento) {
         this.evento = evento;
     }
+    
 
-    @Override
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (codigo != null ? codigo.hashCode() : 0);

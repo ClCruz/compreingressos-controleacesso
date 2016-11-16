@@ -22,7 +22,8 @@
                         <h:outputText value="#{bundle.ViewContratanteLabel_nome}"/>
                         <h:outputText value="#{contratanteController.selected.nome}" title="#{bundle.ViewContratanteTitle_nome}"/>
                         <h:outputText value="#{bundle.ViewContratanteLabel_ativo}"/>
-                        <p:selectBooleanCheckbox value="#{contratanteController.selected.ativo}" disabled="true"/>
+                        	<h:outputText value="Ativo" rendered="#{contratanteController.selected.ativo eq true}"/>
+                            <h:outputText value="Inativo" rendered="#{contratanteController.selected.ativo eq false}"/>
                         <h:outputText value="#{bundle.ViewContratanteLabel_logotipo}"/>
                         <o:graphicImage value="#{contratanteController.logo}" width="174" dataURI="true" />
                     </p:panelGrid>

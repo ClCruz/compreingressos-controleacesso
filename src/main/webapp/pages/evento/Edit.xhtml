@@ -17,9 +17,13 @@
                         <p:outputLabel value="#{bundle.EditEventoLabel_dataInicio}" for="dataInicio" />
                         <p:calendar id="dataInicio" pattern="#{bundle.formatDate}" value="#{eventoController.selected.dataInicio}" title="#{bundle.EditEventoTitle_dataInicio}" required="true" requiredMessage="#{bundle.EditEventoRequiredMessage_dataInicio}" showOn="button"/>
                         <p:outputLabel value="#{bundle.EditEventoLabel_dataFinal}" for="dataFinal" />
-                        <p:calendar id="dataFinal" pattern="#{bundle.formatDate}" value="#{eventoController.selected.dataFinal}" title="#{bundle.EditEventoTitle_dataFinal}" required="true" requiredMessage="#{bundle.EditEventoRequiredMessage_dataFinal}" showOn="button"/>
+                        <p:calendar id="dataFinal" pattern="#{bundle.formatDate}" value="#{eventoController.selected.dataFinal}" title="#{bundle.EditEventoTitle_dataFinal}" 
+                        			required="true" requiredMessage="#{bundle.EditEventoRequiredMessage_dataFinal}" showOn="button" mindate="#{eventoController.dataMinima}"/>
                         <p:outputLabel value="#{bundle.EditEventoLabel_ativo}" for="ativo" />
-                        <p:selectBooleanCheckbox id="ativo" value="#{eventoController.selected.ativo}" required="true" requiredMessage="#{bundle.EditEventoRequiredMessage_ativo}"/>
+                        <p:selectOneMenu id="ativo" value="#{eventoController.selected.ativo}" required="true" requiredMessage="#{bundle.EditEventoRequiredMessage_ativo}">
+                        	<f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditEventoLabel_logotipo}" for="logotipo" />
                         <p:fileUpload id="logotipo" fileUploadListener="#{eventoController.upload}" mode="advanced" auto="true" />
                         <p:outputLabel value="#{bundle.EditEventoLabel_localDeControle}" for="localDeControle" />

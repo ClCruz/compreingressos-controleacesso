@@ -21,7 +21,8 @@
                         <h:outputText value="#{bundle.ViewLocalDeControleLabel_nome}"/>
                         <h:outputText value="#{localDeControleController.selected.nome}" title="#{bundle.ViewLocalDeControleTitle_nome}"/>
                         <h:outputText value="#{bundle.ViewLocalDeControleLabel_ativo}"/>
-                        <p:selectBooleanCheckbox value="#{localDeControleController.selected.ativo}" disabled="true"/>
+                        	<h:outputText value="Ativo" rendered="#{localDeControleController.selected.ativo eq true}"/>
+                            <h:outputText value="Inativo" rendered="#{localDeControleController.selected.ativo eq false}"/>
                         <h:outputText value="#{bundle.ViewLocalDeControleLabel_endereco}"/>
                         <h:outputText value="#{localDeControleController.selected.endereco}" title="#{bundle.ViewLocalDeControleTitle_endereco}"/>
                         <h:outputText value="#{bundle.ViewLocalDeControleLabel_numeroEndereco}"/>

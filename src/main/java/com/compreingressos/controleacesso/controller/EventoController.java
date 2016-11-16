@@ -72,6 +72,11 @@ public class EventoController implements Serializable {
     private EventoFacade getFacade() {
         return ejbFacade;
     }
+    
+    //Calendar mindate
+    public Date getDataMinima() {
+        return new Date();
+    }
 
     public Evento prepareCreate() {
         selected = new Evento();

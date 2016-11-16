@@ -17,7 +17,8 @@
                         <h:outputText value="#{bundle.ViewFabricanteLabel_nome}"/>
                         <h:outputText value="#{fabricanteController.selected.nome}" title="#{bundle.ViewFabricanteTitle_nome}"/>
                         <h:outputText value="#{bundle.ViewFabricanteLabel_ativo}"/>
-                        <p:selectBooleanCheckbox value="#{fabricanteController.selected.ativo}" disabled="true"/>
+                        	<h:outputText value="Ativo" rendered="#{fabricanteController.selected.ativo eq true}"/>
+                            <h:outputText value="Inativo" rendered="#{fabricanteController.selected.ativo eq false}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('FabricanteViewDialog').hide()"/>
                 </h:panelGroup>

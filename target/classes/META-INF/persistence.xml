@@ -3,6 +3,9 @@
   <persistence-unit name="com.compreingressos_controleacesso_war_1.0.0PU" transaction-type="JTA">
     <jta-data-source>java:jboss/datasources/dsControleAcesso</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+ <!--    <properties>
+    <property name="hibernate.show_sql" value="true"/>
+    <property name="hibernate.format_sql" value="true"/>
+    </properties> -->
   </persistence-unit>
 </persistence>

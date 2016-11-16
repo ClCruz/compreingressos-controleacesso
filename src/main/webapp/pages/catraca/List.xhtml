@@ -31,7 +31,8 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListCatracaTitle_codigoCatraca}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.codigoCatraca}"/>
+                                <h:outputText value="#{item.codigoCatraca}" rendered="#{item.ativo eq true}" style="color:green"/>
+                            	<h:outputText value="#{item.codigoCatraca}" rendered="#{item.ativo eq false}" style="color:red"/>
                             </p:column>
                             <p:column headerText="#{bundle.ListCatracaTitle_ativo}" filterBy="#{item.ativo}" filterMatchMode="contains" sortBy="#{item.ativo}">
                                 <f:facet name="filter"> 
@@ -41,8 +42,8 @@
                                         <f:selectItem itemValue="false" itemLabel="Inativo"/>
                                     </p:selectOneMenu>
                                 </f:facet>    
-                                <h:outputText value="Ativo" rendered="#{item.ativo eq true}"/>
-                                <h:outputText value="Inativo" rendered="#{item.ativo eq false}"/>
+                                <h:outputText value="Ativo" rendered="#{item.ativo eq true}" style="color:green;" />
+                                <h:outputText value="Inativo" rendered="#{item.ativo eq false}" style="color:red;"/>
                             </p:column>
                             <p:column headerText="#{bundle.ListCatracaTitle_numeroIP}" filterBy="#{item.numeroIP}" filterMatchMode="contains" sortBy="#{item.numeroIP}">
                                 <f:facet name="header">

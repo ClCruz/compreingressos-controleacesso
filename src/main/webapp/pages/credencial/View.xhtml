@@ -14,16 +14,17 @@
                     <p:panelGrid columns="2" rendered="#{credencialController.selected != null}">
                         <h:outputText value="#{bundle.ViewCredencialLabel_codigo}"/>
                         <h:outputText value="#{credencialController.selected.codigo}" title="#{bundle.ViewCredencialTitle_codigo}"/>
+                        <h:outputText value="#{bundle.ViewCredencialLabel_credenciado}"/>
+                        <h:outputText value="#{credencialController.selected.credenciado.nome} #{credencialController.selected.credenciado.sobrenome}" title="#{bundle.ViewCredencialTitle_credenciado}"/>
+                        
                         <h:outputText value="#{bundle.ViewCredencialLabel_numeroTag}"/>
                         <h:outputText value="#{credencialController.selected.numeroTag}" title="#{bundle.ViewCredencialTitle_numeroTag}"/>
+                        <h:outputText value="#{bundle.ViewCredencialLabel_tipoCredencial}"/>
+                        <h:outputText value="#{credencialController.selected.tipoCredencial.descricao}" title="#{bundle.ViewCredencialTitle_tipoCredencial}"/>
                         <h:outputText value="#{bundle.ViewCredencialLabel_validade}"/>
                         <h:outputText value="#{credencialController.selected.validade}" title="#{bundle.ViewCredencialTitle_validade}">
                             <f:convertDateTime pattern="#{bundle.formatDate}" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewCredencialLabel_credenciado}"/>
-                        <h:outputText value="#{credencialController.selected.credenciado.nome}" title="#{bundle.ViewCredencialTitle_credenciado}"/>
-                        <h:outputText value="#{bundle.ViewCredencialLabel_tipoCredencial}"/>
-                        <h:outputText value="#{credencialController.selected.tipoCredencial.descricao}" title="#{bundle.ViewCredencialTitle_tipoCredencial}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('CredencialViewDialog').hide()"/>
                 </h:panelGroup>

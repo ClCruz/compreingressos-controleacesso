@@ -13,8 +13,12 @@ public class CpfValidator implements ConstraintValidator<Cpf, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        String valueClean = value.replace(".","").replace("-", "");
-        return validaCPF(String.valueOf(valueClean));
+    	try{
+    		value = value.replace(".","").replace("-", "");
+    	} catch (Exception e){
+    		System.out.println(e);
+    	}
+        return validaCPF(String.valueOf(value));
     }
 
     @Override

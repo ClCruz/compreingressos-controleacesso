@@ -11,27 +11,76 @@
         <p:dialog id="CredencialCreateDlg" widgetVar="CredencialCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCredencialTitle}">
             <h:form id="CredencialCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{credencialController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateCredencialLabel_numeroTag}" for="numeroTag" />
-                        <p:inputText id="numeroTag" value="#{credencialController.selected.numeroTag}" title="#{bundle.CreateCredencialTitle_numeroTag}" required="true" requiredMessage="#{bundle.CreateCredencialRequiredMessage_numeroTag}"/>
-                        <p:outputLabel value="#{bundle.CreateCredencialLabel_validade}" for="validade" />
-                        <p:calendar id="validade" pattern="#{bundle.formatDate}" value="#{credencialController.selected.validade}" title="#{bundle.EditCredencialTitle_validade}"  showOn="button"/>
-                   		<p:outputLabel value="#{bundle.CreateCredencialLabel_credenciado}" for="credenciado" />
-                   		<p:selectOneMenu id="credenciado" value="#{credencialController.selected.credenciado}" >
-                   			<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{credenciadoController.itemsAvailableSelectOne}"
-                                           var="credenciadoItem"
-                                           itemValue="#{credenciadoItem}"/>
+                    <p:panelGrid columns="2">
+                    <p:panelGrid columns="4">
+                    	<p:outputLabel value="#{bundle.CreateCredenciadoLabel_empresa}" for="empresa" />
+                        <p:selectOneMenu id="empresa" value="#{credencialController.credenciado.empresa}" >
+                            <f:selectItems value="#{contratanteController.itemsAvailableSelectOne}"
+                                           var="contratanteItem"
+                                           itemValue="#{contratanteItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateCredencialLabel_tipoCredencial}" for="tipoCredencial" />
-                   		<p:selectOneMenu id="tipoCredencial" value="#{credencialController.selected.tipoCredencial}" >
+                        <p:outputLabel value="#{bundle.CreateCredenciadoLabel_ativo}" for="ativo" />
+                        <p:selectOneMenu id="ativo" value="#{credencialController.credenciado.ativo}" required="true" requiredMessage="#{bundle.EditCredenciadoRequiredMessage_ativo}">
+                            <f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateCredenciadoLabel_nome}" for="nome" />
+                        <p:inputText id="nome" value="#{credencialController.credenciado.nome}" title="#{bundle.CreateCredenciadoTitle_nome}" required="true" requiredMessage="#{bundle.CreateCredenciadoRequiredMessage_nome}"/>
+                        <p:outputLabel value="#{bundle.CreateCredenciadoLabel_sobrenome}" for="sobrenome" />
+                        <p:inputText id="sobrenome" value="#{credencialController.credenciado.sobrenome}" title="#{bundle.CreateCredenciadoTitle_sobrenome}" required="true" requiredMessage="#{bundle.CreateCredenciadoRequiredMessage_sobrenome}"/>
+                        <p:outputLabel value="#{bundle.CreateCredenciadoLabel_endereco}" for="endereco" />
+                        <p:inputText id="endereco" value="#{credencialController.credenciado.endereco}" title="#{bundle.CreateCredenciadoTitle_endereco}" style="width:250px" />
+                        <p:outputLabel value="#{bundle.CreateCredenciadoLabel_numeroEndereco}" for="numeroEndereco" />
+                        <p:inputText id="numeroEndereco" value="#{credencialController.credenciado.numeroEndereco}" title="#{bundle.CreateCredenciadoTitle_numeroEndereco}" />
+                        <p:outputLabel value="#{bundle.CreateCredenciadoLabel_bairro}" for="bairro" />
+                        <p:inputText id="bairro" value="#{credencialController.credenciado.bairro}" title="#{bundle.CreateCredenciadoTitle_bairro}" required="true" requiredMessage="#{bundle.CreateCredenciadoRequiredMessage_bairro}"/>
+                        <p:outputLabel value="#{bundle.CreateCredenciadoLabel_complementoEndereco}" for="complementoEndereco" />
+                        <p:inputText id="complementoEndereco" value="#{credencialController.credenciado.complementoEndereco}" title="#{bundle.CreateCredenciadoTitle_complementoEndereco}" />
+                        <p:outputLabel value="#{bundle.CreateCredenciadoLabel_municipio}" for="municipio" />
+                        <p:selectOneMenu id="municipio" value="#{credencialController.credenciado.municipio}" >
+                            <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"
+                                           var="municipioItem"
+                                           itemValue="#{municipioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateCredenciadoLabel_cep}" for="cep" />
+                        <p:inputMask id="cep" value="#{credencialController.credenciado.cep}" title="#{bundle.CreateCredenciadoTitle_cep}" mask="99999-999"/>
+                        <p:outputLabel value="#{bundle.CreateCredenciadoLabel_cpf}" for="cpf" />
+                        <p:inputMask id="cpf" value="#{credencialController.credenciado.cpf}" title="#{bundle.CreateCredenciadoTitle_cpf}" required="true" requiredMessage="#{bundle.CreateCredenciadoRequiredMessage_cpf}" mask="999.999.999-99"/>
+                        <p:outputLabel value="#{bundle.CreateCredenciadoLabel_rg}" for="rg" />
+                        <p:inputText id="rg" value="#{credencialController.credenciado.rg}" title="#{bundle.CreateCredenciadoTitle_rg}" required="true" requiredMessage="#{bundle.CreateCredenciadoRequiredMessage_rg}" />
+                        <p:outputLabel value="#{bundle.CreateCredenciadoLabel_telefone}" for="telefone" />
+                        <p:inputText id="telefone" value="#{credencialController.credenciado.telefone}" title="#{bundle.CreateCredenciadoTitle_telefone}" />
+                        <p:outputLabel value="#{bundle.CreateCredenciadoLabel_telefone2}" for="telefone2" />
+                        <p:inputText id="telefone2" value="#{credencialController.credenciado.telefone2}" title="#{bundle.CreateCredenciadoTitle_telefone2}" />
+                        <p:outputLabel value="#{bundle.CreateCredenciadoLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{credencialController.credenciado.email}" title="#{bundle.CreateCredenciadoTitle_email}" style="width:250px" validatorMessage="Insira um e-mail válido.">
+                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreateCredenciadoLabel_nomeImpressao}" for="nomeImpressao" />
+                        <p:inputText id="nomeImpressao" value="#{credencialController.credenciado.nomeImpressao}" title="#{bundle.CreateCredenciadoTitle_nomeImpressao}" />
+                        <p:outputLabel value="#{bundle.CreateCredenciadoLabel_foto}" for="foto" />
+                        <p:fileUpload id="foto" fileUploadListener="#{credencialController.upload}" mode="advanced" auto="true" />
+                    </p:panelGrid>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="#{bundle.CreateCredencialLabel_numeroTag}" for="numeroTag" />
+                        <p:inputText id="numeroTag" value="#{credencialController.credencial.numeroTag}" title="#{bundle.CreateCredencialTitle_numeroTag}" required="true" requiredMessage="#{bundle.CreateCredencialRequiredMessage_numeroTag}"/>
+                        <p:outputLabel value="#{bundle.CreateCredencialLabel_validade}" for="validade" />
+                        <p:calendar id="validade" pattern="#{bundle.formatDate}" value="#{credencialController.credencial.validade}" title="#{bundle.EditCredencialTitle_validade}"  showOn="button" mindate="#{credencialController.dataMinima}"/>
+                        <p:outputLabel value="#{bundle.CreateCredencialLabel_tipoCredencial}" />
+                   		<p:selectOneMenu id="tipoCredencial" value="{credencialController.credencial.tipoCredencial}" >
                    			<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{tipoCredencialController.itemsAvailableSelectOne}"
                                            var="tipoCredencialItem"
                                            itemValue="#{tipoCredencialItem}"/>
                         </p:selectOneMenu>
+                    
 					</p:panelGrid>
-                    <p:commandButton actionListener="#{credencialController.create}" value="#{bundle.Save}" update="display,:CredencialListForm:datalist,:growl" oncomplete="handleSubmit(args,'CredencialCreateDialog');"/>
+					<p:panelGrid columns="2" >
+                    		<p:outputLabel value="#{bundle.CreateCredenciadoLabel_observacao}" for="observacao" />
+                        	<p:inputText id="observacao" value="#{credencialController.credenciado.observacao}" title="#{bundle.CreateCredenciadoTitle_observacao}" style="width:500px" />
+                    </p:panelGrid>
+					</p:panelGrid>
+                    <p:commandButton actionListener="#{credencialController.create}" value="#{bundle.Save}"  update="display,:CredencialListForm:datalist,:growl" oncomplete="handleSubmit(args,'CredencialCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('CredencialCreateDialog').hide()"/>
                 </h:panelGroup>
             </h:form>

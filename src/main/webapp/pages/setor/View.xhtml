@@ -23,7 +23,8 @@
                         <h:outputText value="#{bundle.ViewSetorLabel_acessibilidadeEspecial}"/>
                         <p:selectBooleanCheckbox value="#{setorController.selected.acessibilidadeEspecial}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewSetorLabel_ativo}"/>
-                        <p:selectBooleanCheckbox value="#{setorController.selected.ativo}" disabled="true"/>
+                        	<h:outputText value="Ativo" rendered="#{setorController.selected.ativo eq true}"/>
+                            <h:outputText value="Inativo" rendered="#{setorController.selected.ativo eq false}"/>
                         <h:outputText value="#{bundle.ViewSetorLabel_layout}"/>
                         <h:outputText value="#{setorController.selected.layout.nome}" title="#{bundle.ViewSetorTitle_layout}"/>
                     </p:panelGrid>

@@ -24,6 +24,7 @@ import com.compreingressos.controleacesso.CatracaSetor;
 import com.compreingressos.controleacesso.Layout;
 import com.compreingressos.controleacesso.Setor;
 import com.compreingressos.controleacesso.bean.CatracaFacade;
+import com.compreingressos.controleacesso.bean.CatracaSetorFacade;
 import com.compreingressos.controleacesso.controller.util.JsfUtil;
 import com.compreingressos.controleacesso.controller.util.JsfUtil.PersistAction;
 
@@ -33,10 +34,13 @@ public class CatracaController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@EJB
+	private com.compreingressos.controleacesso.bean.CatracaSetorFacade ejbCatracaSetor;
+	
+	@EJB
     private com.compreingressos.controleacesso.bean.CatracaFacade ejbFacade;
     private List<Catraca> items = null;
-    private List<CatracaSetor> listaCS = null;
-    private List<CatracaSetor> listaEditCS = null;
+    private List<CatracaSetor> listaCS;
+    private List<CatracaSetor> listaEditCS;
     private Catraca selected;
     private CatracaSetor selectedCS;
     
@@ -86,7 +90,8 @@ public class CatracaController implements Serializable {
 	public void setListaCS(List<CatracaSetor> listaCS) {
 		this.listaCS = listaCS;
 	}
-
+	
+	
 	public CatracaSetor getSelectedCS() {
 		return selectedCS;
 	}
@@ -110,7 +115,11 @@ public class CatracaController implements Serializable {
 	private CatracaFacade getFacade() {
         return ejbFacade;
     }
-
+	
+	private CatracaSetorFacade getCatracaSetorFacade(){
+		return ejbCatracaSetor;
+	}
+	
     public Catraca prepareCreate() {
         selected = new Catraca();
         initializeEmbeddableKey();
@@ -167,8 +176,8 @@ public class CatracaController implements Serializable {
                 if (persistAction != PersistAction.DELETE) {
                     selected.setDataHoraAtualizacao(new Date());
                     selected = getFacade().update(selected);
+                    getFacade().edit(selected);
                     persist();
-//                    getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);
                 }
@@ -198,8 +207,10 @@ public class CatracaController implements Serializable {
     				cs.setCatraca(selected);
     				cs.setDataAtualizacao(new Date());
     				getCatracaSetorController().getFacade().edit(cs);
-    			}
-    		}
+    			} 
+    		}else {
+                getFacade().remove(selected);
+            }
     	} catch (EJBException ex) {
             String msg = "";
             Throwable cause = ex.getCause();
@@ -223,6 +234,11 @@ public class CatracaController implements Serializable {
 
     public List<Catraca> getItemsAvailableSelectMany() {
         return getFacade().findAll();
+    }
+    
+    public void removeCatracaSetor(CatracaSetor selectedCS){
+    	listaEditCS.remove(selectedCS);
+    	getCatracaSetorFacade().remove(selectedCS);
     }
 
     public List<Catraca> getItemsAvailableSelectOne() {

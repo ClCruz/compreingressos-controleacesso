@@ -17,7 +17,8 @@
                         <h:outputText value="#{bundle.ViewModeloCatracaLabel_descricao}"/>
                         <h:outputText value="#{modeloCatracaController.selected.descricao}" title="#{bundle.ViewModeloCatracaTitle_descricao}"/>
                         <h:outputText value="#{bundle.ViewModeloCatracaLabel_ativo}"/>
-                        <p:selectBooleanCheckbox value="#{modeloCatracaController.selected.ativo}" disabled="true"/>
+                        	<h:outputText value="Ativo" rendered="#{modeloCatracaController.selected.ativo eq true}"/>
+                            <h:outputText value="Inativo" rendered="#{modeloCatracaController.selected.ativo eq false}"/>
                         <h:outputText value="#{bundle.ViewModeloCatracaLabel_fabricante}"/>
                         <h:outputText value="#{modeloCatracaController.selected.fabricante.nome}" title="#{bundle.ViewModeloCatracaTitle_fabricante}"/>
                     </p:panelGrid>

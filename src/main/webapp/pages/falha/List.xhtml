@@ -20,8 +20,8 @@
                                      widgetVar="falhaTable"
                                      >
 
-                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowSelect"   update="createButton editButton viewButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton editButton viewButton deleteButton"/>
 
                             <f:facet name="header">
                                 #{bundle.ListFalhaTitle}
@@ -65,13 +65,13 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListFalhaTitle_usuarioOcorrencia}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.usuarioOcorrencia.nome}"/>
+                                <h:outputText value="#{item.usuarioOcorrencia.nome} #{item.usuarioOcorrencia.sobrenome}"/>
                             </p:column>
                             <p:column headerText="#{bundle.ListFalhaTitle_usuarioSolucao}" filterBy="#{item.usuarioSolucao}" filterMatchMode="contains" sortBy="#{item.usuarioSolucao}">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListFalhaTitle_usuarioSolucao}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.usuarioSolucao.nome}"/>
+                                <h:outputText value="#{item.usuarioSolucao.nome} #{item.usuarioSolucao.sobrenome}"/>
                             </p:column>
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{falhaController.prepareCreate}" update=":FalhaCreateForm" oncomplete="PF('FalhaCreateDialog').show()"/>

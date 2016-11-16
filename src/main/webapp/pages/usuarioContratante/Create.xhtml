@@ -22,7 +22,8 @@
                         <p:selectOneMenu id="usuario" value="#{usuarioContratanteController.selected.usuario}" required="true" requiredMessage="#{bundle.EditUsuarioContratanteRequiredMessage_usuario}">
                             <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                            var="usuarioItem"
-                                           itemValue="#{usuarioItem}"/>
+                                           itemValue="#{usuarioItem}"
+                                           itemLabel="#{usuarioItem.nome} #{usuarioItem.sobrenome}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usuarioContratanteController.create}" value="#{bundle.Save}" update="display,:UsuarioContratanteListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioContratanteCreateDialog');"/>

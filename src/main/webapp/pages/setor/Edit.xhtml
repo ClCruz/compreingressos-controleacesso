@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.EditSetorLabel_descricaoSetor}" for="descricaoSetor" />
                         <p:inputText id="descricaoSetor" value="#{setorController.selected.descricaoSetor}" title="#{bundle.EditSetorTitle_descricaoSetor}" required="true" requiredMessage="#{bundle.EditSetorRequiredMessage_descricaoSetor}"/>
                         <p:outputLabel value="#{bundle.EditSetorLabel_acessibilidadeEspecial}" for="acessibilidadeEspecial" />
-                        <p:selectBooleanCheckbox id="acessibilidadeEspecial" value="#{setorController.selected.acessibilidadeEspecial}" required="true" requiredMessage="#{bundle.EditSetorRequiredMessage_acessibilidadeEspecial}"/>
+                        <p:selectBooleanCheckbox id="acessibilidadeEspecial" value="#{setorController.selected.acessibilidadeEspecial}" requiredMessage="#{bundle.EditSetorRequiredMessage_acessibilidadeEspecial}"/>
                         <p:outputLabel value="#{bundle.EditSetorLabel_ativo}" for="ativo" />
                         <p:selectOneMenu id="ativo" value="#{setorController.selected.ativo}" required="true" requiredMessage="#{bundle.EditSetorRequiredMessage_ativo}">
                             <f:selectItem itemLabel="Ativo" itemValue="true" />

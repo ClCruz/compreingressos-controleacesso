@@ -5,11 +5,15 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template.xhtml">
 
+<!-- f:metadata>
+	<f:event type="preRenderView" listener="{credencialController.initialize()}"/>
+</f:metadata-->
+
     <ui:define name="content">
         <div class="Container100">
             <div class="ContainerIndent">
                 <div class="Card ShadowEffect TexAlCenter">           
-                    <h:form id="CredencialListForm">
+                	<h:form id="CredencialListForm">
                     <p:dataTable id="datalist" value="#{credencialController.items}" var="item"
                                  selectionMode="single" selection="#{credencialController.selected}"
                                  paginator="true"
@@ -20,18 +24,42 @@
                                  widgetVar="credencialTable"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="createButton editButton viewButton"/>
+                        <p:ajax event="rowUnselect" update="createButton editButton viewButton"/>
 
 						<f:facet name="header">
                              #{bundle.ListCredencialTitle}
                         </f:facet>
 						
+						<p:column headerText="#{bundle.ListCredencialTitle_credenciado}" filterBy="#{item.credenciado}" filterMatchMode="contains" sortBy="#{item.credenciado}">
+                            <f:facet name="header">
+                               <h:outputText value="#{bundle.ListCredencialTitle_credenciado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.credenciado.nome} #{item.credenciado.sobrenome}"/>
+                        </p:column>
+                        <p:column headerText="#{bundle.ListCredenciadoTitle_cpf}" filterBy="#{item.credenciado.cpf}" filterMatchMode="contains" sortBy="#{item.credenciado.cpf}">
+                        	<f:facet name="header">
+                        		<h:outputText value="#{bundle.ListCredenciadoTitle_cpf}"/>
+                        	</f:facet>
+                        	<h:outputText value="#{item.credenciado.cpf}"/>
+                        </p:column>
+                        <p:column headerText="#{bundle.ListCredenciadoTitle_rg}" filterBy="#{item.credenciado.rg}" filterMatchMode="contains" sortBy="#{item.credenciado.rg}">
+                        	<f:facet name="header">
+                        		<h:outputText value="#{bundle.ListCredenciadoTitle_rg}"/>
+                        	</f:facet>
+                        	<h:outputText value="#{item.credenciado.rg}"/>
+                        </p:column>
                         <p:column headerText="#{bundle.ListCredencialTitle_numeroTag}" filterBy="#{item.numeroTag}" filterMatchMode="contains" sortBy="#{item.numeroTag}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCredencialTitle_numeroTag}"/>
                             </f:facet>
                             <h:outputText value="#{item.numeroTag}"/>
+                        </p:column>
+                        <p:column headerText="#{bundle.ListCredencialTitle_tipoCredencial}" filterBy="#{item.tipoCredencial}" filterMatchMode="contains" sortBy="#{item.tipoCredencial}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCredencialTitle_tipoCredencial}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tipoCredencial.descricao}"/>
                         </p:column>
                         <p:column headerText="#{bundle.ListCredencialTitle_validade}" filterBy="#{item.validade}" filterMatchMode="contains" sortBy="#{item.validade}">
                             <f:facet name="header">
@@ -41,31 +69,17 @@
                                 <f:convertDateTime pattern="#{bundle.formatDate}" />
                             </h:outputText>
                         </p:column>
-                        <p:column headerText="#{bundle.ListCredencialTitle_credenciado}" filterBy="#{item.credenciado}" filterMatchMode="contains" sortBy="#{item.credenciado}">
-                            <f:facet name="header">
-                               <h:outputText value="#{bundle.ListCredencialTitle_credenciado}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.credenciado.nome}"/>
-                        </p:column>
-                        <p:column headerText="#{bundle.ListCredencialTitle_tipoCredencial}" filterBy="#{item.tipoCredencial}" filterMatchMode="contains" sortBy="#{item.tipoCredencial}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCredencialTitle_tipoCredencial}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.tipoCredencial.descricao}"/>
-                        </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{credencialController.prepareCreate}" update=":CredencialCreateForm" oncomplete="PF('CredencialCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CredencialViewForm" oncomplete="PF('CredencialViewDialog').show()" disabled="#{empty credencialController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CredencialEditForm" oncomplete="PF('CredencialEditDialog').show()" disabled="#{empty credencialController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{credencialController.destroy}" update=":growl,datalist" disabled="#{empty credencialController.selected}"/>
+                        	<p:commandButton id="createButton" icon="fa fa-plus"   value="Novo Credenciado" actionListener="{credencialController.prepareCreate}" update=":CredencialCreateForm" oncomplete="PF('CredencialCreateDialog').show()"/> 
+                            <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":CredencialViewForm" oncomplete="PF('CredencialViewDialog').show()" disabled="#{empty credencialController.selected}"/>
+                            <p:commandButton id="editButton"   icon="fa fa-edit" value="Liberar Acesso" update=":CredencialEditForm" oncomplete="PF('CredencialEditDialog').show()" disabled="#{empty credencialController.selected}"/>
+                            <!-- <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="{credencialController.destroy}" update=":growl,datalist" disabled="#{empty credencialController.selected}"/> -->
                         </f:facet>
-                        </p:dataTable>
-                    </h:form>
-
+                    </p:dataTable>
+				</h:form>
                     <ui:include src="Create.xhtml"/>
                     <ui:include src="Edit.xhtml"/>
                     <ui:include src="View.xhtml"/>
-
                 </div>
             </div>
         </div>

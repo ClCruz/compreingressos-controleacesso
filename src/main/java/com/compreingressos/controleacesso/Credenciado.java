@@ -6,14 +6,20 @@
 package com.compreingressos.controleacesso;
 
 import com.compreingressos.controleacesso.interfaces.Cpf;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+
 import static javax.persistence.GenerationType.IDENTITY;
+
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -41,6 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Credenciado.findByCodigo", query = "SELECT c FROM Credenciado c WHERE c.codigo = :codigo"),
     @NamedQuery(name = "Credenciado.findByNome", query = "SELECT c FROM Credenciado c WHERE c.nome = :nome"),
     @NamedQuery(name = "Credenciado.findByCpf", query = "SELECT c FROM Credenciado c WHERE c.cpf = :cpf"),
+    @NamedQuery(name = "Credenciado.findByRg", query = "SELECT c FROM Credenciado c WHERE c.rg = :rg"),
     @NamedQuery(name = "Credenciado.findBySobrenome", query = "SELECT c FROM Credenciado c WHERE c.sobrenome = :sobrenome"),
     @NamedQuery(name = "Credenciado.findByEndereco", query = "SELECT c FROM Credenciado c WHERE c.endereco = :endereco"),
     @NamedQuery(name = "Credenciado.findByCep", query = "SELECT c FROM Credenciado c WHERE c.cep = :cep"),
@@ -69,7 +76,7 @@ public class Credenciado implements Serializable {
     private String nome;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 12)
+    @Size(min = 1, max = 14)
     @Column(name = "cpf")
     @Cpf
     private String cpf;
@@ -81,7 +88,7 @@ public class Credenciado implements Serializable {
     @Size(max = 120)
     @Column(name = "endereco")
     private String endereco;
-    @Size(max = 8)
+    @Size(max = 9)
     @Column(name = "cep")
     private String cep;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="E-mail inválido")//if the field contains email address consider using this annotation to enforce field validation
@@ -100,6 +107,10 @@ public class Credenciado implements Serializable {
     @Size(max = 15)
     @Column(name = "telefone2")
     private String telefone2;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "rg")
+    private String rg;
     @Basic(optional = false)
     @NotNull
     @Column(name = "dataHoraAtualizacao")
@@ -126,10 +137,10 @@ public class Credenciado implements Serializable {
     @OneToMany(mappedBy = "credenciado")
     private Collection<AcessoCatraca> acessoCatracaCollection;
     @JoinColumn(name = "empresa", referencedColumnName = "codigo")
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private Contratante empresa;
     @JoinColumn(name = "municipio", referencedColumnName = "codigo")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Municipio municipio;
     @OneToMany(mappedBy = "credenciado")
     private Collection<Credencial> credencialCollection;
@@ -141,7 +152,7 @@ public class Credenciado implements Serializable {
         this.codigo = codigo;
     }
 
-    public Credenciado(Integer codigo, String nome, String cpf, String sobrenome, Date dataHoraAtualizacao, boolean ativo, String bairro) {
+    public Credenciado(Integer codigo, String nome, String cpf, String sobrenome, Date dataHoraAtualizacao, boolean ativo, String bairro, String rg) {
         this.codigo = codigo;
         this.nome = nome;
         this.cpf = cpf;
@@ -149,6 +160,7 @@ public class Credenciado implements Serializable {
         this.dataHoraAtualizacao = dataHoraAtualizacao;
         this.ativo = ativo;
         this.bairro = bairro;
+        this.rg = rg;
     }
 
     public Integer getCodigo() {
@@ -172,7 +184,7 @@ public class Credenciado implements Serializable {
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        this.cpf = cpf.replace(".", "").replace("-", "");
     }
 
     public String getSobrenome() {
@@ -239,7 +251,15 @@ public class Credenciado implements Serializable {
         this.telefone2 = telefone2;
     }
 
-    public Date getDataHoraAtualizacao() {
+    public String getRg() {
+		return rg;
+	}
+
+	public void setRg(String rg) {
+		this.rg = rg.replace(".", "").replace("-", "");
+	}
+
+	public Date getDataHoraAtualizacao() {
         return dataHoraAtualizacao;
     }
 
@@ -320,7 +340,7 @@ public class Credenciado implements Serializable {
     public void setMunicipio(Municipio municipio) {
         this.municipio = municipio;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -345,5 +365,5 @@ public class Credenciado implements Serializable {
     public String toString() {
         return nome;
     }
-    
+
 }

@@ -25,7 +25,8 @@
                         <h:outputText value="#{bundle.ViewProgramaLabel_ordemExibicao}"/>
                         <h:outputText value="#{programaController.selected.ordemExibicao}" title="#{bundle.ViewProgramaTitle_ordemExibicao}"/>
                         <h:outputText value="#{bundle.ViewProgramaLabel_ativo}"/>
-                        <p:selectBooleanCheckbox value="#{programaController.selected.ativo}" disabled="true"/>
+                        	<h:outputText value="Ativo" rendered="#{programaController.selected.ativo eq true}"/>
+                            <h:outputText value="Inativo" rendered="#{programaController.selected.ativo eq false}"/>
                         <h:outputText value="#{bundle.ViewProgramaLabel_programa}"/>
                         <h:outputText value="#{programaController.selected.programa}" title="#{bundle.ViewProgramaTitle_programa}"/>
                     </p:panelGrid>

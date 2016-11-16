@@ -25,10 +25,10 @@
                         <h:outputText value="#{usuarioController.selected.sobrenome}" title="#{bundle.ViewUsuarioTitle_sobrenome}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_cpf}"/>
                         <h:outputText value="#{usuarioController.selected.cpf}" title="#{bundle.ViewUsuarioTitle_cpf}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_rg}"/>
+                        <h:outputText value="#{usuarioController.selected.rg}" title="#{bundle.ViewUsuarioTitle_rg}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_cep}"/>
                         <h:outputText value="#{usuarioController.selected.cep}" title="#{bundle.ViewUsuarioTitle_cep}"/>
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_email}"/>
-                        <h:outputText value="#{usuarioController.selected.email}" title="#{bundle.ViewUsuarioTitle_email}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_endereco}"/>
                         <h:outputText value="#{usuarioController.selected.endereco}" title="#{bundle.ViewUsuarioTitle_endereco}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_numeroEndereco}"/>
@@ -43,10 +43,11 @@
                         <h:outputText value="#{usuarioController.selected.telefone}" title="#{bundle.ViewUsuarioTitle_telefone}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_telefone2}"/>
                         <h:outputText value="#{usuarioController.selected.telefone2}" title="#{bundle.ViewUsuarioTitle_telefone2}"/>
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_senha}"/>
-                        <h:outputText value="#{usuarioController.selected.senha}" title="#{bundle.ViewUsuarioTitle_senha}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_email}"/>
+                        <h:outputText value="#{usuarioController.selected.email}" title="#{bundle.ViewUsuarioTitle_email}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_ativo}"/>
-                        <p:selectBooleanCheckbox value="#{usuarioController.selected.ativo}" disabled="true"/>
+                        	<h:outputText value="Ativo" rendered="#{usuarioController.selected.ativo eq true}"/>
+                            <h:outputText value="Inativo" rendered="#{usuarioController.selected.ativo eq false}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_foto}"/>
                         <o:graphicImage value="#{usuarioController.imagem}" width="174" dataURI="true" />
                         <h:outputText value="#{bundle.ViewUsuarioLabel_tipoUsuario}"/>

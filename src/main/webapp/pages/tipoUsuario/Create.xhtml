@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.CreateTipoUsuarioLabel_descricaoTipoUsuario}" for="descricaoTipoUsuario" />
                         <p:inputText id="descricaoTipoUsuario" value="#{tipoUsuarioController.selected.descricaoTipoUsuario}" title="#{bundle.CreateTipoUsuarioTitle_descricaoTipoUsuario}" required="true" requiredMessage="#{bundle.CreateTipoUsuarioRequiredMessage_descricaoTipoUsuario}"/>
                         <p:outputLabel value="#{bundle.CreateTipoUsuarioLabel_inAdmin}" for="inAdmin" />
-                        <p:selectBooleanCheckbox id="inAdmin" value="#{tipoUsuarioController.selected.inAdmin}" required="true" requiredMessage="#{bundle.EditTipoUsuarioRequiredMessage_inAdmin}"/>
+                        <p:selectBooleanCheckbox id="inAdmin" value="#{tipoUsuarioController.selected.inAdmin}" requiredMessage="#{bundle.EditTipoUsuarioRequiredMessage_inAdmin}"/>
                         <p:outputLabel value="#{bundle.CreateTipoUsuarioLabel_ativo}" for="ativo" />
                         <p:selectOneMenu id="ativo" value="#{tipoUsuarioController.selected.ativo}" required="true" requiredMessage="#{bundle.EditTipoUsuarioRequiredMessage_ativo}">
                             <f:selectItem itemLabel="Ativo" itemValue="true" />

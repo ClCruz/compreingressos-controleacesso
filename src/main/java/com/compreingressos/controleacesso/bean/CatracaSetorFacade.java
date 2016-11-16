@@ -9,6 +9,8 @@ import java.util.List;
 
 import com.compreingressos.controleacesso.Catraca;
 import com.compreingressos.controleacesso.CatracaSetor;
+import com.compreingressos.controleacesso.Estado;
+import com.compreingressos.controleacesso.Setor;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -36,6 +38,10 @@ public class CatracaSetorFacade extends AbstractFacade<CatracaSetor> {
 	@SuppressWarnings("unchecked")
 	public List<CatracaSetor> findAll(Catraca catraca) {
 		return em.createNamedQuery("CatracaSetor.findByCatraca").setParameter("codigo", catraca).getResultList();
+	}
+	
+	public CatracaSetor update(CatracaSetor entity){
+		return (CatracaSetor)getEntityManager().merge(entity);
 	}
     
 }

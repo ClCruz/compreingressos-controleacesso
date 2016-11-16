@@ -69,10 +69,10 @@ public class CredenciadoController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private CredenciadoFacade getFacade() {
+    public CredenciadoFacade getFacade() {
         return ejbFacade;
     }
-
+    
     public Credenciado prepareCreate() {
         selected = new Credenciado();
         initializeEmbeddableKey();

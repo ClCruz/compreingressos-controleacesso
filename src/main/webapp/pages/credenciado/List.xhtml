@@ -27,12 +27,6 @@
                                 #{bundle.ListCredenciadoTitle}
                             </f:facet>
 
-							<p:column headerText="#{bundle.ListCredenciadoTitle_empresa}" filterBy="#{item.empresa}" filterMatchMode="contains" sortBy="#{item.empresa}">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCredenciadoTitle_empresa}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.empresa.nome}"/>
-                            </p:column>
                             <p:column headerText="#{bundle.ListCredenciadoTitle_nome}" filterBy="#{item.nome}" filterMatchMode="contains" sortBy="#{item.nome}">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListCredenciadoTitle_nome}"/>
@@ -51,11 +45,11 @@
                                 </f:facet>
                                 <h:outputText value="#{item.cpf}"/>
                             </p:column>
-                            <p:column headerText="#{bundle.ListCredenciadoTitle_email}" filterBy="#{item.email}" filterMatchMode="contains" sortBy="#{item.email}">
+                            <p:column headerText="#{bundle.ListCredenciadoTitle_rg}" filterBy="#{item.rg}" filterMatchMode="contains" sortBy="#{item.rg}">
                                 <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListCredenciadoTitle_email}"/>
+                                    <h:outputText value="#{bundle.ListCredenciadoTitle_rg}"/>
                                 </f:facet>
-                                <h:outputText value="#{item.email}"/>
+                                <h:outputText value="#{item.rg}"/>
                             </p:column>
                             <p:column headerText="#{bundle.ListCredenciadoTitle_observacao}" filterBy="#{item.observacao}" filterMatchMode="contains" sortBy="#{item.observacao}">
                                 <f:facet name="header">
@@ -77,8 +71,8 @@
                                         <f:selectItem itemValue="false" itemLabel="Inativo"/>
                                     </p:selectOneMenu>
                                 </f:facet>    
-                                <h:outputText value="Ativo" rendered="#{item.ativo eq true}"/>
-                                <h:outputText value="Inativo" rendered="#{item.ativo eq false}"/>
+                                <h:outputText value="Ativo" rendered="#{item.ativo eq true}" style="color:green;"/>
+                                <h:outputText value="Inativo" rendered="#{item.ativo eq false}" style="color:red;"/>
                             </p:column>
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{credenciadoController.prepareCreate}" update=":CredenciadoCreateForm" oncomplete="PF('CredenciadoCreateDialog').show()"/>

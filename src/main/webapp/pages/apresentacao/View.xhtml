@@ -31,9 +31,18 @@
                             <f:convertDateTime pattern="#{bundle.formatDate}" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewApresentacaoLabel_ativo}"/>
-                        <p:selectBooleanCheckbox value="#{apresentacaoController.selected.ativo}" disabled="true"/>
+                        	<h:outputText value="Ativo" rendered="#{apresentacaoController.selected.ativo eq true}"/>
+                            <h:outputText value="Inativo" rendered="#{apresentacaoController.selected.ativo eq false}"/>
                         <h:outputText value="#{bundle.ViewApresentacaoLabel_validaEstorno}"/>
                         <p:selectBooleanCheckbox value="#{apresentacaoController.selected.validaEstorno}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewApresentacaoLabel_dataHoraAberturaPortao}" />
+                        <h:outputText value="#{apresentacaoController.selected.dataHoraAberturaPortao}" title="#{bundle.ViewApresentacaoTitle_dataHoraAberturaPortao}">
+                        	<f:convertDateTime pattern="#{bundle.formatDate}" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewApresentacaoLabel_dataHoraFechamentoPortao}" />
+                        <h:outputText value="#{apresentacaoController.selected.dataHoraFechamentoPortao}" title="#{bundle.ViewApresentacaoTitle_dataHoraFechamentoPortao}">
+                        	<f:convertDateTime pattern="#{bundle.formatDate}" />
+                        </h:outputText>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="PF('ApresentacaoViewDialog').hide()"/>
                 </h:panelGroup>

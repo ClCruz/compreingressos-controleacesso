@@ -5,10 +5,14 @@
  */
 package com.compreingressos.controleacesso.bean;
 
-import com.compreingressos.controleacesso.Credenciado;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import com.compreingressos.controleacesso.Credenciado;
+import com.compreingressos.controleacesso.Credencial;
 
 /**
  *
@@ -29,4 +33,14 @@ public class CredenciadoFacade extends AbstractFacade<Credenciado> {
         super(Credenciado.class);
     }
     
+    @SuppressWarnings("unchecked")
+	public List<Credenciado> findAll(Credencial credencial) {
+    	return em.createNamedQuery("Credenciado.findByCredencial").setParameter("codigo", credencial).getResultList();
+	}
+    
+    public Credenciado update(Credenciado entity){
+    	Credenciado c = (Credenciado) getEntityManager().merge(entity);
+    	/*getEntityManager().flush();*/
+    	return c;
+    }
 }

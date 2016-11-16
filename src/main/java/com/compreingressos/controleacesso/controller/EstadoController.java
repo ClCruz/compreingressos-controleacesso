@@ -96,11 +96,26 @@ public class EstadoController implements Serializable {
                 if (persistAction != PersistAction.DELETE) {
                 	selected.setUsuario(usuario);
                     selected.setDataHoraAtualizacao(new Date());
-                    getFacade().edit(selected);
+                    selected.setUf(selected.getUf().toUpperCase());
+                    if(persistAction == PersistAction.CREATE){
+                    	if(getFacade().findEstado(selected.getNome(), selected.getUf())) {
+                    		getFacade().edit(selected);
+                    		JsfUtil.addSuccessMessage(successMessage);
+                    	} else {
+                    		JsfUtil.addErrorMessage("Já existe um Estado cadastrado com esses dados.");
+                    	}
+                    } else if(persistAction == PersistAction.UPDATE){
+                    	if(getFacade().findEstado(selected.getNome(), selected.getUf())){
+                    		getFacade().edit(selected);
+                    		JsfUtil.addSuccessMessage(successMessage);
+                    	} else {
+                    		JsfUtil.addErrorMessage("Já existe um Estado cadastrado com esses dados.");
+                    	}
+                    }	
                 } else {
                     getFacade().remove(selected);
+                    JsfUtil.addSuccessMessage(successMessage);
                 }
-                JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();

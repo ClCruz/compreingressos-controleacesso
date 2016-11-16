@@ -21,7 +21,8 @@
                         <h:outputText value="#{bundle.ViewCatracaLabel_codigoCatraca}"/>
                         <h:outputText value="#{catracaController.selected.codigoCatraca}" title="#{bundle.ViewCatracaTitle_codigoCatraca}"/>
                         <h:outputText value="#{bundle.ViewCatracaLabel_ativo}"/>
-                        <p:selectBooleanCheckbox value="#{catracaController.selected.ativo}" disabled="true"/>
+                        	<h:outputText value="Ativo" rendered="#{catracaController.selected.ativo eq true}"/>
+                            <h:outputText value="Inativo" rendered="#{catracaController.selected.ativo eq false}"/>
                         <h:outputText value="#{bundle.ViewCatracaLabel_numeroIP}"/>
                         <h:outputText value="#{catracaController.selected.numeroIP}" title="#{bundle.ViewCatracaTitle_numeroIP}"/>
                         <h:outputText value="#{bundle.ViewCatracaLabel_contratante}"/>

@@ -30,7 +30,8 @@
                             <f:convertDateTime pattern="#{bundle.formatDate}" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewEventoLabel_ativo}"/>
-                        <p:selectBooleanCheckbox value="#{eventoController.selected.ativo}" disabled="true"/>
+                        	<h:outputText value="Ativo" rendered="#{eventoController.selected.ativo eq true}"/>
+                            <h:outputText value="Inativo" rendered="#{eventoController.selected.ativo eq false}"/>
                         <h:outputText value="#{bundle.ViewEventoLabel_logotipo}"/>
                         <o:graphicImage value="#{eventoController.logo}" width="174" dataURI="true" />
                         <h:outputText value="#{bundle.ViewEventoLabel_localDeControle}"/>

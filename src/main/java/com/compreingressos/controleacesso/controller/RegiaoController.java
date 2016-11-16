@@ -100,7 +100,6 @@ public class RegiaoController implements Serializable {
                 if (persistAction != PersistAction.DELETE) {
                 	selected.setUsuario(usuario);
                     selected.setDataHoraAtualizacao(new Date());
-                    
                 	if(persistAction == PersistAction.CREATE){
                 		if(getFacade().findRegiaoPais(selected.getDescricaoRegiao(), selected.getPais()))	{
                     		getFacade().edit(selected);
@@ -109,8 +108,13 @@ public class RegiaoController implements Serializable {
                     		JsfUtil.addErrorMessage("Já existe uma região cadastrada com esses dados.");
                     	}
                 	} else if(persistAction == PersistAction.UPDATE) {
-                		getFacade().edit(selected);
-                		JsfUtil.addSuccessMessage(successMessage);
+                		if(getFacade().findRegiaoPais(selected.getDescricaoRegiao(),selected.getPais())) {
+                			getFacade().edit(selected);
+                			JsfUtil.addSuccessMessage(successMessage);
+                		} else {
+                			JsfUtil.addErrorMessage("Já existe uma região cadastrada com esses dados.");
+                		}
+                		
                 	}
                 } else {
                     getFacade().remove(selected);

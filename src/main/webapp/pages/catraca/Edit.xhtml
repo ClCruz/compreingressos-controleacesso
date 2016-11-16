@@ -63,13 +63,14 @@
                             		<f:selectItems value="#{catracaController.listaSetor()}"
                                           			var="setorItem"
                                            			itemValue="#{setorItem}"
-                                                                itemLabel="#{setorItem.descricaoSetor}"/>
+                                                    itemLabel="#{setorItem.descricaoSetor}"/>
                         			</p:selectOneMenu>
                         			<p:commandButton actionListener="#{catracaController.addListaCS()}" update="listaEditCS" value="Adicionar" immediate="true" process="@this" />
                         			</p:panelGrid>
                         			<p:dataTable style="width:600px;" id="listaEditCS" value="#{catracaController.listaEditCS}" var="itemsCS">
                         				<p:column headerText="Setor">
                         					<h:outputText value="#{itemsCS.setor.descricaoSetor}" />
+                        					<p:commandButton icon="fa fa-trash-o" actionListener="#{catracaController.removeCatracaSetor(catracaSetor)}" update="listaEditCS" />
                         				</p:column>
                         			</p:dataTable>
                         	</p:tab>

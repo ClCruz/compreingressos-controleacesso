@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.CreateEstadoLabel_nome}" for="nome" />
                         <p:inputText id="nome" value="#{estadoController.selected.nome}" title="#{bundle.CreateEstadoTitle_nome}" required="true" requiredMessage="#{bundle.CreateEstadoRequiredMessage_nome}"/>
                         <p:outputLabel value="#{bundle.CreateEstadoLabel_uf}" for="uf" />
-                        <p:inputText id="uf" value="#{estadoController.selected.uf}" title="#{bundle.CreateEstadoTitle_uf}" required="true" requiredMessage="#{bundle.CreateEstadoRequiredMessage_uf}"/>
+                        <p:inputText id="uf" value="#{estadoController.selected.uf}" title="#{bundle.CreateEstadoTitle_uf}" required="true" requiredMessage="#{bundle.CreateEstadoRequiredMessage_uf}" style="text-transform:uppercase"/>
                         <p:outputLabel value="#{bundle.CreateEstadoLabel_regiao}" for="regiao" />
                         <p:selectOneMenu id="regiao" value="#{estadoController.selected.regiao}" >
                             <f:selectItems value="#{regiaoController.itemsAvailableSelectOne}"

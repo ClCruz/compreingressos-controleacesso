@@ -5,12 +5,7 @@
  */
 package com.compreingressos.controleacesso.bean;
 
-import java.util.List;
-
-import com.compreingressos.controleacesso.Estado;
-import com.compreingressos.controleacesso.Pais;
-import com.compreingressos.controleacesso.Regiao;
-
+import com.compreingressos.controleacesso.HistoricoStatusCatraca;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Intuiti 04
  */
 @Stateless
-public class EstadoFacade extends AbstractFacade<Estado> {
+public class HistoricoStatusCatracaFacade extends AbstractFacade<HistoricoStatusCatraca> {
 
     @PersistenceContext(unitName = "com.compreingressos_controleacesso_war_1.0.0PU")
     private EntityManager em;
@@ -30,13 +25,8 @@ public class EstadoFacade extends AbstractFacade<Estado> {
         return em;
     }
 
-    public EstadoFacade() {
-        super(Estado.class);
+    public HistoricoStatusCatracaFacade() {
+        super(HistoricoStatusCatraca.class);
     }
-
-	public boolean findEstado(String nome, String uf) {
-		List<Estado> lista = em.createNamedQuery("Estado.findEstado").setParameter("nome", nome).setParameter("uf", uf).getResultList();
-    	return lista.size() > 0 ? false : true;
-	}
     
 }

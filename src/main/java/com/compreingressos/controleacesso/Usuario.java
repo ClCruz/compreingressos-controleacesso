@@ -6,15 +6,21 @@
 package com.compreingressos.controleacesso;
 
 import com.compreingressos.controleacesso.interfaces.Cpf;
+
 import java.io.Serializable;
+import java.net.URL;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+
 import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -44,6 +50,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByNome", query = "SELECT u FROM Usuario u WHERE u.nome = :nome"),
     @NamedQuery(name = "Usuario.findBySobrenome", query = "SELECT u FROM Usuario u WHERE u.sobrenome = :sobrenome"),
     @NamedQuery(name = "Usuario.findByCpf", query = "SELECT u FROM Usuario u WHERE u.cpf = :cpf"),
+    @NamedQuery(name = "Usuario.findByRg", query = "SELECT u FROM Usuario u WHERE u.rg = :rg"),
     @NamedQuery(name = "Usuario.findByEndereco", query = "SELECT u FROM Usuario u WHERE u.endereco = :endereco"),
     @NamedQuery(name = "Usuario.findByCep", query = "SELECT u FROM Usuario u WHERE u.cep = :cep"),
     @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email"),
@@ -86,7 +93,7 @@ public class Usuario implements Serializable {
     private String endereco;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 8)
+    @Size(min = 1, max = 9)
     @Column(name = "cep")
     private String cep;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="E-mail inválido")//if the field contains email address consider using this annotation to enforce field validation
@@ -136,6 +143,10 @@ public class Usuario implements Serializable {
     @Lob
     @Column(name = "foto")
     private String foto;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "rg")
+    private String rg;
     @JoinColumn(name = "municipio", referencedColumnName = "codigo")
     @ManyToOne
     private Municipio municipio;
@@ -162,7 +173,8 @@ public class Usuario implements Serializable {
         this.codigo = codigo;
     }
 
-    public Usuario(Integer codigo, String nome, String sobrenome, String cpf, String endereco, String cep, String email, String senha, String telefone, String telefone2, Date dataHoraAtualizacao, boolean ativo, String numeroEndereco, String foto) {
+    public Usuario(Integer codigo, String nome, String sobrenome, String cpf, String endereco, String cep, String email, String senha, String telefone, String telefone2,
+    		Date dataHoraAtualizacao, boolean ativo, String numeroEndereco, String foto, String rg) {
         this.codigo = codigo;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -177,6 +189,7 @@ public class Usuario implements Serializable {
         this.ativo = ativo;
         this.numeroEndereco = numeroEndereco;
         this.foto = foto;
+        this.rg = rg;
     }
 
     public Integer getCodigo() {
@@ -208,7 +221,7 @@ public class Usuario implements Serializable {
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        this.cpf = cpf.replace(".","").replace("-", "");
     }
 
     public String getEndereco() {
@@ -315,7 +328,15 @@ public class Usuario implements Serializable {
         this.foto = foto;
     }
     
-    public Municipio getMunicipio() {
+    public String getRg() {
+		return rg;
+	}
+
+	public void setRg(String rg) {
+		this.rg = rg.replace(".", "").replace("-", "");
+	}
+
+	public Municipio getMunicipio() {
         return municipio;
     }
 

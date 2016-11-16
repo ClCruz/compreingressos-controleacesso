@@ -21,7 +21,8 @@
                         <h:outputText value="#{bundle.ViewTipoCredencialLabel_descricao}"/>
                         <h:outputText value="#{tipoCredencialController.selected.descricao}" title="#{bundle.ViewTipoCredencialTitle_descricao}"/>
                         <h:outputText value="#{bundle.ViewTipoCredencialLabel_ativo}"/>
-                        <p:selectBooleanCheckbox value="#{tipoCredencialController.selected.ativo}" disabled="true"/>
+                        	<h:outputText value="Ativo" rendered="#{tipoCredencialController.selected.ativo eq true}"/>
+                            <h:outputText value="Inativo" rendered="#{tipoCredencialController.selected.ativo eq false}"/>
                         <h:outputText value="#{bundle.ViewTipoCredencialLabel_contratante}"/>
                         <h:outputText value="#{tipoCredencialController.selected.contratante.nome}" title="#{bundle.ViewTipoCredencialTitle_contratante}"/>
                         <p:outputLabel value="#{bundle.ViewTipoCredencialLabel_devolveTag}"/>

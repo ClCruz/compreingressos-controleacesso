@@ -19,8 +19,11 @@
                                            var="empresaItem"
                                            itemValue="#{empresaItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditCredenciadoLabel_cpf}" for="cpf" />
-                        <p:inputMask id="cpf" value="#{credenciadoController.selected.cpf}" title="#{bundle.EditCredenciadoTitle_cpf}" required="true" requiredMessage="#{bundle.EditCredenciadoRequiredMessage_cpf}" mask="999.999.999-99"/>
+                        <p:outputLabel value="#{bundle.EditCredenciadoLabel_ativo}" for="ativo" />
+                        <p:selectOneMenu id="ativo" value="#{credenciadoController.selected.ativo}" required="true" requiredMessage="#{bundle.EditCredenciadoRequiredMessage_ativo}">
+                        	<f:selectItem itemLabel="Ativo" itemValue="true" />
+                            <f:selectItem itemLabel="Inativo" itemValue="false" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditCredenciadoLabel_nome}" for="nome" />
                         <p:inputText id="nome" value="#{credenciadoController.selected.nome}" title="#{bundle.EditCredenciadoTitle_nome}" required="true" requiredMessage="#{bundle.EditCredenciadoRequiredMessage_nome}"/>
                         <p:outputLabel value="#{bundle.EditCredenciadoLabel_sobrenome}" for="sobrenome" />
@@ -42,23 +45,22 @@
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditCredenciadoLabel_cep}" for="cep" />
                         <p:inputMask id="cep" value="#{credenciadoController.selected.cep}" title="#{bundle.EditCredenciadoTitle_cep}" mask="99999-999"/>
-                        <p:outputLabel value="#{bundle.EditCredenciadoLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{credenciadoController.selected.email}" title="#{bundle.EditCredenciadoTitle_email}" style="width:250px" validatorMessage="Insira um e-mail válido.">
-                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                        </p:inputText>
-                        <p:outputLabel value="#{bundle.EditCredenciadoLabel_ativo}" for="ativo" />
-                        <p:selectOneMenu id="ativo" value="#{credenciadoController.selected.ativo}" required="true" requiredMessage="#{bundle.EditCredenciadoRequiredMessage_ativo}">
-                        	<f:selectItem itemLabel="Ativo" itemValue="true" />
-                            <f:selectItem itemLabel="Inativo" itemValue="false" />
-                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditCredenciadoLabel_cpf}" for="cpf" />
+                        <p:inputMask id="cpf" value="#{credenciadoController.selected.cpf}" title="#{bundle.EditCredenciadoTitle_cpf}" required="true" requiredMessage="#{bundle.EditCredenciadoRequiredMessage_cpf}" mask="999.999.999-99"/>
+                        <p:outputLabel value="#{bundle.EditCredenciadoLabel_rg}" for="rg" />
+                        <p:inputMask id="rg" value="#{credenciadoController.selected.rg}" title="#{bundle.EditCredenciadoTitle_rg}" required="true" requiredMessage="#{bundle.EditCredenciadoRequiredMessage_rg}" mask="99.999.999-9" />
                         <p:outputLabel value="#{bundle.EditCredenciadoLabel_telefone}" for="telefone" />
                         <p:inputText id="telefone" value="#{credenciadoController.selected.telefone}" title="#{bundle.EditCredenciadoTitle_telefone}" />
                         <p:outputLabel value="#{bundle.EditCredenciadoLabel_telefone2}" for="telefone2" />
                         <p:inputText id="telefone2" value="#{credenciadoController.selected.telefone2}" title="#{bundle.EditCredenciadoTitle_telefone2}" />
-                        <p:outputLabel value="#{bundle.EditCredenciadoLabel_foto}" for="foto" />
-                        <p:fileUpload id="foto" fileUploadListener="#{credenciadoController.upload}" mode="advanced" auto="true" />
+                        <p:outputLabel value="#{bundle.EditCredenciadoLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{credenciadoController.selected.email}" title="#{bundle.EditCredenciadoTitle_email}" style="width:250px" validatorMessage="Insira um e-mail válido.">
+                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                        </p:inputText>
                         <p:outputLabel value="#{bundle.EditCredenciadoLabel_nomeImpressao}" for="nomeImpressao" />
                         <p:inputText id="nomeImpressao" value="#{credenciadoController.selected.nomeImpressao}" title="#{bundle.EditCredenciadoTitle_nomeImpressao}" />
+                        <p:outputLabel value="#{bundle.EditCredenciadoLabel_foto}" for="foto" />
+                        <p:fileUpload id="foto" fileUploadListener="#{credenciadoController.upload}" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" mode="advanced" auto="true" />
                     </p:panelGrid>
                     <p:panelGrid columns="2">
                         <p:outputLabel value="#{bundle.EditCredenciadoLabel_observacao}" for="observacao" />

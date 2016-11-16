@@ -1,43 +1,41 @@
 package com.compreingressos.controleacesso.controller;
 
+import com.compreingressos.controleacesso.HistoricoStatusCatraca;
+import com.compreingressos.controleacesso.controller.util.JsfUtil;
+import com.compreingressos.controleacesso.controller.util.JsfUtil.PersistAction;
+import com.compreingressos.controleacesso.bean.HistoricoStatusCatracaFacade;
+
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import com.compreingressos.controleacesso.Apresentacao;
-import com.compreingressos.controleacesso.bean.ApresentacaoFacade;
-import com.compreingressos.controleacesso.controller.util.JsfUtil;
-import com.compreingressos.controleacesso.controller.util.JsfUtil.PersistAction;
-
-@ManagedBean(name = "apresentacaoController")
-@ViewScoped
-public class ApresentacaoController implements Serializable {
+@Named("historicoStatusCatracaController")
+@SessionScoped
+public class HistoricoStatusCatracaController implements Serializable {
 
     @EJB
-    private com.compreingressos.controleacesso.bean.ApresentacaoFacade ejbFacade;
-    private List<Apresentacao> items = null;
-    private Apresentacao selected;
+    private com.compreingressos.controleacesso.bean.HistoricoStatusCatracaFacade ejbFacade;
+    private List<HistoricoStatusCatraca> items = null;
+    private HistoricoStatusCatraca selected;
 
-    public ApresentacaoController() {
+    public HistoricoStatusCatracaController() {
     }
 
-    public Apresentacao getSelected() {
+    public HistoricoStatusCatraca getSelected() {
         return selected;
     }
 
-    public void setSelected(Apresentacao selected) {
+    public void setSelected(HistoricoStatusCatraca selected) {
         this.selected = selected;
     }
 
@@ -47,41 +45,36 @@ public class ApresentacaoController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private ApresentacaoFacade getFacade() {
+    private HistoricoStatusCatracaFacade getFacade() {
         return ejbFacade;
     }
 
-    //Calendar mindate 
-    public Date getDataMinima(){
-    	return new Date();
-    }
-    
-    public Apresentacao prepareCreate() {
-        selected = new Apresentacao();
+    public HistoricoStatusCatraca prepareCreate() {
+        selected = new HistoricoStatusCatraca();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ApresentacaoCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("HistoricoStatusCatracaCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ApresentacaoUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("HistoricoStatusCatracaUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ApresentacaoDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("HistoricoStatusCatracaDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Apresentacao> getItems() {
+    public List<HistoricoStatusCatraca> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -93,7 +86,6 @@ public class ApresentacaoController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    selected.setDataHoraAtualizacao(new Date());
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);
@@ -117,29 +109,29 @@ public class ApresentacaoController implements Serializable {
         }
     }
 
-    public Apresentacao getApresentacao(java.lang.Integer id) {
+    public HistoricoStatusCatraca getHistoricoStatusCatraca(java.lang.Integer id) {
         return getFacade().find(id);
     }
 
-    public List<Apresentacao> getItemsAvailableSelectMany() {
+    public List<HistoricoStatusCatraca> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Apresentacao> getItemsAvailableSelectOne() {
+    public List<HistoricoStatusCatraca> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Apresentacao.class)
-    public static class ApresentacaoControllerConverter implements Converter {
+    @FacesConverter(forClass = HistoricoStatusCatraca.class)
+    public static class HistoricoStatusCatracaControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            ApresentacaoController controller = (ApresentacaoController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "apresentacaoController");
-            return controller.getApresentacao(getKey(value));
+            HistoricoStatusCatracaController controller = (HistoricoStatusCatracaController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "historicoStatusCatracaController");
+            return controller.getHistoricoStatusCatraca(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
@@ -159,11 +151,11 @@ public class ApresentacaoController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Apresentacao) {
-                Apresentacao o = (Apresentacao) object;
+            if (object instanceof HistoricoStatusCatraca) {
+                HistoricoStatusCatraca o = (HistoricoStatusCatraca) object;
                 return getStringKey(o.getCodigo());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Apresentacao.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), HistoricoStatusCatraca.class.getName()});
                 return null;
             }
         }

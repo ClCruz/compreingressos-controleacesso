@@ -20,12 +20,11 @@
                         <p:inputText id="sobrenome" value="#{usuarioController.selected.sobrenome}" title="#{bundle.CreateUsuarioTitle_sobrenome}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_sobrenome}"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_cpf}" for="cpf" />
                         <p:inputMask id="cpf" value="#{usuarioController.selected.cpf}" title="#{bundle.CreateUsuarioTitle_cpf}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_cpf}" mask="999.999.999-99"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_rg}" for="rg" />
+                        <p:inputMask id="rg" value="#{usuarioController.selected.rg}" title="#{bundle.CreateUsuarioTitle_rg}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_rg}" mask="99.999.999-9" />
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_cep}" for="cep" />
                         <p:inputMask id="cep" value="#{usuarioController.selected.cep}" title="#{bundle.CreateUsuarioTitle_cep}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_cep}" mask="99999-999"/>
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{usuarioController.selected.email}" title="#{bundle.CreateUsuarioTitle_email}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_email}" style="width:250px" validatorMessage="Insira um e-mail válido.">
-                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                        </p:inputText>    
+                       
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_endereco}" for="endereco" />
                         <p:inputText id="endereco" value="#{usuarioController.selected.endereco}" title="#{bundle.CreateUsuarioTitle_endereco}" required="true" style="width:250px" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_endereco}"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_numeroEndereco}" for="numeroEndereco" />
@@ -44,6 +43,10 @@
                         <p:inputText id="telefone" value="#{usuarioController.selected.telefone}" title="#{bundle.CreateUsuarioTitle_telefone}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_telefone}"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_telefone2}" for="telefone2" />
                         <p:inputText id="telefone2" value="#{usuarioController.selected.telefone2}" title="#{bundle.CreateUsuarioTitle_telefone2}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_telefone2}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{usuarioController.selected.email}" title="#{bundle.CreateUsuarioTitle_email}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_email}" style="width:250px" validatorMessage="Insira um e-mail válido.">
+                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                        </p:inputText>    
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_senha}" for="senha" />
                         <p:inputText id="senha" value="#{usuarioController.selected.senha}" title="#{bundle.CreateUsuarioTitle_senha}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_senha}"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_ativo}" for="ativo" />
@@ -51,14 +54,14 @@
                             <f:selectItem itemLabel="Ativo" itemValue="true" />
                             <f:selectItem itemLabel="Inativo" itemValue="false" />
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_foto}" for="foto" />
-                        <p:fileUpload id="foto" fileUploadListener="#{usuarioController.upload}" mode="advanced" auto="true" />
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_tipoUsuario}" for="tipoUsuario" />
                         <p:selectOneMenu id="tipoUsuario" value="#{usuarioController.selected.tipoUsuario}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_tipoUsuario}">
                             <f:selectItems value="#{tipoUsuarioController.itemsAvailableSelectOne}"
                                            var="tipoUsuarioItem"
                                            itemValue="#{tipoUsuarioItem}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_foto}" for="foto" />
+                        <p:fileUpload id="foto" fileUploadListener="#{usuarioController.upload}" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" mode="advanced" auto="true" />
                     </p:panelGrid>
                     <p:panelGrid columns="2">
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_observacao}" for="observacao" />

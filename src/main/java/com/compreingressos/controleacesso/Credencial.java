@@ -13,6 +13,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -22,6 +23,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -55,11 +57,13 @@ public class Credencial implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date validade;
     @JoinColumn(name = "credenciado", referencedColumnName = "codigo")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Credenciado credenciado;
     @JoinColumn(name = "tipoCredencial", referencedColumnName = "codigo")
-    @ManyToOne(optional = false)
-    private TipoCredencial tipoCredencial;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private TipoCredencial tipoCredencial = new TipoCredencial();
+    @Transient
+    private Credenciado idCredenciado;
     
     public Credencial() {
     }
@@ -111,6 +115,14 @@ public class Credencial implements Serializable {
 
 	public void setTipoCredencial(TipoCredencial tipoCredencial) {
 		this.tipoCredencial = tipoCredencial;
+	}
+
+	public Credenciado getIdCredenciado() {
+		return idCredenciado;
+	}
+
+	public void setIdCredenciado(Credenciado idCredenciado) {
+		this.idCredenciado = idCredenciado;
 	}
 
 	@Override

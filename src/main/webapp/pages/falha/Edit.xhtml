@@ -32,14 +32,16 @@
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                            var="usuarioOcorrenciaItem"
-                                           itemValue="#{usuarioOcorrenciaItem}"/>
+                                           itemValue="#{usuarioOcorrenciaItem}"
+                                           itemLabel="#{usuarioOcorrenciaItem.nome} #{usuarioOcorrenciaItem.sobrenome}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditFalhaLabel_usuarioSolucao}" for="usuarioSolucao" />
                         <p:selectOneMenu id="usuarioSolucao" value="#{falhaController.selected.usuarioSolucao}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                            var="usuarioSolucaoItem"
-                                           itemValue="#{usuarioSolucaoItem}"/>
+                                           itemValue="#{usuarioSolucaoItem}"
+                                           itemLabel="#{usuarioSolucaoItem.nome} #{usuarioSolucaoItem.sobrenome}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{falhaController.update}" value="#{bundle.Save}" update="display,:FalhaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'FalhaEditDialog');"/>

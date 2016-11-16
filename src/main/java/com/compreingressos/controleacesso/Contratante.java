@@ -8,12 +8,15 @@ package com.compreingressos.controleacesso;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+
 import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
@@ -75,6 +78,8 @@ public class Contratante implements Serializable {
     private Collection<UsuarioContratante> usuarioContratanteCollection;
     @OneToMany(mappedBy = "empresa")
     private Collection<Credenciado> credenciadoCollection;
+    @OneToMany(mappedBy = "contratante")
+    private Collection<HistoricoStatusCatraca> historicoStatusCatracaCollection;
 
     public Contratante() {
     }
@@ -174,8 +179,18 @@ public class Contratante implements Serializable {
     public void setCredenciadoCollection(Collection<Credenciado> credenciadoCollection) {
         this.credenciadoCollection = credenciadoCollection;
     }
+    
+    @XmlTransient
+    public Collection<HistoricoStatusCatraca> getHistoricoStatusCatracaCollection() {
+		return historicoStatusCatracaCollection;
+	}
 
-    @Override
+	public void setHistoricoStatusCatracaCollection(
+			Collection<HistoricoStatusCatraca> historicoStatusCatracaCollection) {
+		this.historicoStatusCatracaCollection = historicoStatusCatracaCollection;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (codigo != null ? codigo.hashCode() : 0);

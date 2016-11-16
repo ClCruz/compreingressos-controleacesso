@@ -19,7 +19,8 @@
                             <f:convertDateTime pattern="#{bundle.formatDate}" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewSetorCredencialLabel_ativo}"/>
-                        <p:selectBooleanCheckbox value="#{setorCredencialController.selected.ativo}" disabled="true"/>
+                        	<h:outputText value="Ativo" rendered="#{setorCredencialController.selected.ativo eq true}"/>
+                            <h:outputText value="Inativo" rendered="#{setorCredencialController.selected.ativo eq false}"/>
                         <h:outputText value="#{bundle.ViewSetorCredencialLabel_setor}"/>
                         <h:outputText value="#{setorCredencialController.selected.setor.descricaoSetor}" title="#{bundle.ViewSetorCredencialTitle_setor}"/>
                         <h:outputText value="#{bundle.ViewSetorCredencialLabel_tipoCredencial}"/>

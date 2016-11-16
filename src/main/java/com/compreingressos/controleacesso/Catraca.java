@@ -89,6 +89,8 @@ public class Catraca implements Serializable {
     private LocalDeControle idLocal;
     @Transient
     private Layout idLayout;
+    @OneToMany(mappedBy = "catraca")
+    private Collection<HistoricoStatusCatraca> historicoStatusCatracaCollection;
     
 
     public Catraca() {
@@ -210,6 +212,16 @@ public class Catraca implements Serializable {
 
 	public void setIdLayout(Layout idLayout) {
 		this.idLayout = idLayout;
+	}
+	
+	@XmlTransient
+	public Collection<HistoricoStatusCatraca> getHistoricoStatusCatracaCollection() {
+		return historicoStatusCatracaCollection;
+	}
+
+	public void setHistoricoStatusCatracaCollection(
+			Collection<HistoricoStatusCatraca> historicoStatusCatracaCollection) {
+		this.historicoStatusCatracaCollection = historicoStatusCatracaCollection;
 	}
 
 	@Override

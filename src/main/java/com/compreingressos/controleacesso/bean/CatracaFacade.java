@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.compreingressos.controleacesso.Catraca;
+import com.compreingressos.controleacesso.CatracaSetor;
 import com.compreingressos.controleacesso.Layout;
 import com.compreingressos.controleacesso.LocalDeControle;
 import com.compreingressos.controleacesso.Setor;

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="HistoricoStatusCatracaEditDlg" widgetVar="HistoricoStatusCatracaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditHistoricoStatusCatracaTitle}">
+            <h:form id="HistoricoStatusCatracaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{historicoStatusCatracaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditHistoricoStatusCatracaLabel_dataHora}" for="dataHora" />
+                        <p:calendar id="dataHora" pattern="#{bundle.formatDate}" value="#{historicoStatusCatracaController.selected.dataHora}" title="#{bundle.EditHistoricoStatusCatracaTitle_dataHora}" required="true" requiredMessage="#{bundle.EditHistoricoStatusCatracaRequiredMessage_dataHora}" showOn="button"/>
+                    	<p:outputLabel value="#{bundle.CreateHistoricoStatusCatracaLabel_status}" for="status" />
+                        <p:selectOneMenu id="status" value="#{historicoStatusCatracaController.selected.status}">
+                        	<f:selectItem itemLabel="Aberta" itemValue="A"/>
+                        	<f:selectItem itemLabel="Fechada" itemValue="F"/>
+                        	<f:selectItem itemLabel="Liberada para saída" itemValue="S"/>			
+                        	<f:selectItem itemLabel="Pânico" itemValue="P"/>
+                        </p:selectOneMenu>
+                    	<p:outputLabel value="#{bundle.EditHistoricoStatusCatracaLabel_catraca}" for="catraca"/>
+                        <p:selectOneMenu id="catraca" value="#{historicoStatusCatracaController.selected.catraca}">
+                        	<f:selectItems value="#{catracaController.itemsAvailableSelectOne}"
+                                           var="catracaItem"
+                                           itemValue="#{catracaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditHistoricoStatusCatracaLabel_contratante}" for="contratante"/>
+                        <p:selectOneMenu id="contratante" value="#{historicoStatusCatracaController.selected.contratante}">
+                        	<f:selectItems value="#{contratanteController.itemsAvailableSelectOne}"
+                                           var="contratanteItem"
+                                           itemValue="#{contratanteItem}"
+                                           itemLabel="#{contratanteItem.nome}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{historicoStatusCatracaController.update}" value="#{bundle.Save}" update="display,:HistoricoStatusCatracaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'HistoricoStatusCatracaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('HistoricoStatusCatracaEditDialog').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -23,14 +23,21 @@
                         <p:outputLabel value="#{bundle.CreateApresentacaoLabel_dataHoraInicio}" for="dataHoraInicio" />
                         <p:calendar id="dataHoraInicio" pattern="#{bundle.formatDate}" value="#{apresentacaoController.selected.dataHoraInicio}" title="#{bundle.EditApresentacaoTitle_dataHoraInicio}" required="true" requiredMessage="#{bundle.EditApresentacaoRequiredMessage_dataHoraInicio}" showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateApresentacaoLabel_dataHoraFinal}" for="dataHoraFinal" />
-                        <p:calendar id="dataHoraFinal" pattern="#{bundle.formatDate}" value="#{apresentacaoController.selected.dataHoraFinal}" title="#{bundle.EditApresentacaoTitle_dataHoraFinal}" required="true" requiredMessage="#{bundle.EditApresentacaoRequiredMessage_dataHoraFinal}" showOn="button"/>
+                        <p:calendar id="dataHoraFinal" pattern="#{bundle.formatDate}" value="#{apresentacaoController.selected.dataHoraFinal}" title="#{bundle.EditApresentacaoTitle_dataHoraFinal}" 
+                        			required="true" requiredMessage="#{bundle.EditApresentacaoRequiredMessage_dataHoraFinal}" showOn="button" mindate="#{apresentacaoController.dataMinima}"/>
                         <p:outputLabel value="#{bundle.CreateApresentacaoLabel_ativo}" for="ativo" />
                         <p:selectOneMenu id="ativo" value="#{apresentacaoController.selected.ativo}" required="true" requiredMessage="#{bundle.EditApresentacaoRequiredMessage_ativo}">
                             <f:selectItem itemLabel="Ativo" itemValue="true" />
                             <f:selectItem itemLabel="Inativo" itemValue="false" />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateApresentacaoLabel_validaEstorno}" for="validaEstorno" />
-                        <p:selectBooleanCheckbox id="validaEstorno" value="#{apresentacaoController.selected.validaEstorno}" required="true" requiredMessage="#{bundle.EditApresentacaoRequiredMessage_validaEstorno}"/>
+                        <p:selectBooleanCheckbox id="validaEstorno" value="#{apresentacaoController.selected.validaEstorno}" requiredMessage="#{bundle.EditApresentacaoRequiredMessage_validaEstorno}"/>
+                    	<p:outputLabel value="#{bundle.CreateApresentacaoLabel_dataHoraAberturaPortao}" for="dataHoraAberturaPortao"/>
+                    	<p:calendar id="dataHoraAberturaPortao" pattern="#{bundle.formatDate}" value="#{apresentacaoController.selected.dataHoraAberturaPortao}" title="#{bundle.CreateApresentacaoTitle_dataHoraAberturaPortao}" 
+                    				required="true" requiredMessage="#{bundle.CreateApresentacaoRequiredMessage_dataHoraAberturaPortao}" showOn="button"/>
+                    	<p:outputLabel value="#{bundle.CreateApresentacaoLabel_dataHoraFechamentoPortao}" for="dataHoraFechamentoPortao"/>
+                    	<p:calendar id="dataHoraFechamentoPortao" pattern="#{bundle.formatDate}" value="#{apresentacaoController.selected.dataHoraFechamentoPortao}" title="#{budle.CreateApresentacaoTitle_dataHoraFechamentoPortao}"
+                    				required="true" requiredMessage="#{bundle.CreateApresentacaoRequiredMessage_dataHoraFechamentoPortao}" showOn="button"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{apresentacaoController.create}" value="#{bundle.Save}" update="display,:ApresentacaoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ApresentacaoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PF('ApresentacaoCreateDialog').hide()"/>
