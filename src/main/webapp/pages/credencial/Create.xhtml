@@ -63,11 +63,11 @@
                     </p:panelGrid>
                     <p:panelGrid columns="2">
                         <p:outputLabel value="#{bundle.CreateCredencialLabel_numeroTag}" for="numeroTag" />
-                        <p:inputText id="numeroTag" value="#{credencialController.credencial.numeroTag}" title="#{bundle.CreateCredencialTitle_numeroTag}" required="true" requiredMessage="#{bundle.CreateCredencialRequiredMessage_numeroTag}"/>
+                        <p:inputText id="numeroTag" value="#{credencialController.selected.numeroTag}" title="#{bundle.CreateCredencialTitle_numeroTag}" required="true" requiredMessage="#{bundle.CreateCredencialRequiredMessage_numeroTag}"/>
                         <p:outputLabel value="#{bundle.CreateCredencialLabel_validade}" for="validade" />
-                        <p:calendar id="validade" pattern="#{bundle.formatDate}" value="#{credencialController.credencial.validade}" title="#{bundle.EditCredencialTitle_validade}"  showOn="button" mindate="#{credencialController.dataMinima}"/>
+                        <p:calendar id="validade" pattern="#{bundle.formatDate}" value="#{credencialController.selected.validade}" title="#{bundle.EditCredencialTitle_validade}"  showOn="button" mindate="#{credencialController.dataMinima}"/>
                         <p:outputLabel value="#{bundle.CreateCredencialLabel_tipoCredencial}" />
-                   		<p:selectOneMenu id="tipoCredencial" value="{credencialController.credencial.tipoCredencial}" >
+                   		<p:selectOneMenu id="tipoCredencial" value="{credencialController.selected.tipoCredencial}" >
                    			<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{tipoCredencialController.itemsAvailableSelectOne}"
                                            var="tipoCredencialItem"

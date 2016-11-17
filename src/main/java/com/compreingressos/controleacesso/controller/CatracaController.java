@@ -3,21 +3,26 @@ package com.compreingressos.controleacesso.controller;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import com.compreingressos.controleacesso.Catraca;
 import com.compreingressos.controleacesso.CatracaSetor;
@@ -39,35 +44,14 @@ public class CatracaController implements Serializable {
 	@EJB
     private com.compreingressos.controleacesso.bean.CatracaFacade ejbFacade;
     private List<Catraca> items = null;
-    private List<CatracaSetor> listaCS;
-    private List<CatracaSetor> listaEditCS;
     private Catraca selected;
-    private CatracaSetor selectedCS;
-    
-    @ManagedProperty(name = "catracaSetorController", value = "#{catracaSetorController}")
-    private CatracaSetorController catracaSetorController = new CatracaSetorController();
+    private List<CatracaSetor> listaCatracaSetor;
+    private CatracaSetor catracaSetor;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public CatracaController() {
-    	listaCS = new ArrayList<>();
+    catracaSetor = new CatracaSetor();
     }
-
-    @PostConstruct
-    public void init(){
-    	selectedCS = new CatracaSetor();
-    }
-    
-    public void listaItens(){
-    	if(selected.getCodigo() != null){
-    		listaEditCS = new ArrayList<>();
-    		List<CatracaSetor> listaTemporariaCS = getCatracaSetorController().getFacade().findAll(new Catraca(selected.getCodigo()));
-    		if(listaTemporariaCS != null){
-    			for(CatracaSetor lista : listaTemporariaCS){
-    				listaEditCS.add(new CatracaSetor(lista.getSetor()));
-    			}
-    		}
-    	}
-    }
-    
 
     public Catraca getSelected() {
         return selected;
@@ -83,35 +67,6 @@ public class CatracaController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    public List<CatracaSetor> getListaCS() {
-		return listaCS;
-	}
-
-	public void setListaCS(List<CatracaSetor> listaCS) {
-		this.listaCS = listaCS;
-	}
-	
-	
-	public CatracaSetor getSelectedCS() {
-		return selectedCS;
-	}
-	
-	public void pegaSetor(){
-		selectedCS.setSetor(selected.getIdSetor());
-	}
-	
-	public List<CatracaSetor> getListaEditCS() {
-		return listaEditCS;
-	}
-
-	public void setListaEditCS(List<CatracaSetor> listaEditCS) {
-		this.listaEditCS = listaEditCS;
-	}
-
-	public void addListaCS(){
-    	listaCS.add(new CatracaSetor(selectedCS.getSetor()));
-    }
-
 	private CatracaFacade getFacade() {
         return ejbFacade;
     }
@@ -120,12 +75,40 @@ public class CatracaController implements Serializable {
 		return ejbCatracaSetor;
 	}
 	
-    public Catraca prepareCreate() {
+    public List<CatracaSetor> getListaCatracaSetor() {
+		return listaCatracaSetor;
+	}
+
+	public void setListaCatracaSetor(List<CatracaSetor> listaCatracaSetor) {
+		this.listaCatracaSetor = listaCatracaSetor;
+	}
+	
+	public CatracaSetor getCatracaSetor() {
+		return catracaSetor;
+	}
+
+	public void setCatracaSetor(CatracaSetor catracaSetor) {
+		this.catracaSetor = catracaSetor;
+	}
+
+	public void pegaSetor(){
+		catracaSetor.setSetor(selected.getIdSetor());
+	}
+	
+	public Catraca prepareCreate() {
         selected = new Catraca();
+        catracaSetor = new CatracaSetor();
+        listaCatracaSetor = new ArrayList<>();
         initializeEmbeddableKey();
         return selected;
     }
     
+	public void getListCatracaSetor(){
+		if(selected.getCodigo() != null){
+			listaCatracaSetor = getCatracaSetorFacade().findAll(selected);
+		}
+	}
+	
     public List<Layout> listaLayout(){
     	return getFacade().findLayout(selected.getIdLocal());
     }
@@ -134,14 +117,6 @@ public class CatracaController implements Serializable {
     	return getFacade().findSetor(selected.getIdLayout());
     }
     
-    public CatracaSetorController getCatracaSetorController() {
-		return catracaSetorController;
-	}
-
-	public void setCatracaSetorController(
-			CatracaSetorController catracaSetorController) {
-		this.catracaSetorController = catracaSetorController;
-	}
 
 	public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CatracaCreated"));
@@ -163,10 +138,10 @@ public class CatracaController implements Serializable {
     }
 
     public List<Catraca> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
-        return items;
+    	if (items == null) {
+    		items = getFacade().findAll();
+    	}
+    	return items;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
@@ -176,8 +151,11 @@ public class CatracaController implements Serializable {
                 if (persistAction != PersistAction.DELETE) {
                     selected.setDataHoraAtualizacao(new Date());
                     selected = getFacade().update(selected);
-                    getFacade().edit(selected);
-                    persist();
+                    for(CatracaSetor cSetor : listaCatracaSetor){
+                    	cSetor.setCatraca(selected);
+                    	cSetor.setDataAtualizacao(new Date());
+                    	getCatracaSetorFacade().edit(cSetor);
+                    }
                 } else {
                     getFacade().remove(selected);
                 }
@@ -200,34 +178,6 @@ public class CatracaController implements Serializable {
         }
     }
     
-    public void persist(){
-    	try{
-    		if(listaCS != null){
-    			for(CatracaSetor cs : listaCS){
-    				cs.setCatraca(selected);
-    				cs.setDataAtualizacao(new Date());
-    				getCatracaSetorController().getFacade().edit(cs);
-    			} 
-    		}else {
-                getFacade().remove(selected);
-            }
-    	} catch (EJBException ex) {
-            String msg = "";
-            Throwable cause = ex.getCause();
-            if (cause != null) {
-                msg = cause.getLocalizedMessage();
-            }
-            if (msg.length() > 0) {
-                JsfUtil.addErrorMessage(msg);
-            } else {
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-            JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-        }
-    }
-
     public Catraca getCatraca(java.lang.Integer id) {
         return getFacade().find(id);
     }
@@ -236,17 +186,54 @@ public class CatracaController implements Serializable {
         return getFacade().findAll();
     }
     
-    public void removeCatracaSetor(CatracaSetor selectedCS){
-    	listaEditCS.remove(selectedCS);
-    	getCatracaSetorFacade().remove(selectedCS);
+    public void removeCatracaSetor(CatracaSetor catracaSetor){
+    	listaCatracaSetor.remove(catracaSetor);
+    	getCatracaSetorFacade().remove(catracaSetor);
     }
-
+    
     public List<Catraca> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    public List<CatracaSetor> getItensSetor(Integer id){
-    	return getCatracaSetorController().getFacade().findAll(new Catraca(id));
+    public void addCatracaSetor(){
+    	listaCatracaSetor.add(catracaSetor);
+    	catracaSetor = new CatracaSetor();
+    }
+    
+    public class CatracaLazy extends LazyDataModel<Catraca> {
+    	private static final long serialVersionUID = 1L;
+    	private List<Catraca> objList = null;
+    	
+    	public CatracaLazy(List<Catraca> objList){
+    		this.objList = objList;
+    	}
+    	
+    	@Override
+    	public List<Catraca> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters){
+    		objList = new ArrayList<>();
+    		try{
+    			Context ctx = new javax.naming.InitialContext();
+    			CatracaFacade objFacade = (CatracaFacade) ctx.lookup("java:global/controleacesso-1.0.0/CatracaFacade!com.compreingressos.controleacesso.bean.CatracaFacade");
+    			objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+    			setPageSize(pageSize);
+    		}catch (NamingException ex){
+    			System.out.println(ex);
+    		}
+    		return objList;
+    	}
+    	
+    	@Override
+    	public Catraca getRowData(String rowKey) {
+    		Integer id = Integer.valueOf(rowKey);
+    		for(Catraca obj : objList) {
+    			if(id.equals(obj.getCodigo())) {
+    				return obj;
+    			}
+    		}
+    		return null;
+    	}
+    	
     }
     
     @FacesConverter(forClass = Catraca.class)

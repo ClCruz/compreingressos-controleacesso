@@ -6,18 +6,27 @@ import com.compreingressos.controleacesso.controller.util.JsfUtil.PersistAction;
 import com.compreingressos.controleacesso.bean.HistoricoStatusCatracaFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
+import javax.naming.Context;
+import javax.naming.NamingException;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 @Named("historicoStatusCatracaController")
 @SessionScoped
@@ -27,6 +36,7 @@ public class HistoricoStatusCatracaController implements Serializable {
     private com.compreingressos.controleacesso.bean.HistoricoStatusCatracaFacade ejbFacade;
     private List<HistoricoStatusCatraca> items = null;
     private HistoricoStatusCatraca selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public HistoricoStatusCatracaController() {
     }
@@ -121,6 +131,43 @@ public class HistoricoStatusCatracaController implements Serializable {
         return getFacade().findAll();
     }
 
+public class HistoricoStatusCatracaLazy extends LazyDataModel<HistoricoStatusCatraca> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<HistoricoStatusCatraca> objList = null;
+
+        public HistoricoStatusCatracaLazy(List<HistoricoStatusCatraca> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<HistoricoStatusCatraca> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                HistoricoStatusCatracaFacade objFacade = (HistoricoStatusCatracaFacade) ctx.lookup("java:global/compreingressos-portal-1.0.0/"
+                		+ "HistoricoStatusCatracaFacade!com.compreingressos.controleacesso.bean.HistoricoStatusCatracaFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public HistoricoStatusCatraca getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (HistoricoStatusCatraca obj : objList) {
+                if (id.equals(obj.getCodigo())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+    }
+    
     @FacesConverter(forClass = HistoricoStatusCatraca.class)
     public static class HistoricoStatusCatracaControllerConverter implements Converter {
 

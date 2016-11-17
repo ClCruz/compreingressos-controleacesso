@@ -1,8 +1,11 @@
 package com.compreingressos.controleacesso.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +18,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpSession;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import com.compreingressos.controleacesso.Pais;
 import com.compreingressos.controleacesso.Usuario;
@@ -32,6 +40,7 @@ public class PaisController implements Serializable {
     private List<Pais> items = null;
     private Pais selected;
     private Usuario usuario;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public PaisController() {
     	FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -131,6 +140,43 @@ public class PaisController implements Serializable {
         return getFacade().findAll();
     }
 
+    public class PaisLazy extends LazyDataModel<Pais> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<Pais> objList = null;
+
+        public PaisLazy(List<Pais> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<Pais> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                PaisFacade objFacade = (PaisFacade) ctx.lookup("java:global/controleacesso-1.0.0/"
+                		+ "PaisFacade!com.compreingressos.controleacesso.bean.PaisFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public Pais getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (Pais obj : objList) {
+                if (id.equals(obj.getCodigo())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+    }
+    
     @FacesConverter(forClass = Pais.class)
     public static class PaisControllerConverter implements Converter {
 

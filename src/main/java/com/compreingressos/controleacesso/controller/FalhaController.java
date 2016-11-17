@@ -1,7 +1,10 @@
 package com.compreingressos.controleacesso.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +17,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import com.compreingressos.controleacesso.Falha;
 import com.compreingressos.controleacesso.bean.FalhaFacade;
@@ -28,6 +36,7 @@ public class FalhaController implements Serializable {
     private com.compreingressos.controleacesso.bean.FalhaFacade ejbFacade;
     private List<Falha> items = null;
     private Falha selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public FalhaController() {
     }
@@ -122,6 +131,42 @@ public class FalhaController implements Serializable {
         return getFacade().findAll();
     }
 
+public class FalhaLazy extends LazyDataModel<Falha> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<Falha> objList = null;
+
+        public FalhaLazy(List<Falha> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<Falha> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                FalhaFacade objFacade = (FalhaFacade) ctx.lookup("java:global/controleacesso-1.0.0/FalhaFacade!com.compreingressos.controleacesso.bean.FalhaFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public Falha getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (Falha obj : objList) {
+                if (id.equals(obj.getCodigo())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+    }
+    
     @FacesConverter(forClass = Falha.class)
     public static class FalhaControllerConverter implements Converter {
 

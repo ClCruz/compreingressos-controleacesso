@@ -1,8 +1,11 @@
 package com.compreingressos.controleacesso.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +18,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import com.compreingressos.controleacesso.Programa;
 import com.compreingressos.controleacesso.bean.ProgramaFacade;
@@ -29,6 +37,7 @@ public class ProgramaController implements Serializable {
     private com.compreingressos.controleacesso.bean.ProgramaFacade ejbFacade;
     private List<Programa> items = null;
     private Programa selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public ProgramaController() {
     }
@@ -124,6 +133,43 @@ public class ProgramaController implements Serializable {
         return getFacade().findAll();
     }
 
+    public class ProgramaLazy extends LazyDataModel<Programa> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<Programa> objList = null;
+
+        public ProgramaLazy(List<Programa> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<Programa> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                ProgramaFacade objFacade = (ProgramaFacade) ctx.lookup("java:global/controleacesso-1.0.0/"
+                		+ "ProgramaFacade!com.compreingressos.controleacesso.bean.ProgramaFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public Programa getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (Programa obj : objList) {
+                if (id.equals(obj.getCodigo())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+    }
+    
     @FacesConverter(forClass = Programa.class)
     public static class ProgramaControllerConverter implements Converter {
 

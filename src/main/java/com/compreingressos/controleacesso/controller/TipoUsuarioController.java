@@ -1,8 +1,11 @@
 package com.compreingressos.controleacesso.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +18,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import com.compreingressos.controleacesso.TipoUsuario;
 import com.compreingressos.controleacesso.bean.TipoUsuarioFacade;
@@ -29,6 +37,7 @@ public class TipoUsuarioController implements Serializable {
     private com.compreingressos.controleacesso.bean.TipoUsuarioFacade ejbFacade;
     private List<TipoUsuario> items = null;
     private TipoUsuario selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public TipoUsuarioController() {
     }
@@ -122,6 +131,43 @@ public class TipoUsuarioController implements Serializable {
 
     public List<TipoUsuario> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    
+    public class TipoUsuarioLazy extends LazyDataModel<TipoUsuario> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<TipoUsuario> objList = null;
+
+        public TipoUsuarioLazy(List<TipoUsuario> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<TipoUsuario> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                TipoUsuarioFacade objFacade = (TipoUsuarioFacade) ctx.lookup("java:global/controleacesso-1.0.0/"
+                		+ "TipoUsuarioFacade!com.compreingressos.controleacesso.bean.TipoUsuarioFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public TipoUsuario getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (TipoUsuario obj : objList) {
+                if (id.equals(obj.getCodigo())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
     }
 
     @FacesConverter(forClass = TipoUsuario.class)

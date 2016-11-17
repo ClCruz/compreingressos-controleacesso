@@ -4,19 +4,23 @@ import com.compreingressos.controleacesso.Usuario;
 import com.compreingressos.controleacesso.controller.util.JsfUtil;
 import com.compreingressos.controleacesso.controller.util.JsfUtil.PersistAction;
 import com.compreingressos.controleacesso.bean.UsuarioFacade;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
@@ -26,10 +30,16 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
+
 import org.primefaces.component.fileupload.FileUpload;
+import org.primefaces.event.CaptureEvent;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 import org.primefaces.model.UploadedFile;
 
 @ManagedBean(name = "usuarioController")
@@ -40,13 +50,14 @@ public class UsuarioController implements Serializable {
     private com.compreingressos.controleacesso.bean.UsuarioFacade ejbFacade;
     private List<Usuario> items = null;
     private Usuario selected;
-    private FileUpload foto;
+    private String foto;
+    private final Map<String, Object> filtros = new HashMap<>();
 
-    public FileUpload getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(FileUpload foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 
@@ -96,7 +107,7 @@ public class UsuarioController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    
     public void upload(FileUploadEvent evento) throws IOException {
         Date date = new Date();
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
@@ -175,6 +186,43 @@ public class UsuarioController implements Serializable {
         return getFacade().findAll();
     }
 
+    public class UsuarioLazy extends LazyDataModel<Usuario> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<Usuario> objList = null;
+
+        public UsuarioLazy(List<Usuario> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<Usuario> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                UsuarioFacade objFacade = (UsuarioFacade) ctx.lookup("java:global/controleacesso-1.0.0/"
+                		+ "UsuarioFacade!com.compreingressos.controleacesso.bean.UsuarioFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public Usuario getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (Usuario obj : objList) {
+                if (id.equals(obj.getCodigo())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+    }
+    
     @FacesConverter(forClass = Usuario.class)
     public static class UsuarioControllerConverter implements Converter {
 

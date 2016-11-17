@@ -13,6 +13,7 @@
                         <p:dataTable id="datalist" value="#{catracaController.items}" var="item"
                                      selectionMode="single" selection="#{catracaController.selected}"
                                      paginator="true"
+                                     lazy="true"
                                      rowKey="#{item.codigo}"
                                      rows="10"
                                      emptyMessage="#{bundle.ListCatracaEmpty}"
@@ -66,7 +67,7 @@
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="fa fa-plus"   value="#{bundle.Create}" actionListener="#{catracaController.prepareCreate}" update=":CatracaCreateForm" oncomplete="PF('CatracaCreateDialog').show()"/>
                                 <p:commandButton id="viewButton"   icon="fa fa-search" value="#{bundle.View}" update=":CatracaViewForm" oncomplete="PF('CatracaViewDialog').show()" disabled="#{empty catracaController.selected}"/>
-                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":CatracaEditForm" oncomplete="PF('CatracaEditDialog').show()" onclick="#{not empty catracaController.listaItens()}" disabled="#{empty catracaController.selected}"/>
+                                <p:commandButton id="editButton"   icon="fa fa-edit" value="#{bundle.Edit}" update=":CatracaEditForm" oncomplete="PF('CatracaEditDialog').show()" onclick="#{catracaController.getListCatracaSetor()}" disabled="#{empty catracaController.selected}"/>
                                 <p:commandButton id="deleteButton" icon="fa fa-trash"  value="#{bundle.Delete}" actionListener="#{catracaController.destroy}" update=":growl,datalist" disabled="#{empty catracaController.selected}"/>
                             </f:facet>
                         </p:dataTable>

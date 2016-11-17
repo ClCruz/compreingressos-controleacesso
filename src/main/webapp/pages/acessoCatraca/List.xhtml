@@ -13,6 +13,7 @@
                          <p:dataTable id="datalist" value="#{acessoCatracaController.items}" var="item"
                                      selectionMode="single" selection="#{acessoCatracaController.selected}"
                                      paginator="true"
+                                     lazy="true"
                                      rows="10"
                                      rowKey="#{item.codigo}"
                                      rowsPerPageTemplate="10,20,30,40,50"

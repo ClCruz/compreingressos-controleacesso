@@ -1,8 +1,11 @@
 package com.compreingressos.controleacesso.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +18,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpSession;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import com.compreingressos.controleacesso.Regiao;
 import com.compreingressos.controleacesso.Usuario;
@@ -32,6 +40,7 @@ public class RegiaoController implements Serializable {
 	private List<Regiao> items = null;
 	private Regiao selected;
 	private Usuario usuario;
+	private final Map<String, Object> filtros = new HashMap<>();
 
 	public RegiaoController() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -150,6 +159,43 @@ public class RegiaoController implements Serializable {
 		return getFacade().findAll();
 	}
 
+	public class RegiaoLazy extends LazyDataModel<Regiao> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<Regiao> objList = null;
+
+        public RegiaoLazy(List<Regiao> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<Regiao> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                RegiaoFacade objFacade = (RegiaoFacade) ctx.lookup("java:global/controleacesso-1.0.0/"
+                		+ "RegiaoFacade!com.compreingressos.controleacesso.bean.RegiaoFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public Regiao getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (Regiao obj : objList) {
+                if (id.equals(obj.getCodigo())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+    }
+	
 	@FacesConverter(forClass = Regiao.class)
 	public static class RegiaoControllerConverter implements Converter {
 

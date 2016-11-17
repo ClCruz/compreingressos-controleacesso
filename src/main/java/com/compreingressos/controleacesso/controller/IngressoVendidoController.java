@@ -1,8 +1,11 @@
 package com.compreingressos.controleacesso.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +18,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import com.compreingressos.controleacesso.IngressoVendido;
 import com.compreingressos.controleacesso.bean.IngressoVendidoFacade;
@@ -29,6 +37,7 @@ public class IngressoVendidoController implements Serializable {
     private com.compreingressos.controleacesso.bean.IngressoVendidoFacade ejbFacade;
     private List<IngressoVendido> items = null;
     private IngressoVendido selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public IngressoVendidoController() {
     }
@@ -123,7 +132,44 @@ public class IngressoVendidoController implements Serializable {
     public List<IngressoVendido> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
+    
+public class IngressoVendidoLazy extends LazyDataModel<IngressoVendido> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<IngressoVendido> objList = null;
 
+        public IngressoVendidoLazy(List<IngressoVendido> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<IngressoVendido> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                IngressoVendidoFacade objFacade = (IngressoVendidoFacade) ctx.lookup("java:global/controleacesso-1.0.0/"
+                		+ "IngressoVendidoFacade!com.compreingressos.controleacesso.bean.IngressoVendidoFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public IngressoVendido getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (IngressoVendido obj : objList) {
+                if (id.equals(obj.getCodigo())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+    }
+    
     @FacesConverter(forClass = IngressoVendido.class)
     public static class IngressoVendidoControllerConverter implements Converter {
 

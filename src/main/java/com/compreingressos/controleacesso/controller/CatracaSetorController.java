@@ -1,8 +1,11 @@
 package com.compreingressos.controleacesso.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +18,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
 
 import com.compreingressos.controleacesso.CatracaSetor;
 import com.compreingressos.controleacesso.bean.CatracaSetorFacade;
@@ -29,6 +38,7 @@ public class CatracaSetorController implements Serializable {
     private com.compreingressos.controleacesso.bean.CatracaSetorFacade ejbFacade;
     private List<CatracaSetor> items = null;
     private CatracaSetor selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public CatracaSetorController() {
     }
@@ -123,6 +133,49 @@ public class CatracaSetorController implements Serializable {
     public List<CatracaSetor> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
+    
+    public class CatracaSetorLazy extends LazyDataModel<CatracaSetor> {
+    	
+    	private static final long serialVersionUID = 1L;
+    	private List<CatracaSetor> objList = null;
+    	
+    	public CatracaSetorLazy(List<CatracaSetor> objList) {
+    		this.objList = objList;
+    	}
+    	
+    	@Override
+    	public List<CatracaSetor> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+    		objList = new ArrayList<>();
+    		try {
+    			Context ctx = new javax.naming.InitialContext();
+    			CatracaSetorFacade objFacade = (CatracaSetorFacade) ctx.lookup("javax:global/controleacesso-1.0.0/CatracaSetorFacade!com.compreingresson.controleacesso.bean.CatracaSetorFacade");
+    			objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+    			setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+    			setPageSize(pageSize);
+    		} catch (NamingException ex) {
+    			System.out.println(ex);
+    		}
+    		return objList;
+    	}
+    	
+    	@Override
+        public CatracaSetor getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (CatracaSetor obj : objList) {
+                if (id.equals(obj.getCodigo())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public Object getRowKey(CatracaSetor ob) {
+            return ob.getCodigo();
+        }
+    	
+    }
+    
 
     @FacesConverter(forClass = CatracaSetor.class)
     public static class CatracaSetorControllerConverter implements Converter {

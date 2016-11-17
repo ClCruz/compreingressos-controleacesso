@@ -1,7 +1,10 @@
 package com.compreingressos.controleacesso.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +17,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import com.compreingressos.controleacesso.Fabricante;
 import com.compreingressos.controleacesso.bean.FabricanteFacade;
@@ -28,6 +36,7 @@ public class FabricanteController implements Serializable {
     private com.compreingressos.controleacesso.bean.FabricanteFacade ejbFacade;
     private List<Fabricante> items = null;
     private Fabricante selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public FabricanteController() {
     }
@@ -122,6 +131,43 @@ public class FabricanteController implements Serializable {
         return getFacade().findAll();
     }
 
+public class FabricanteLazy extends LazyDataModel<Fabricante> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<Fabricante> objList = null;
+
+        public FabricanteLazy(List<Fabricante> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<Fabricante> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                FabricanteFacade objFacade = (FabricanteFacade) ctx.lookup("java:global/controleacesso-1.0.0/"
+                		+ "FabricanteFacade!com.compreingressos.controleacesso.bean.FabricanteFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public Fabricante getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (Fabricante obj : objList) {
+                if (id.equals(obj.getCodigo())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+    }
+    
     @FacesConverter(forClass = Fabricante.class)
     public static class FabricanteControllerConverter implements Converter {
 

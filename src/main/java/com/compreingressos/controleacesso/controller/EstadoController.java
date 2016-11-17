@@ -1,8 +1,11 @@
 package com.compreingressos.controleacesso.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +18,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpSession;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import com.compreingressos.controleacesso.Estado;
 import com.compreingressos.controleacesso.Usuario;
@@ -32,6 +40,7 @@ public class EstadoController implements Serializable {
     private List<Estado> items = null;
     private Estado selected;
     private Usuario usuario;
+    private final Map<String, Object> filtros = new HashMap<>();
     
     public EstadoController() {
     	FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -144,6 +153,42 @@ public class EstadoController implements Serializable {
 
     public List<Estado> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    
+public class EstadoLazy extends LazyDataModel<Estado> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<Estado> objList = null;
+
+        public EstadoLazy(List<Estado> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<Estado> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                EstadoFacade objFacade = (EstadoFacade) ctx.lookup("java:global/controleacesso-1.0.0/EstadoFacade!com.compreingressos.controleacesso.bean.EstadoFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public Estado getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (Estado obj : objList) {
+                if (id.equals(obj.getCodigo())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
     }
 
     @FacesConverter(forClass = Estado.class)

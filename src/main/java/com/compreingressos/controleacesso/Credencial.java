@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -60,7 +61,7 @@ public class Credencial implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Credenciado credenciado;
     @JoinColumn(name = "tipoCredencial", referencedColumnName = "codigo")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private TipoCredencial tipoCredencial = new TipoCredencial();
     @Transient
     private Credenciado idCredenciado;

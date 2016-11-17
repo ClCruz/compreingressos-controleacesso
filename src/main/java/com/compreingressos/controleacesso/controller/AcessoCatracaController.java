@@ -1,7 +1,10 @@
 package com.compreingressos.controleacesso.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +17,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import com.compreingressos.controleacesso.AcessoCatraca;
 import com.compreingressos.controleacesso.bean.AcessoCatracaFacade;
@@ -28,6 +36,7 @@ public class AcessoCatracaController implements Serializable {
     private com.compreingressos.controleacesso.bean.AcessoCatracaFacade ejbFacade;
     private List<AcessoCatraca> items = null;
     private AcessoCatraca selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public AcessoCatracaController() {
     }
@@ -123,6 +132,45 @@ public class AcessoCatracaController implements Serializable {
         return getFacade().findAll();
     }
 
+    public class AcessoCatracaLazy extends LazyDataModel<AcessoCatraca> {
+    	private static final long serialVersionUID = 1L;
+    	private List<AcessoCatraca> objList = null;
+    	
+    	public AcessoCatracaLazy(List<AcessoCatraca> objList){
+    		this.objList = objList;
+    	}
+    	
+    	@Override
+    	public List<AcessoCatraca> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters){
+    		objList = new ArrayList<>();
+    		try{
+    			Context ctx = new javax.naming.InitialContext();
+    			AcessoCatracaFacade objFacade = (AcessoCatracaFacade) ctx.lookup("java:global/controleacesso-1.0.0/AcessoCatracaFacade!com.compreingressos.controleacesso.bean.AcessoCatracaFacade");
+    			setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+    			setPageSize(pageSize);
+    		} catch (NamingException ex){
+    			System.out.println(ex);
+    		}
+    		return objList;
+    	}
+    	
+    	@Override
+    	public AcessoCatraca getRowData (String rowKey) {
+    		Integer id = Integer.valueOf(rowKey);
+    		for (AcessoCatraca obj : objList) {
+    			if (id.equals(obj.getCodigo())) {
+    				return obj;
+    			}
+    		}
+    		return null;
+    	}
+    	
+    	@Override
+    	public Object getRowKey(AcessoCatraca ob) {
+    		return ob.getCodigo();
+    	}
+    }
+    
     @FacesConverter(forClass = AcessoCatraca.class)
     public static class AcessoCatracaControllerConverter implements Converter {
 

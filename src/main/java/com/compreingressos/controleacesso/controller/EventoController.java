@@ -7,8 +7,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,11 +25,15 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
 import org.primefaces.component.fileupload.FileUpload;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 import org.primefaces.model.UploadedFile;
 
 import com.compreingressos.controleacesso.Evento;
@@ -43,6 +50,7 @@ public class EventoController implements Serializable {
     private List<Evento> items = null;
     private Evento selected;
     private FileUpload logotipo;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public FileUpload getLogotipo() {
         return logotipo;
@@ -179,6 +187,42 @@ public class EventoController implements Serializable {
 
     public List<Evento> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    
+public class EventoLazy extends LazyDataModel<Evento> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<Evento> objList = null;
+
+        public EventoLazy(List<Evento> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<Evento> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                EventoFacade objFacade = (EventoFacade) ctx.lookup("java:global/controleacesso-1.0.0/EventoFacade!com.compreingressos.controleacesso.bean.EventoFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public Evento getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (Evento obj : objList) {
+                if (id.equals(obj.getCodigo())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
     }
 
     @FacesConverter(forClass = Evento.class)

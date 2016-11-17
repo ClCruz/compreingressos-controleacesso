@@ -37,8 +37,8 @@
                         </p:selectOneMenu>
                         
                     </p:panelGrid>
-                    	<p:tabView>
-                        	<p:tab title="Setor" >
+                    	<p:tabView id="tabView">
+                        	<p:tab title="Setor" id="tabSetor" >
                         		<p:panelGrid columns="4" rendered="#{catracaController.selected != null}" >
                         			<p:outputLabel value="#{bundle.CreateLayoutLabel_localDeControle}" for="localDeControle" />
                         			<p:selectOneMenu id="localDeControle" value="#{catracaController.selected.idLocal}" >
@@ -65,12 +65,12 @@
                                            			itemValue="#{setorItem}"
                                                     itemLabel="#{setorItem.descricaoSetor}"/>
                         			</p:selectOneMenu>
-                        			<p:commandButton actionListener="#{catracaController.addListaCS()}" update="listaEditCS" value="Adicionar" immediate="true" process="@this" />
+                        			<p:commandButton actionListener="#{catracaController.addCatracaSetor()}" value="Adicionar" process="tabSetor" update="tabView" />
                         			</p:panelGrid>
-                        			<p:dataTable style="width:600px;" id="listaEditCS" value="#{catracaController.listaEditCS}" var="itemsCS">
+                        			<p:dataTable style="width:600px;" id="listaSetor" value="#{catracaController.listaCatracaSetor}" var="catracaSetor">
                         				<p:column headerText="Setor">
-                        					<h:outputText value="#{itemsCS.setor.descricaoSetor}" />
-                        					<p:commandButton icon="fa fa-trash-o" actionListener="#{catracaController.removeCatracaSetor(catracaSetor)}" update="listaEditCS" />
+                        					<h:outputText value="#{setor.descricaoSetor}" />
+                        					<p:commandButton icon="fa fa-trash-o" actionListener="#{catracaController.removeCatracaSetor(catracaSetor)}" update="tabView" />
                         				</p:column>
                         			</p:dataTable>
                         	</p:tab>

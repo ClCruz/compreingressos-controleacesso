@@ -34,8 +34,8 @@
                                            itemValue="#{modeloCatracaItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:tabView>
-                        	<p:tab title="Setor">
+                    <p:tabView id="tabView">
+                        	<p:tab title="Setor" id="tabSetor">
                         		<p:panelGrid columns="4" rendered="#{catracaController.selected != null}">
                         			<p:outputLabel value="#{bundle.CreateLayoutLabel_localDeControle}" for="localDeControle" />
                         			<p:selectOneMenu id="localDeControle" value="#{catracaController.selected.idLocal}" >
@@ -60,14 +60,14 @@
                             		<f:selectItems value="#{catracaController.listaSetor()}"
                                           			var="setorItem"
                                            			itemValue="#{setorItem}"
-                                                                itemLabel="#{setorItem.descricaoSetor}"/>
+                                                    itemLabel="#{setorItem.descricaoSetor}"/>
                         			</p:selectOneMenu>
-                        			<p:commandButton actionListener="#{catracaController.addListaCS()}" update="listaSetor" value="Adicionar" immediate="true" process="@this" />
+                        			<p:commandButton actionListener="#{catracaController.addCatracaSetor()}" value="Adicionar" process="tabSetor" update="tabView" />
                        		</p:panelGrid>
                        		<br/>
-                       		<p:dataTable id="listaSetor" style="width:600px;" value="#{catracaController.listaCS}" var="ListaCS">
+                       		<p:dataTable id="listaSetor" style="width:600px;" value="#{catracaController.listaCatracaSetor}" var="catracaSetor">
                        			<p:column headerText="#{bundle.CreateCatracaLabel_setor}">
-                       				<h:outputText value="#{ListaCS.setor.descricaoSetor}"/>
+                       				<h:outputText value="#{setor.descricaoSetor}"/>
                        			</p:column>
                        		</p:dataTable>
                        	 </p:tab>

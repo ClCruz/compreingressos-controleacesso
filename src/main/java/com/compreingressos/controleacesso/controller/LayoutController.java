@@ -7,8 +7,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,11 +25,15 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
 import org.primefaces.component.fileupload.FileUpload;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 import org.primefaces.model.UploadedFile;
 
 import com.compreingressos.controleacesso.Layout;
@@ -43,7 +50,8 @@ public class LayoutController implements Serializable {
     private List<Layout> items = null;
     private Layout selected;
     private FileUpload imagem;
-
+    private final Map<String, Object> filtros = new HashMap<>();
+    
     public FileUpload getImagem() {
         return imagem;
     }
@@ -177,6 +185,43 @@ public class LayoutController implements Serializable {
         return getFacade().findAll();
     }
 
+    public class LayoutLazy extends LazyDataModel<Layout> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<Layout> objList = null;
+
+        public LayoutLazy(List<Layout> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<Layout> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                LayoutFacade objFacade = (LayoutFacade) ctx.lookup("java:global/controleacesso-1.0.0/"
+                		+ "LayoutFacade!com.compreingressos.controleacesso.bean.LayoutFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public Layout getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (Layout obj : objList) {
+                if (id.equals(obj.getCodigo())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+    }
+    
     @FacesConverter(forClass = Layout.class)
     public static class LayoutControllerConverter implements Converter {
 

@@ -1,8 +1,11 @@
 package com.compreingressos.controleacesso.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +18,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import com.compreingressos.controleacesso.SetorCredencial;
 import com.compreingressos.controleacesso.bean.SetorCredencialFacade;
@@ -29,6 +37,7 @@ public class SetorCredencialController implements Serializable {
     private com.compreingressos.controleacesso.bean.SetorCredencialFacade ejbFacade;
     private List<SetorCredencial> items = null;
     private SetorCredencial selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public SetorCredencialController() {
     }
@@ -122,6 +131,43 @@ public class SetorCredencialController implements Serializable {
 
     public List<SetorCredencial> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    
+    public class SetorCredencialLazy extends LazyDataModel<SetorCredencial> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<SetorCredencial> objList = null;
+
+        public SetorCredencialLazy(List<SetorCredencial> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<SetorCredencial> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                SetorCredencialFacade objFacade = (SetorCredencialFacade) ctx.lookup("java:global/controleacesso-1.0.0/"
+                		+ "SetorCredencialFacade!com.compreingressos.controleacesso.bean.SetorCredencialFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public SetorCredencial getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (SetorCredencial obj : objList) {
+                if (id.equals(obj.getCodigo())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
     }
 
     @FacesConverter(forClass = SetorCredencial.class)

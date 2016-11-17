@@ -1,7 +1,10 @@
 package com.compreingressos.controleacesso.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +17,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import com.compreingressos.controleacesso.ModeloCatraca;
 import com.compreingressos.controleacesso.bean.ModeloCatracaFacade;
@@ -28,6 +36,7 @@ public class ModeloCatracaController implements Serializable {
     private com.compreingressos.controleacesso.bean.ModeloCatracaFacade ejbFacade;
     private List<ModeloCatraca> items = null;
     private ModeloCatraca selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public ModeloCatracaController() {
     }
@@ -122,6 +131,43 @@ public class ModeloCatracaController implements Serializable {
         return getFacade().findAll();
     }
 
+    public class ModeloCatracaLazy extends LazyDataModel<ModeloCatraca> {
+    	
+    	private static final long serialVersionUID = 1L;
+        private List<ModeloCatraca> objList = null;
+
+        public ModeloCatracaLazy(List<ModeloCatraca> objList) {
+            this.objList = objList;
+        }
+        
+        @Override
+        public List<ModeloCatraca> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        	objList = new ArrayList<>();
+            try {
+                Context ctx = new javax.naming.InitialContext();
+                ModeloCatracaFacade objFacade = (ModeloCatracaFacade) ctx.lookup("java:global/controleacesso-1.0.0/"
+                		+ "ModeloCatracaFacade!com.compreingressos.controleacesso.bean.ModeloCatracaFacade");
+                objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+                setRowCount(objFacade.count(first, pageSize, sortField, sortOrder, filters));
+                setPageSize(pageSize);
+            } catch (NamingException ex) {
+                System.out.println(ex);
+            }
+            return objList;
+        }
+
+        @Override
+        public ModeloCatraca getRowData(String rowKey) {
+            Integer id = Integer.valueOf(rowKey);
+            for (ModeloCatraca obj : objList) {
+                if (id.equals(obj.getCodigo())) {
+                    return obj;
+                }
+            }
+            return null;
+        }
+    }
+    
     @FacesConverter(forClass = ModeloCatraca.class)
     public static class ModeloCatracaControllerConverter implements Converter {
 

@@ -1,8 +1,11 @@
 package com.compreingressos.controleacesso.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +18,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import com.compreingressos.controleacesso.Apresentacao;
 import com.compreingressos.controleacesso.bean.ApresentacaoFacade;
@@ -29,6 +37,7 @@ public class ApresentacaoController implements Serializable {
     private com.compreingressos.controleacesso.bean.ApresentacaoFacade ejbFacade;
     private List<Apresentacao> items = null;
     private Apresentacao selected;
+    private final Map<String, Object> filtros = new HashMap<>();
 
     public ApresentacaoController() {
     }
@@ -127,6 +136,48 @@ public class ApresentacaoController implements Serializable {
 
     public List<Apresentacao> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    
+    public class ApresentacaoLazy extends LazyDataModel<Apresentacao> {
+    	
+    	private static final long serialVersionUID = 1L;
+    	private List<Apresentacao> objList = null;
+    	
+    	public ApresentacaoLazy(List<Apresentacao> objList){
+    		this.objList = objList;
+    	}
+    	
+    	@Override
+    	public List<Apresentacao> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+    		objList = new ArrayList<>();
+    		try {
+    			Context ctx = new javax.naming.InitialContext();
+    			ApresentacaoFacade objFacade = (ApresentacaoFacade) ctx.lookup("java:global/controleacesso-1.0.0/ApresentacaoFacade!com.compreingresso.controleacesso.bean.ApresentacaoFacade");
+    			objList = objFacade.findAll(first, pageSize, sortField, sortOrder, filters);
+    			setRowCount(objFacade.count(first, pageSize, sortField, sortOrder,filters));
+    			setPageSize(pageSize);
+    		} catch (NamingException ex){
+    			System.out.println(ex);
+    		}
+    		return objList;
+    	}
+    	
+    	@Override
+    	public Apresentacao getRowData(String rowKey) {
+    		Integer id = Integer.valueOf(rowKey);
+    		for(Apresentacao obj : objList) {
+    			if(id.equals(obj.getCodigo())){
+    				return obj;
+    			}
+    		}
+    		return null;
+    	}
+    	
+    	@Override
+    	public Object getRowKey(Apresentacao ob){
+    		return ob.getCodigo();
+    	}
+    	
     }
 
     @FacesConverter(forClass = Apresentacao.class)
